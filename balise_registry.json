@@ -1,0 +1,271 @@
+{
+  "balises": [
+    "Année_constr",
+    "BàG_acces",
+    "BàG_dimensions",
+    "BàG_entretien",
+    "BàG_parasites",
+    "BàG_structurel",
+    "Lit d'épandage",
+    "PP",
+    "Tranchée d'épandage",
+    "acces_installation",
+    "annexe_CA_entretien",
+    "annexe_CA_parasites",
+    "annexe_CA_structurel",
+    "annexe_PE_entretien",
+    "annexe_PE_parasites",
+    "annexe_PE_structurel",
+    "annexe_PR_acces",
+    "annexe_PR_entretien",
+    "annexe_PR_parasites",
+    "annexe_PR_structurel",
+    "cadre_visite",
+    "cadre_visite2",
+    "canaEU_acces",
+    "canaEU_entretien",
+    "canaEU_parasites",
+    "canaEU_structurel",
+    "fa_agrement",
+    "fa_dimensions",
+    "fa_entretien",
+    "fa_parasites",
+    "fa_structurel",
+    "fa_type",
+    "fosse_acces",
+    "fosse_dimensions",
+    "fosse_entretien",
+    "fosse_parasites",
+    "fosse_structurel",
+    "fosse_ventilation",
+    "habitation",
+    "implantation",
+    "note_accessibilite",
+    "obl_travaux",
+    "obstacle_acces",
+    "prefiltre_entretien",
+    "prefiltre_type",
+    "reco_acces_conformité",
+    "reco_annexe_bf",
+    "reco_annexe_conformité",
+    "reco_canaEU_bf",
+    "reco_canaEU_conformité",
+    "reco_contexte_conformité",
+    "reco_fa_bf",
+    "reco_fa_conformité",
+    "reco_implantation_bf",
+    "reco_primaire_bf",
+    "reco_primaire_conformité",
+    "reco_rejet_bf",
+    "reco_rejet_conformité",
+    "reco_secondaire_bf",
+    "reco_secondaire_conformité",
+    "reco_zone_enjeu_conformité",
+    "rejet_pb",
+    "rejet_type",
+    "secondaire_acces",
+    "secondaire_dimensions",
+    "secondaire_parasites",
+    "secondaire_regard_bouclage",
+    "secondaire_regard_collecte",
+    "secondaire_regard_repartition",
+    "secondaire_type",
+    "zone_enjeu"
+  ],
+  "defaultTexts": {
+    "Année_constr": "inconnue",
+    "BàG_acces": "non accessible",
+    "BàG_dimensions": "dimensions inconnues",
+    "PP": "Non renseigné",
+    "acces_installation": "Oui",
+    "canaEU_acces": "accessible",
+    "fa_agrement": "Installation respectant les modalités prévues par l'agrément.",
+    "fa_dimensions": "dimensions inconnues",
+    "fa_type": "type inconnu",
+    "fosse_dimensions": "dimensions inconnues",
+    "fosse_ventilation": "Ventilation conforme",
+    "implantation": "Aucun problème concernant l'implantation.",
+    "prefiltre_type": "type inconnu",
+    "reco_acces_conformité": "Aucune recommandation.",
+    "reco_annexe_bf": "Aucune recommandation.",
+    "reco_annexe_conformité": "Aucune recommandation.",
+    "reco_canaEU_bf": "Aucune recommandation.",
+    "reco_canaEU_conformité": "Aucune recommandation.",
+    "reco_contexte_conformité": "Aucune recommandation.",
+    "reco_fa_bf": "Aucune recommandation.",
+    "reco_fa_conformité": "Aucune recommandation.",
+    "reco_implantation_bf": "Aucune recommandation.",
+    "reco_primaire_bf": "Aucune recommandation.",
+    "reco_primaire_conformité": "Aucune recommandation.",
+    "reco_rejet_bf": "Aucune recommandation.",
+    "reco_rejet_conformité": "Aucune recommandation.",
+    "reco_secondaire_bf": "Aucune recommandation.",
+    "reco_secondaire_conformité": "Aucune recommandation.",
+    "reco_zone_enjeu_conformité": "Aucune recommandation.",
+    "rejet_pb": "Rejet réglementaire",
+    "rejet_type": "Rejet inconnu",
+    "secondaire_acces": "accessible",
+    "secondaire_dimensions": "Dimensions inconnues",
+    "secondaire_type": "Non renseigné",
+    "zone_enjeu": "L'installation n'est pas dans une zone à enjeu sanitaire ou environnemental."
+  },
+  "defaultFallbackText": "R.A.S.",
+  "displayBlocks": {
+    "canaEU": {
+      "flag": "afficher_canaEU",
+      "balises": [
+        "canaEU_acces",
+        "canaEU_parasites",
+        "canaEU_entretien",
+        "canaEU_structurel",
+        "conclusions_canaEU",
+        "reco_canaEU_conformité",
+        "reco_canaEU_bf"
+      ]
+    },
+    "bag": {
+      "flag": "afficher_bag",
+      "balises": [
+        "BàG_acces",
+        "BàG_dimensions",
+        "BàG_parasites",
+        "BàG_entretien",
+        "BàG_structurel"
+      ]
+    },
+    "fosse": {
+      "flag": "afficher_fosse",
+      "balises": [
+        "fosse_acces",
+        "fosse_dimensions",
+        "fosse_parasites",
+        "fosse_entretien",
+        "fosse_structurel",
+        "fosse_ventilation"
+      ]
+    },
+    "prefiltre": {
+      "flag": "afficher_prefiltre",
+      "balises": [
+        "prefiltre_type",
+        "prefiltre_entretien"
+      ]
+    },
+    "primaire": {
+      "flag": "afficher_primaire",
+      "children": [
+        "bag",
+        "fosse",
+        "prefiltre"
+      ],
+      "balises": [
+        "conclusions_primaire",
+        "reco_primaire_conformité",
+        "reco_primaire_bf"
+      ]
+    },
+    "secondaire": {
+      "flag": "afficher_secondaire",
+      "balises": [
+        "secondaire_type",
+        "secondaire_acces",
+        "secondaire_dimensions",
+        "secondaire_parasites",
+        "secondaire_regard_repartition",
+        "secondaire_regard_bouclage",
+        "secondaire_regard_collecte",
+        "conclusions_secondaire",
+        "reco_secondaire_conformité",
+        "reco_secondaire_bf"
+      ]
+    },
+    "fa": {
+      "flag": "afficher_fa",
+      "balises": [
+        "fa_type",
+        "fa_dimensions",
+        "fa_agrement",
+        "fa_parasites",
+        "fa_entretien",
+        "fa_structurel",
+        "conclusions_fa",
+        "reco_fa_conformité",
+        "reco_fa_bf"
+      ]
+    },
+    "pr": {
+      "flag": "afficher_pr",
+      "balises": [
+        "annexe_PR_acces",
+        "annexe_PR_dimensions",
+        "annexe_PR_parasites",
+        "annexe_PR_entretien",
+        "annexe_PR_structurel"
+      ]
+    },
+    "ca": {
+      "flag": "afficher_ca",
+      "balises": [
+        "annexe_CA_acces",
+        "annexe_CA_dimensions",
+        "annexe_CA_parasites",
+        "annexe_CA_entretien",
+        "annexe_CA_structurel"
+      ]
+    },
+    "pe": {
+      "flag": "afficher_pe",
+      "balises": [
+        "annexe_PE_acces",
+        "annexe_PE_dimensions",
+        "annexe_PE_parasites",
+        "annexe_PE_entretien",
+        "annexe_PE_structurel"
+      ]
+    },
+    "annexes": {
+      "flag": "afficher_annexes",
+      "children": [
+        "pr",
+        "ca",
+        "pe"
+      ],
+      "balises": [
+        "conclusions_annexes",
+        "reco_annexe_conformité",
+        "reco_annexe_bf"
+      ]
+    },
+    "rejet": {
+      "flag": "afficher_rejet",
+      "balises": [
+        "rejet_type",
+        "rejet_pb",
+        "conclusions_rejet",
+        "reco_rejet_conformité",
+        "reco_rejet_bf"
+      ]
+    },
+    "toujoursVisible": {
+      "alwaysVisible": true,
+      "balises": [
+        "zone_enjeu",
+        "habitation",
+        "PP",
+        "Année_constr",
+        "obl_travaux",
+        "acces_installation",
+        "obstacle_acces",
+        "note_accessibilite",
+        "cadre_visite",
+        "cadre_visite2",
+        "implantation",
+        "reco_acces_conformité",
+        "reco_contexte_conformité",
+        "reco_zone_enjeu_conformité",
+        "reco_implantation_conformité",
+        "reco_implantation_bf"
+      ]
+    }
+  }
+}
