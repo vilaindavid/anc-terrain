@@ -1,0 +1,258 @@
+/* ─── Design tokens ──────────────────────────────────────────────────────── */
+:root {
+  --c-primary:   #1B4F72;   /* SPANC institutional blue */
+  --c-primary-d: #154060;
+  --c-accent:    #2E86C1;
+  --c-bg:        #F0F4F8;
+  --c-surface:   #FFFFFF;
+  --c-border:    #CBD5E1;
+  --c-text:      #1A202C;
+  --c-text-muted:#64748B;
+  --c-danger:    #C0392B;
+  --c-ok:        #1E8449;
+
+  --r-card:  12px;
+  --r-btn:   8px;
+  --touch:   60px;   /* minimum touch target */
+  --pad:     16px;
+  --shadow:  0 2px 8px rgba(0,0,0,.10);
+
+  /* Typography: system stack for performance & offline */
+  --font-body:    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    "SF Mono", "Roboto Mono", monospace;
+}
+
+/* ─── Reset & base ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { height: 100%; -webkit-tap-highlight-color: transparent; }
+
+body {
+  font-family: var(--font-body);
+  font-size:   16px;
+  line-height: 1.5;
+  color:       var(--c-text);
+  background:  var(--c-bg);
+  height:      100%;
+  overflow-x:  hidden;
+}
+
+#root {
+  height:         100%;
+  display:        flex;
+  flex-direction: column;
+}
+
+/* ─── Layout helpers ─────────────────────────────────────────────────────── */
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.topbar {
+  position:       sticky;
+  top:            0;
+  background:     var(--c-primary);
+  color:          #fff;
+  display:        flex;
+  align-items:    center;
+  gap:            8px;
+  padding:        12px var(--pad);
+  padding-top:    calc(12px + env(safe-area-inset-top));
+  min-height:     var(--touch);
+  z-index:        100;
+  box-shadow:     0 2px 6px rgba(0,0,0,.25);
+}
+
+.topbar-title { font-size: 1.05rem; font-weight: 600; flex: 1; }
+.topbar-back  { background: none; border: none; color: #fff; font-size: 1.5rem;
+                 cursor: pointer; padding: 4px 8px; min-width: var(--touch);
+                 min-height: var(--touch); display: flex; align-items: center; }
+
+.content { padding: var(--pad); flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+/* ─── Cards ──────────────────────────────────────────────────────────────── */
+.card {
+  background:    var(--c-surface);
+  border-radius: var(--r-card);
+  box-shadow:    var(--shadow);
+  overflow:      hidden;
+}
+
+.card-body    { padding: var(--pad); }
+.card-title   { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.card-label   { font-size: .8rem; color: var(--c-text-muted); text-transform: uppercase;
+                 letter-spacing: .05em; margin-bottom: 4px; }
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             6px;
+  min-height:      var(--touch);
+  padding:         0 20px;
+  border-radius:   var(--r-btn);
+  border:          none;
+  font-size:       1rem;
+  font-weight:     600;
+  cursor:          pointer;
+  transition:      background .15s, transform .1s;
+  white-space:     nowrap;
+}
+.btn:active { transform: scale(.97); }
+
+.btn-primary  { background: var(--c-primary);  color: #fff; }
+.btn-primary:hover { background: var(--c-primary-d); }
+.btn-accent   { background: var(--c-accent);   color: #fff; }
+.btn-ghost    { background: transparent; color: var(--c-primary); border: 2px solid var(--c-primary); }
+.btn-danger   { background: var(--c-danger);   color: #fff; }
+.btn-full     { width: 100%; }
+.btn-pair     { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ─── Form elements ──────────────────────────────────────────────────────── */
+.field       { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-weight: 500; font-size: .9rem; }
+.field input,
+.field select,
+.field textarea {
+  min-height:    var(--touch);
+  padding:       10px 14px;
+  border:        2px solid var(--c-border);
+  border-radius: var(--r-btn);
+  font-size:     1rem;
+  font-family:   inherit;
+  color:         var(--c-text);
+  background:    var(--c-surface);
+  width:         100%;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--c-accent);
+}
+.field textarea { min-height: 80px; resize: vertical; }
+
+/* ─── Option cards (radio / checklist) ───────────────────────────────────── */
+.option-card {
+  display:       flex;
+  align-items:   flex-start;
+  gap:           12px;
+  padding:       14px 16px;
+  border:        2px solid var(--c-border);
+  border-radius: var(--r-card);
+  background:    var(--c-surface);
+  cursor:        pointer;
+  min-height:    var(--touch);
+  transition:    border-color .15s, background .15s;
+}
+.option-card.selected {
+  border-color: var(--c-accent);
+  background:   #EBF5FB;
+}
+.option-card .check {
+  width:  22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: 2px solid var(--c-border);
+  border-radius: 50%;
+  margin-top: 1px;
+  transition: border-color .15s, background .15s;
+}
+.option-card.selected .check {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+}
+.option-card.rect .check { border-radius: 4px; }
+.option-card .option-label { font-size: .95rem; line-height: 1.4; }
+
+/* ─── Severity stripe ────────────────────────────────────────────────────── */
+.severity-stripe {
+  display:       flex;
+  align-items:   center;
+  gap:           8px;
+  padding:       6px 12px;
+  border-radius: 6px;
+  font-size:     .8rem;
+  font-weight:   600;
+}
+
+/* ─── Progress bar ───────────────────────────────────────────────────────── */
+.progress-bar { height: 4px; background: rgba(255,255,255,.3); border-radius: 2px; }
+.progress-bar-fill { height: 100%; background: #fff; border-radius: 2px; transition: width .3s; }
+
+/* ─── Numeric picker ─────────────────────────────────────────────────────── */
+.numeric-picker {
+  display:     flex;
+  align-items: center;
+  gap:         16px;
+  justify-content: center;
+}
+.numeric-picker .val {
+  font-size:   2.5rem;
+  font-weight: 700;
+  min-width:   120px;
+  text-align:  center;
+}
+.numeric-picker button {
+  width:         var(--touch);
+  height:        var(--touch);
+  border-radius: 50%;
+  border:        none;
+  background:    var(--c-primary);
+  color:         #fff;
+  font-size:     1.8rem;
+  cursor:        pointer;
+  flex-shrink:   0;
+}
+
+/* ─── Section list (revision) ────────────────────────────────────────────── */
+.section-row {
+  display:     flex;
+  align-items: center;
+  gap:         12px;
+  padding:     14px 16px;
+  cursor:      pointer;
+  border-bottom: 1px solid var(--c-border);
+}
+.section-row:last-child { border-bottom: none; }
+.section-icon { font-size: 1.3rem; }
+.section-name { flex: 1; font-weight: 500; }
+.section-badge { font-size: .75rem; padding: 3px 8px; border-radius: 12px; font-weight: 600; }
+
+/* ─── Status badges ──────────────────────────────────────────────────────── */
+.badge-active   { background: #DBEAFE; color: #1E40AF; }
+.badge-incomplete { background: #FEF3C7; color: #92400E; }
+.badge-exported  { background: #D1FAE5; color: #065F46; }
+
+/* ─── Utilities ──────────────────────────────────────────────────────────── */
+.mt-8  { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.text-muted { color: var(--c-text-muted); font-size: .9rem; }
+.text-center { text-align: center; }
+.gap-8  { gap: 8px; }
+.gap-12 { gap: 12px; }
+.flex   { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+
+/* ─── Loading spinner ────────────────────────────────────────────────────── */
+.spinner {
+  width: 40px; height: 40px;
+  border: 4px solid var(--c-border);
+  border-top-color: var(--c-accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .btn:active { transform: none; }
+  .progress-bar-fill, .option-card, .check { transition: none; }
+}
