@@ -6,6 +6,11 @@
  * never has to carry (id, node) pairs separately.
  *
  * The file lives in /public/tree.json and is cached by the service worker.
+ *
+ * IMPORTANT (GitHub Pages) : on utilise `import.meta.env.BASE_URL` au lieu
+ * d'un chemin absolu commençant par "/", car l'application peut être servie
+ * depuis un sous-dossier (ex : https://utilisateur.github.io/anc-terrain/).
+ * BASE_URL contient déjà le bon préfixe et se termine toujours par "/".
  */
 
 let _tree = null;
@@ -13,7 +18,7 @@ let _tree = null;
 export async function loadTree() {
   if (_tree) return _tree;
 
-  const res = await fetch('/tree.json');
+  const res = await fetch(`${import.meta.env.BASE_URL}tree.json`);
   if (!res.ok) throw new Error(`Cannot load tree.json: ${res.status}`);
 
   const raw = await res.json();
