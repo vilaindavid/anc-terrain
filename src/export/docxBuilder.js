@@ -7,18 +7,21 @@
  * The template file is expected at /public/Trame_rapport_avec_balises.docx
  * and is cached by the service worker for offline use.
  *
- * IMPORTANT (GitHub Pages) : on utilise `import.meta.env.BASE_URL` au lieu
- * d'un chemin absolu commençant par "/", car l'application peut être servie
- * depuis un sous-dossier (ex : https://utilisateur.github.io/anc-terrain/).
- * BASE_URL contient déjà le bon préfixe et se termine toujours par "/".
- *
  * Returns an ArrayBuffer (the finished .docx) suitable for JSZip.
+ *
+ * ── Mise en forme par gravité (balises riches) ──────────────────────────────
+ * Les valeurs des balises listées dans balise_registry.json#richTextBalises
+ * sont enrichies d'un système de marqueurs inline :
+ *   «RRGGBB:B»texte du constat«END»   (B = 0 normal, 1 gras)
+ * Après le rendu docxtemplater, applyRichFormatting() remplace ces marqueurs
+ * par des runs Word colorés (<w:color>/<w:b>). Pas de package supplémentaire
+ * requis : on utilise des tags {balise} standard (pas {@balise}).
  */
 
-import PizZip       from 'pizzip';
+import PizZip        from 'pizzip';
 import Docxtemplater from 'docxtemplater';
-import { compareSeverity } from '../engine/severity.js';
-import { computeVerdict }  from '../engine/verdict.js';
+import { compareSeverity, SEVERITY_DOCX_STYLE } from '../engine/severity.js';
+import { computeVerdict }                        from '../engine/verdict.js';
 
 /** Format an ISO date (YYYY-MM-DD) for display in the report. */
 function formatDateForReport(value) {
@@ -34,28 +37,54 @@ async function loadTemplate() {
   return res.arrayBuffer();
 }
 
-// ─── Registre des balises : textes de remplacement ─────────────────────────
+// ─── Marqueurs de couleur ────────────────────────────────────────────────────
 //
-// balise_registry.json (kit du SPANC, servi depuis /public/ comme tree.json)
-// peut contenir :
-//   - `defaultTexts: { balise: "texte" }` — texte spécifique à UNE balise,
-//   - `defaultFallbackText: "texte"`      — texte de repli global, utilisé
-//     pour toute balise sans entrée dans defaultTexts.
-// Les deux sont des choix de rédaction du contrôleur, éditables depuis
-// ANC_TreeEditor_v4.html (panneau 🏷️ Balises). Il n'y a AUCUNE règle basée
-// sur le nom de la balise (préfixe reco_, suffixe _type, etc.) codée ici :
-// chaque balise est traitée de façon identique, sans cas particulier.
-//
-// Si le kit ne fournit pas encore ces champs (ancien format), le texte de
-// repli est une chaîne vide — aucune balise vide ne sera alors décorée tant
-// que le contrôleur n'aura pas renseigné au moins le texte de repli global.
+// Format : «RRGGBB:B»texte«END»
+// Les guillemets « [U+00AB] et » [U+00BB] ne sont pas des caractères XML
+// spéciaux et passent inchangés à travers l'échappement de docxtemplater.
+// Le texte capturé entre les marqueurs est déjà échappé XML (par docxtemplater)
+// et doit être réinséré tel quel dans <w:t>.
+
+const MARKER_END = '\u00ABEND\u00BB';
+
+/**
+ * Construit la valeur pour une balise riche (avec données).
+ *
+ * Ordre :
+ *   1. valeur de saisie (texte neutre, sans marqueur)
+ *   2. constats triés par gravité, chacun sur sa propre ligne :
+ *        ligne  texte constat  → marqueur coloré
+ *        ligne  [Note : ...]   → marqueur gris italique (si note présente)
+ *
+ * Le \n entre lignes est converti en <w:br/> par docxtemplater (linebreaks:true),
+ * ce qui place chaque segment dans son propre run — indispensable pour que
+ * applyRichFormatting() puisse les cibler individuellement.
+ *
+ * @param {string|null} saisieText  valeur mesurée (ex. « 3000 L »)
+ * @param {Array<{text,classement,note}>} cstItems  constats triés sévérité desc
+ */
+function buildRichValue(saisieText, cstItems) {
+  const parts = [];
+  if (saisieText) parts.push(saisieText); // texte neutre, pas de marqueur
+  for (const { text, classement, note } of cstItems) {
+    const st = SEVERITY_DOCX_STYLE[classement] || { color: '1A1A1A', bold: false };
+    parts.push(`\u00AB${st.color}:${st.bold ? '1' : '0'}\u00BB${text}${MARKER_END}`);
+    if (note) parts.push(`\u00AB888888:0\u00BB[Note\u00a0: ${note}]${MARKER_END}`);
+  }
+  return parts.join('\n');
+}
+
+// ─── Registre des balises ────────────────────────────────────────────────────
 
 let _baliseTextConfigCache = null;
 
-/** Charge defaultTexts + defaultFallbackText de balise_registry.json (cache mémoire). */
+/**
+ * Charge defaultTexts, defaultFallbackText et richTextBalises depuis
+ * balise_registry.json (cache mémoire).
+ */
 async function loadBaliseTextConfig() {
   if (_baliseTextConfigCache) return _baliseTextConfigCache;
-  const empty = { defaultTexts: {}, fallbackText: '' };
+  const empty = { defaultTexts: {}, fallbackText: '', richTextBalises: new Set() };
   try {
     const res = await fetch(`${import.meta.env.BASE_URL}balise_registry.json`);
     if (!res.ok) { _baliseTextConfigCache = empty; return _baliseTextConfigCache; }
@@ -63,9 +92,9 @@ async function loadBaliseTextConfig() {
     _baliseTextConfigCache = {
       defaultTexts: (json && typeof json.defaultTexts === 'object' && json.defaultTexts) || {},
       fallbackText: (json && typeof json.defaultFallbackText === 'string') ? json.defaultFallbackText : '',
+      richTextBalises: new Set(Array.isArray(json.richTextBalises) ? json.richTextBalises : []),
     };
   } catch (e) {
-    // Kit sans balise_registry.json ou ancien format : pas bloquant.
     _baliseTextConfigCache = empty;
   }
   return _baliseTextConfigCache;
@@ -81,11 +110,12 @@ function resolveDefaultText(balise, defaultTexts, fallbackText) {
 }
 
 /**
- * Remplit dans `map` les balises de la liste `balises` qui sont encore
- * vides, avec leur texte de remplacement. N'est appelé QUE pour les balises
- * appartenant à un bloc conditionnel actuellement affiché (voir
- * buildAffichageFlags / activeBalises) — les balises toujours visibles
- * (section I/II, métadonnées) ne sont pas concernées par ce mécanisme.
+ * Remplit dans `map` les balises de la liste `balises` qui sont encore vides,
+ * avec leur texte de remplacement.
+ * Appelé APRÈS le calcul des flags d'affichage, uniquement pour les balises
+ * des blocs conditionnels actuellement visibles.
+ * Les balises riches reçoivent du texte plat (sans marqueur) car le texte par
+ * défaut n'est pas lié à un classement et n'a pas à être coloré.
  */
 function applyDefaultTexts(map, balises, defaultTexts, fallbackText) {
   for (const balise of balises) {
@@ -96,47 +126,49 @@ function applyDefaultTexts(map, balises, defaultTexts, fallbackText) {
   }
 }
 
+// ─── Construction des placeholders ─────────────────────────────────────────
+
 /**
  * Build the placeholder map from session data.
  *
- * Multiple constats sharing a balise are concatenated with a newline,
- * sorted by severity (desc) then nodeId (asc) — matching the locked spec.
+ * Corrections par rapport à la version précédente :
+ *  1. Bug « écrasement » corrigé : les constats écrasaient silencieusement la
+ *     saisie sur les 4 balises partagées (fosse_dimensions, BàG_dimensions,
+ *     secondaire_dimensions, fa_dimensions). Désormais, saisie et constats sont
+ *     concaténés, la saisie en premier.
+ *  2. Balises riches : la valeur contient des marqueurs de couleur qui seront
+ *     convertis en runs Word colorés par applyRichFormatting() après le rendu.
  */
-function buildPlaceholders(session, { defaultTexts = {}, fallbackText = '' } = {}) {
+function buildPlaceholders(session, { defaultTexts = {}, fallbackText = '', richTextBalises = new Set() } = {}) {
   const { admin, constats = [], saisies = [] } = session;
   const verdict = computeVerdict(constats);
 
-  // ── Métadonnées admin (injectées directement depuis session.admin) ─────────
-  // Les balises de contenu (cadre_visite2, habitation, PP, Année_constr,
-  // zone_enjeu, etc.) sont renseignées automatiquement par les boucles
-  // constats/saisies ci-dessous, à partir de leur propre champ `section`.
-  // La Proxy en fin de fonction retourne '' pour toute balise absente du map,
-  // donc il est inutile de pré-remplir ici les balises qui seront couvertes
-  // par un nœud constat/saisie de l'arbre.
+  // ── Métadonnées admin ──────────────────────────────────────────────────
   const map = {
     date_visite: formatDateForReport(admin.date_visite),
     nom_prenom:  admin.nom_proprietaire,
     adresse:     admin.adresse,
-    // Verdict checkboxes (☑ ou ☐)
-    chk_conforme:         verdict.conforme ? '☑' : '☐',
-    chk_non_conforme:     !verdict.conforme ? '☑' : '☐',
-    chk_conforme_complete: verdict.checkboxes.conforme_complete ? '☑' : '☐',
-    chk_conforme_reco:     verdict.checkboxes.conforme_reco     ? '☑' : '☐',
-    chk_sans_risque:       verdict.checkboxes.sans_risque       ? '☑' : '☐',
-    chk_rejet_superficiel: verdict.checkboxes.rejet_superficiel ? '☑' : '☐',
-    chk_risque_sanitaire:  verdict.checkboxes.risque_sanitaire  ? '☑' : '☐',
+    chk_conforme:             verdict.conforme ? '☑' : '☐',
+    chk_non_conforme:         !verdict.conforme ? '☑' : '☐',
+    chk_conforme_complete:    verdict.checkboxes.conforme_complete    ? '☑' : '☐',
+    chk_conforme_reco:        verdict.checkboxes.conforme_reco        ? '☑' : '☐',
+    chk_sans_risque:          verdict.checkboxes.sans_risque          ? '☑' : '☐',
+    chk_rejet_superficiel:    verdict.checkboxes.rejet_superficiel    ? '☑' : '☐',
+    chk_risque_sanitaire:     verdict.checkboxes.risque_sanitaire     ? '☑' : '☐',
     chk_absence_installation: verdict.checkboxes.absence_installation ? '☑' : '☐',
     verdict_summary: verdict.summaryText,
   };
 
-  // ── Saisies numériques ───────────────────────────────────────────────────
+  // ── Saisies (indexées par balise, texte brut) ──────────────────────────
+  const saisieTextByBalise = {};
   for (const sv of saisies) {
-    if (sv.balise) map[sv.balise] = String(sv.valeur);
+    if (sv.balise) saisieTextByBalise[sv.balise] = String(sv.valeur);
   }
 
-  // ── Constats → group by balise_constat, sorted ───────────────────────────
-  const constatsByBalise = {};
-  const recosByBalise    = {};
+  // ── Constats (groupés par balise, classement conservé) ─────────────────
+  // Triés sévérité desc, puis nodeId asc — identique à l'ancienne logique.
+  const constatsByBalise = {}; // { balise: [{text, classement, note}] }
+  const recosByBalise    = {}; // { balise: [string] }
 
   const sorted = [...constats].sort((a, b) =>
     compareSeverity(a.classement, b.classement) || a.nodeId.localeCompare(b.nodeId)
@@ -147,9 +179,11 @@ function buildPlaceholders(session, { defaultTexts = {}, fallbackText = '' } = {
     const br = cst.balise_reco;
     if (bc) {
       if (!constatsByBalise[bc]) constatsByBalise[bc] = [];
-      let text = cst.label_constat || '';
-      if (cst.note_libre) text += `\n[Note : ${cst.note_libre}]`;
-      constatsByBalise[bc].push(text);
+      constatsByBalise[bc].push({
+        text:       cst.label_constat || '',
+        classement: cst.classement   || 'Simple constat',
+        note:       cst.note_libre   || '',
+      });
     }
     if (br) {
       if (!recosByBalise[br]) recosByBalise[br] = [];
@@ -157,33 +191,45 @@ function buildPlaceholders(session, { defaultTexts = {}, fallbackText = '' } = {
     }
   }
 
-  for (const [balise, lines] of Object.entries(constatsByBalise)) {
-    map[balise] = lines.join('\n\n');
+  // ── Fusion saisies + constats ──────────────────────────────────────────
+  const allTouchedBalises = new Set([
+    ...Object.keys(saisieTextByBalise),
+    ...Object.keys(constatsByBalise),
+  ]);
+
+  for (const balise of allTouchedBalises) {
+    const saisieText = saisieTextByBalise[balise] || null;
+    const cstItems   = constatsByBalise[balise]   || [];
+
+    if (richTextBalises.has(balise)) {
+      // Balise riche → valeur avec marqueurs de couleur
+      map[balise] = buildRichValue(saisieText, cstItems);
+    } else {
+      // Balise ordinaire → concaténation texte brut
+      const parts = [];
+      if (saisieText) parts.push(saisieText);
+      for (const c of cstItems) {
+        parts.push(c.note ? `${c.text}\n[Note\u00a0: ${c.note}]` : c.text);
+      }
+      map[balise] = parts.join('\n');
+    }
   }
+
+  // ── Recommandations (toujours texte plat, dédupliquées) ─────────────────
   for (const [balise, lines] of Object.entries(recosByBalise)) {
-    // Deduplicate reco text (multiple constats may share same reco wording)
     map[balise] = [...new Set(lines)].join('\n\n');
   }
 
-  // ── Affichage conditionnel des sections/tableaux (docxtemplater {#afficher_x}) ──
-  // Une section/tableau ne s'affiche dans le rapport que si au moins une de ses
-  // balises contient réellement du texte (constat, saisie ou recommandation).
-  // Calculé ICI (après remplissage du map ci-dessus) pour rester fidèle à ce qui
-  // sera effectivement imprimé, indépendamment d'éventuels décalages de nommage
-  // entre tree.json et le template.
+  // ── Flags d'affichage conditionnel ──────────────────────────────────────
+  // Calculés sur les données brutes, AVANT les textes par défaut, pour que
+  // les blocs vides n'apparaissent pas comme remplis.
   const { flags, activeBalises } = buildAffichageFlags(map);
   Object.assign(map, flags);
 
-  // ── Textes de remplacement pour les balises vides des blocs affichés ─────
-  // IMPORTANT : appliqué APRÈS le calcul des flags ci-dessus, sinon toute
-  // balise aurait toujours du texte et toutes les sections s'afficheraient
-  // toujours. La visibilité se décide sur les données brutes ; le texte de
-  // remplacement ne fait que "décorer" les balises vides des blocs déjà
-  // décidés visibles.
+  // ── Textes par défaut pour les blocs conditionnels actifs ───────────────
   applyDefaultTexts(map, activeBalises, defaultTexts, fallbackText);
 
-  // Fill any template placeholder that hasn't been set with empty string
-  // (prevents docxtemplater "tag not found" errors)
+  // Proxy : '' pour toute balise absente (évite les erreurs docxtemplater)
   return new Proxy(map, {
     get: (target, prop) => (prop in target ? target[prop] : ''),
   });
@@ -198,22 +244,10 @@ function _hasContent(map, balises) {
 }
 
 /**
- * Calcule les indicateurs booléens afficher_* pilotant les blocs conditionnels
- * du template DOCX (sections 3 à 6 + tableaux individuels imbriqués), ET la
- * liste des balises appartenant à un bloc actuellement affiché (utilisée
- * ensuite pour appliquer les textes de remplacement des balises vides).
- *
- * IMPORTANT : la liste des balises par bloc doit rester synchronisée avec les
- * marqueurs {#afficher_x}...{/afficher_x} posés dans Trame_rapport_avec_balises.docx.
- * Toute balise ajoutée/retirée d'un bloc dans le DOCX doit être répercutée ici.
- * Ces mêmes listes servent de base aux deux usages (affichage ET texte par
- * défaut) afin d'éviter toute divergence entre les deux mécanismes.
+ * Calcule les indicateurs booléens afficher_* et la liste activeBalises.
+ * (Inchangé — liste des groupes maintenue en sync avec le template DOCX.)
  */
 function buildAffichageFlags(map) {
-  // Ces listes ont été vérifiées balise par balise contre les placeholders
-  // réels de Trame_rapport_avec_balises.docx (grep sur {...}) et contre les
-  // champs `section` effectivement utilisés dans tree.json. Ne pas les
-  // modifier sans revérifier les deux sources.
   const groups = {
     canaEU: ['canaEU_acces', 'canaEU_parasites', 'canaEU_entretien', 'canaEU_structurel', 'conclusions_canaEU', 'reco_canaEU_conformité', 'reco_canaEU_bf'],
     bag: ['BàG_acces', 'BàG_dimensions', 'BàG_parasites', 'BàG_entretien', 'BàG_structurel'],
@@ -229,23 +263,22 @@ function buildAffichageFlags(map) {
     ca: ['annexe_CA_acces', 'annexe_CA_dimensions', 'annexe_CA_parasites', 'annexe_CA_entretien', 'annexe_CA_structurel'],
     pe: ['annexe_PE_acces', 'annexe_PE_dimensions', 'annexe_PE_parasites', 'annexe_PE_entretien', 'annexe_PE_structurel'],
     rejet: ['rejet_type', 'rejet_pb', 'conclusions_rejet', 'reco_rejet_conformité', 'reco_rejet_bf'],
-    // Balises "propres" au niveau parent (hors sous-blocs bag/fosse/prefiltre et pr/ca/pe)
     primaireOwn: ['conclusions_primaire', 'reco_primaire_conformité', 'reco_primaire_bf'],
     annexesOwn:  ['conclusions_annexes', 'reco_annexe_conformité', 'reco_annexe_bf'],
   };
 
   const has = (key) => _hasContent(map, groups[key]);
 
-  const afficher_bag       = has('bag');
-  const afficher_fosse     = has('fosse');
-  const afficher_prefiltre = has('prefiltre');
-  const afficher_pr        = has('pr');
-  const afficher_ca        = has('ca');
-  const afficher_pe        = has('pe');
-  const afficher_canaEU    = has('canaEU');
+  const afficher_bag        = has('bag');
+  const afficher_fosse      = has('fosse');
+  const afficher_prefiltre  = has('prefiltre');
+  const afficher_pr         = has('pr');
+  const afficher_ca         = has('ca');
+  const afficher_pe         = has('pe');
+  const afficher_canaEU     = has('canaEU');
   const afficher_secondaire = has('secondaire');
-  const afficher_fa        = has('fa');
-  const afficher_rejet     = has('rejet');
+  const afficher_fa         = has('fa');
+  const afficher_rejet      = has('rejet');
 
   const afficher_primaire = afficher_bag || afficher_fosse || afficher_prefiltre
     || _hasContent(map, groups.primaireOwn);
@@ -267,26 +300,65 @@ function buildAffichageFlags(map) {
     afficher_rejet,
   };
 
-  // Balises à considérer pour le remplissage par défaut : uniquement celles
-  // appartenant à un bloc dont le flag est actif.
   const activeGroupKeys = [];
-  if (afficher_canaEU) activeGroupKeys.push('canaEU');
-  if (afficher_bag) activeGroupKeys.push('bag');
-  if (afficher_fosse) activeGroupKeys.push('fosse');
+  if (afficher_canaEU)    activeGroupKeys.push('canaEU');
+  if (afficher_bag)       activeGroupKeys.push('bag');
+  if (afficher_fosse)     activeGroupKeys.push('fosse');
   if (afficher_prefiltre) activeGroupKeys.push('prefiltre');
-  if (afficher_primaire) activeGroupKeys.push('primaireOwn');
-  if (afficher_secondaire) activeGroupKeys.push('secondaire');
-  if (afficher_fa) activeGroupKeys.push('fa');
-  if (afficher_pr) activeGroupKeys.push('pr');
-  if (afficher_ca) activeGroupKeys.push('ca');
-  if (afficher_pe) activeGroupKeys.push('pe');
-  if (afficher_annexes) activeGroupKeys.push('annexesOwn');
-  if (afficher_rejet) activeGroupKeys.push('rejet');
+  if (afficher_primaire)  activeGroupKeys.push('primaireOwn');
+  if (afficher_secondaire)activeGroupKeys.push('secondaire');
+  if (afficher_fa)        activeGroupKeys.push('fa');
+  if (afficher_pr)        activeGroupKeys.push('pr');
+  if (afficher_ca)        activeGroupKeys.push('ca');
+  if (afficher_pe)        activeGroupKeys.push('pe');
+  if (afficher_annexes)   activeGroupKeys.push('annexesOwn');
+  if (afficher_rejet)     activeGroupKeys.push('rejet');
 
   const activeBalises = activeGroupKeys.flatMap((k) => groups[k]);
 
   return { flags, activeBalises };
 }
+
+// ─── Post-rendu : coloration des constats ────────────────────────────────────
+
+/**
+ * Remplace les marqueurs de couleur dans word/document.xml par des runs Word
+ * colorés, après que docxtemplater a rendu le template.
+ *
+ * Chaque marqueur «RRGGBB:B»texte«END» est détecté dans un élément <w:t>.
+ * On remplace le <w:rPr> du run parent (propriétés héritées du template)
+ * par notre <w:rPr> coloré, et le <w:t> par une version sans marqueur.
+ *
+ * Note : le contenu capturé entre les marqueurs est déjà échappé XML par
+ * docxtemplater (&amp; pour &, &lt; pour <, etc.) — on le réinsère tel quel.
+ *
+ * @param {PizZip} zip  zip issu de doc.getZip() après doc.render()
+ */
+function applyRichFormatting(zip) {
+  const file = zip.files['word/document.xml'];
+  if (!file) return;
+
+  let xml = file.asText();
+
+  // Pattern : (rPr existant optionnel) + <w:t> contenant notre marqueur
+  // Les guillemets «/» (U+00AB / U+00BB) ne nécessitent pas d'échappement XML.
+  // Le flag 'g' traite chaque run marqué indépendamment.
+  // ⚠️  Le token négatif (?:(?!<\/w:rPr>)[\s\S])* est indispensable pour éviter
+  // le backtracking cross-run : avec [\s\S]*? (lazy simple), le moteur peut
+  // étirer la capture du rPr à travers plusieurs runs entiers avant de trouver
+  // un <w:t>«...» valide, consommant ainsi le contenu des runs intermédiaires.
+  const MARKER_RE = /(?:<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<\/w:rPr>)?<w:t(?:\s[^>]*)?>«([0-9A-Fa-f]{6}):([01])»([\s\S]*?)«END»<\/w:t>/g;
+
+  xml = xml.replace(MARKER_RE, (_match, color, bold, text) => {
+    const rPr = `<w:rPr><w:color w:val="${color}"/>${bold === '1' ? '<w:b/>' : ''}</w:rPr>`;
+    // `text` est déjà échappé XML par docxtemplater — réinsertion directe.
+    return `${rPr}<w:t xml:space="preserve">${text}</w:t>`;
+  });
+
+  zip.file('word/document.xml', xml);
+}
+
+// ─── Export public ───────────────────────────────────────────────────────────
 
 /**
  * Generate the filled DOCX.
@@ -299,13 +371,15 @@ export async function buildDocx(session) {
   const doc = new Docxtemplater(zip, {
     paragraphLoop: true,
     linebreaks:    true,
-    // nullGetter: return empty string for missing tags instead of throwing
-    nullGetter: () => '',
+    nullGetter:    () => '',
   });
 
-  const textConfig  = await loadBaliseTextConfig();
+  const textConfig   = await loadBaliseTextConfig();
   const placeholders = buildPlaceholders(session, textConfig);
   doc.render(placeholders);
+
+  // Coloration post-rendu des constats (balises richTextBalises)
+  applyRichFormatting(doc.getZip());
 
   return doc.getZip().generate({ type: 'uint8array' });
 }

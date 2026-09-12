@@ -4,10 +4,16 @@
  * Reçoit le tableau produit par navigator.buildVisibleTree et se contente
  * de l'afficher : header = titre + récursion automatique, critere = ligne
  * à cocher (case ou pastille radio selon exclusionGroup) qui déplie ses
- * enfants une fois coché, saisie_valeur = stepper numérique.
+ * enfants une fois coché, saisie_valeur = champ texte libre.
+ *
  * Les constats/recommandations rattachés à un critère coché sont recherchés
  * dans session.constats (déjà enrichis par db.js : label, note, etc.) et
  * affichés juste en dessous, avec annotation libre + photo.
+ *
+ * GRISAGE DES EXCLUS (v4.1)
+ * Un critère dont node.excluded === true (autre membre du même exclusionGroup
+ * déjà coché) est affiché en semi-transparent. Il reste cliquable pour
+ * permettre de changer la sélection dans le groupe radio.
  */
 
 import { useState, useEffect } from 'react';
@@ -56,18 +62,40 @@ function TreeNode({ node, session, sessionId, depth, onToggle, onNumeric, onAnno
   }
 
   // critere
-  const isRadio = !!node.exclusionGroup;
-  const constats = (session?.constats || []).filter(c => c.nodeId === node.id);
+  const isRadio   = !!node.exclusionGroup;
+  const isExcluded = !!node.excluded;   // autre membre du groupe radio coché
+  const constats  = (session?.constats || []).filter(c => c.nodeId === node.id);
 
   return (
     <div style={{ marginBottom: 6 }}>
       <div
         className={`option-card ${node.checked ? 'selected' : ''}`}
         onClick={() => onToggle(node.id, !node.checked)}
-        style={{ padding: '10px 12px', minHeight: 44 }}
+        style={{
+          padding: '10px 12px',
+          minHeight: 44,
+          // Grisage : le nœud est rendu semi-transparent pour indiquer
+          // qu'il est écarté par la sélection courante dans ce groupe radio.
+          // opacity réduite + fond neutre ; le clic reste actif pour permettre
+          // de changer de sélection sans effort supplémentaire.
+          ...(isExcluded ? {
+            opacity: 0.38,
+            background: 'var(--c-bg)',
+            borderColor: 'var(--c-border)',
+          } : {}),
+        }}
       >
         <div className="check" style={{ borderRadius: isRadio ? '50%' : 4 }} />
-        <span className="option-label" style={{ fontSize: '.92rem' }}>{node.label}</span>
+        <span
+          className="option-label"
+          style={{
+            fontSize: '.92rem',
+            // Texte grisé quand le nœud est exclu
+            ...(isExcluded ? { color: 'var(--c-text-muted)' } : {}),
+          }}
+        >
+          {node.label}
+        </span>
       </div>
 
       {node.checked && constats.map((cst, i) => (

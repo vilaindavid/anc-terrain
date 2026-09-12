@@ -107,6 +107,10 @@ export default function WizardScreen({ tree, sessionId, nav }) {
   const visibleTree = buildVisibleTree(activeSection, tree, session.answers);
   const { done, total, pct } = sectionProgress(activeSection, tree, session.answers);
 
+  // Navigation section suivante / révision finale
+  const currentSectionIdx = sections.findIndex(s => s.id === activeSection);
+  const nextSection        = sections[currentSectionIdx + 1] || null;
+
   return (
     <div className="screen">
       <div className="topbar" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 6 }}>
@@ -161,6 +165,27 @@ export default function WizardScreen({ tree, sessionId, nav }) {
           onNumeric={handleNumeric}
           onAnnotate={handleAnnotate}
         />
+
+        {/* ── Bouton navigation section suivante / terminer ── */}
+        <div style={{ paddingTop: 8, paddingBottom: 16 }}>
+          {nextSection ? (
+            <button
+              className="btn btn-accent btn-full"
+              style={{ minHeight: 52, fontSize: '.95rem', borderRadius: 10 }}
+              onClick={() => switchSection(nextSection.id)}
+            >
+              {nextSection.label} →
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary btn-full"
+              style={{ minHeight: 52, fontSize: '.95rem', borderRadius: 10 }}
+              onClick={() => nav.goRevision(sessionId)}
+            >
+              ✅ Terminer — Réviser le rapport
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

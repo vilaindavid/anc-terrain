@@ -4,16 +4,34 @@
  * STORES
  * ──────
  * sessions   { id, admin, answers, constats, saisies, annotations, status, createdAt, updatedAt }
- * photos     { id, sessionId, nodeId, balise, filename, mimeType, dataUrl }
+ * photos     { id, sessionId, nodeId, balise, filename, mimeType, capturedAt, _opfs?, dataUrl? }
  *
- * The tree itself is NOT stored here — it's loaded from /tree.json at startup
- * and kept in React state (it's read-only, version-controlled via the PWA cache).
+ * STOCKAGE DES PHOTOS (v4.1)
+ * ──────────────────────────
+ * Les binaires des photos sont stockés dans l'OPFS (Origin Private File
+ * System), séparé du cache HTTP et d'IndexedDB :
+ *  - stockage natif binaire → −33 % vs base64 en IndexedDB
+ *  - résiste au vidage du cache navigateur ordinaire
+ *  - accessible programmatiquement → le ZIP d'export continue de fonctionner
+ *
+ * IndexedDB ne contient que les métadonnées (sessionId, nodeId, balise,
+ * filename, mimeType, _opfs: true).
+ *
+ * Si l'OPFS n'est pas disponible (navigateur ancien), la photo est stockée
+ * en base64 dans IndexedDB comme avant (champ dataUrl, pas de champ _opfs).
+ * Les deux formats coexistent : les anciens enregistrements (avant la mise
+ * à jour) continuent de fonctionner sans migration.
+ *
+ * Le tree lui-même n'est PAS stocké ici — il est chargé depuis /tree.json au
+ * démarrage et conservé dans l'état React (lecture seule, versionné via le
+ * cache PWA).
  */
 
 import { openDB } from 'idb';
 
-const DB_NAME = 'anc-inspection';
+const DB_NAME    = 'anc-inspection';
 const DB_VERSION = 1;
+const OPFS_DIR   = 'anc-photos'; // dossier dans l'OPFS
 
 let _db = null;
 
@@ -36,6 +54,86 @@ export async function openDatabase() {
     },
   });
   return _db;
+}
+
+// ─── OPFS helpers ────────────────────────────────────────────────────────────
+//
+// L'OPFS (Origin Private File System) est le système de fichiers privé du
+// navigateur, disponible via navigator.storage.getDirectory(). Il stocke des
+// Blob natifs (pas de base64) et sa quota est gérée séparément du cache HTTP.
+//
+// API asynchrone utilisée depuis le thread principal (pas de Worker requis).
+
+/** Handle mis en cache pour le dossier OPFS des photos. null = non disponible. */
+let _opfsDirHandle = undefined; // undefined = pas encore initialisé
+
+/** Retourne le handle OPFS des photos, ou null si non supporté / erreur. */
+async function _getOpfsDir() {
+  if (_opfsDirHandle !== undefined) return _opfsDirHandle;
+  try {
+    if (typeof navigator?.storage?.getDirectory !== 'function') {
+      _opfsDirHandle = null;
+      return null;
+    }
+    const root = await navigator.storage.getDirectory();
+    _opfsDirHandle = await root.getDirectoryHandle(OPFS_DIR, { create: true });
+  } catch (e) {
+    console.warn('[ANC] OPFS non disponible, fallback IndexedDB :', e);
+    _opfsDirHandle = null;
+  }
+  return _opfsDirHandle;
+}
+
+/**
+ * Écrit un Blob (photo) dans l'OPFS.
+ * @param {string} filename  Nom de fichier unique (ex : "2025-001_fosse_01.jpg")
+ * @param {string} dataUrl   Data URL issu de FileReader (vient de l'appareil photo)
+ */
+async function _writeToOpfs(filename, dataUrl) {
+  const dir = await _getOpfsDir();
+  if (!dir) throw new Error('OPFS non disponible');
+  const fileHandle = await dir.getFileHandle(filename, { create: true });
+  const writable   = await fileHandle.createWritable();
+  // Conversion data URL → Blob via fetch() — plus fiable que atob() pour les
+  // grands fichiers et les types MIME variés.
+  const res  = await fetch(dataUrl);
+  const blob = await res.blob();
+  await writable.write(blob);
+  await writable.close();
+}
+
+/**
+ * Lit une photo depuis l'OPFS et retourne une data URL.
+ * Retourne null si le fichier est introuvable.
+ */
+async function _readFromOpfs(filename) {
+  try {
+    const dir = await _getOpfsDir();
+    if (!dir) return null;
+    const fileHandle = await dir.getFileHandle(filename);
+    const file       = await fileHandle.getFile();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload  = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  } catch {
+    return null; // fichier absent ou OPFS non disponible
+  }
+}
+
+/**
+ * Supprime une photo de l'OPFS. Ne lance pas d'erreur si le fichier est absent.
+ */
+async function _deleteFromOpfs(filename) {
+  try {
+    const dir = await _getOpfsDir();
+    if (!dir) return;
+    await dir.removeEntry(filename);
+  } catch {
+    // Fichier absent ou déjà supprimé — ignoré
+  }
 }
 
 // ─── Session CRUD ────────────────────────────────────────────────────────────
@@ -108,17 +206,27 @@ export async function saveSession(session) {
 
 export async function deleteSession(id) {
   const db = await openDatabase();
+
+  // Récupérer les métadonnées photos AVANT la transaction (pour le nettoyage OPFS).
+  const photosToClean = await db.getAllFromIndex('photos', 'by_session', id);
+
+  // Suppression en base (session + photos)
   const tx = db.transaction(['sessions', 'photos'], 'readwrite');
   await tx.objectStore('sessions').delete(id);
-  // Delete associated photos
-  const photoStore = tx.objectStore('photos');
-  const photoIndex = photoStore.index('by_session');
+  const photoIndex = tx.objectStore('photos').index('by_session');
   let cursor = await photoIndex.openCursor(IDBKeyRange.only(id));
   while (cursor) {
     await cursor.delete();
     cursor = await cursor.continue();
   }
   await tx.done;
+
+  // Nettoyage OPFS après la transaction (les erreurs OPFS sont ignorées)
+  for (const photo of photosToClean) {
+    if (photo._opfs && photo.filename) {
+      await _deleteFromOpfs(photo.filename);
+    }
+  }
 }
 
 // ─── Answer / constat helpers ─────────────────────────────────────────────────
@@ -240,25 +348,106 @@ export async function saveWizardPosition(sessionId, currentSection, queue) {
 // ─── Photo CRUD ───────────────────────────────────────────────────────────────
 
 /**
+ * Enregistre une photo.
+ *
+ * Stratégie :
+ *  1. Tente d'écrire le binaire dans l'OPFS (plus efficace, hors quota cache).
+ *  2. Si l'OPFS échoue, stocke la dataUrl en base64 dans IndexedDB (ancien comportement).
+ *
+ * IndexedDB conserve toujours les métadonnées. La présence de `_opfs: true`
+ * indique que les données réelles sont dans l'OPFS, pas en IndexedDB.
+ *
  * @param {object} photo  { sessionId, nodeId, balise, filename, mimeType, dataUrl }
- * @returns {number} auto-incremented photo id
+ * @returns {Promise<number>} auto-incremented photo id
  */
 export async function addPhoto(photo) {
   const db = await openDatabase();
-  return db.add('photos', { ...photo, capturedAt: new Date().toISOString() });
+
+  // Tentative OPFS
+  let useOpfs = false;
+  const dir = await _getOpfsDir();
+  if (dir) {
+    try {
+      await _writeToOpfs(photo.filename, photo.dataUrl);
+      useOpfs = true;
+    } catch (e) {
+      console.warn('[ANC] Écriture OPFS échouée, fallback IndexedDB :', e);
+    }
+  }
+
+  // Enregistrement IndexedDB (métadonnées + éventuellement dataUrl en fallback)
+  const record = {
+    sessionId:  photo.sessionId,
+    nodeId:     photo.nodeId,
+    balise:     photo.balise,
+    filename:   photo.filename,
+    mimeType:   photo.mimeType,
+    capturedAt: new Date().toISOString(),
+  };
+
+  if (useOpfs) {
+    record._opfs = true; // données dans l'OPFS — pas de dataUrl en IndexedDB
+  } else {
+    record.dataUrl = photo.dataUrl; // fallback : base64 en IndexedDB
+  }
+
+  try {
+    return await db.add('photos', record);
+  } catch (e) {
+    // Si l'IndexedDB échoue après un succès OPFS, on nettoie le fichier OPFS.
+    if (useOpfs) await _deleteFromOpfs(photo.filename).catch(() => {});
+    throw e;
+  }
 }
 
+/**
+ * Retourne toutes les photos d'une session, avec leur dataUrl (lue depuis
+ * l'OPFS si _opfs === true, sinon directement depuis IndexedDB).
+ * Compatible avec les anciens enregistrements (dataUrl en IndexedDB).
+ */
 export async function getPhotosForSession(sessionId) {
   const db = await openDatabase();
-  return db.getAllFromIndex('photos', 'by_session', sessionId);
+  const metas = await db.getAllFromIndex('photos', 'by_session', sessionId);
+  return _hydratePhotos(metas);
 }
 
 export async function getPhotosForNode(sessionId, nodeId) {
   const db = await openDatabase();
-  return db.getAllFromIndex('photos', 'by_node', [sessionId, nodeId]);
+  const metas = await db.getAllFromIndex('photos', 'by_node', [sessionId, nodeId]);
+  return _hydratePhotos(metas);
+}
+
+/**
+ * Hydrate une liste de métadonnées photo avec leur dataUrl.
+ * Les enregistrements OPFS (_opfs: true) ont leur fichier lu depuis le système.
+ * Les enregistrements anciens (dataUrl dans IndexedDB) sont retournés tels quels.
+ */
+async function _hydratePhotos(metas) {
+  const result = [];
+  for (const meta of metas) {
+    if (meta._opfs) {
+      const dataUrl = await _readFromOpfs(meta.filename);
+      if (dataUrl) {
+        result.push({ ...meta, dataUrl });
+      } else {
+        // Fichier OPFS introuvable (ex : après vidage des données du site)
+        console.warn(`[ANC] Photo OPFS introuvable : ${meta.filename}`);
+        // On inclut quand même la métadonnée, sans dataUrl — le zip ignorera
+        // les entrées sans dataUrl grâce au filtre dans zipBuilder.js.
+        result.push(meta);
+      }
+    } else {
+      result.push(meta); // ancien format, dataUrl déjà dans l'objet
+    }
+  }
+  return result;
 }
 
 export async function deletePhoto(photoId) {
   const db = await openDatabase();
+  const photo = await db.get('photos', photoId);
+  if (photo?._opfs && photo.filename) {
+    await _deleteFromOpfs(photo.filename);
+  }
   return db.delete('photos', photoId);
 }

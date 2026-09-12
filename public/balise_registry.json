@@ -107,7 +107,8 @@
     "secondaire_acces": "accessible",
     "secondaire_dimensions": "Dimensions inconnues",
     "secondaire_type": "Non renseigné",
-    "zone_enjeu": "L'installation n'est pas dans une zone à enjeu sanitaire ou environnemental."
+    "zone_enjeu": "L'installation n'est pas dans une zone à enjeu sanitaire ou environnemental.",
+    "obl_travaux": "non"
   },
   "defaultFallbackText": "R.A.S.",
   "displayBlocks": {

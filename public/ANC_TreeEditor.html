@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>ANC · Éditeur arbre décisionnel v3</title>
+<style>
+:root{
+  --sidebar:#141f2e;--sidebar2:#1e2e42;--sidebar3:#27405a;
+  --sidebar-text:#c4d4e8;--sidebar-muted:#5a7a9a;
+  --accent:#3b9ede;--accent-h:#5bb0ec;
+  --success:#2ecc71;--warning:#f0a500;--danger:#e74c3c;
+  --bg:#f4f3ef;--panel:#fff;--border:#ddd;--text:#222;--text-muted:#888;
+  --radius:4px;--mono:'Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;background:var(--bg);color:var(--text);height:100vh;overflow:hidden}
+
+/* Import */
+#import-screen{display:flex;align-items:center;justify-content:center;height:100vh;background:var(--sidebar)}
+.import-box{background:var(--sidebar2);border:2px dashed var(--sidebar3);border-radius:10px;padding:52px 60px;text-align:center;transition:border-color .2s}
+.import-box.drag-over{border-color:var(--accent);background:#1a2e42}
+.import-title{font-size:22px;font-weight:700;color:#7ec8e3;letter-spacing:.5px;margin-bottom:6px}
+.import-sub{font-size:13px;color:var(--sidebar-muted);margin-bottom:28px}
+.btn-import{background:var(--accent);color:#fff;border:none;padding:11px 28px;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer}
+.btn-import:hover{background:var(--accent-h)}
+.import-hint{margin-top:14px;font-size:11px;color:#3a5a7a}
+
+/* App layout */
+#main-app{display:none;grid-template-rows:44px 1fr;height:100vh}
+
+/* Toolbar */
+#toolbar{display:flex;align-items:center;gap:8px;padding:0 12px;background:var(--sidebar);border-bottom:1px solid #0a1520}
+.tb-logo{font-weight:700;font-size:14px;color:#7ec8e3;letter-spacing:.5px;flex-shrink:0}
+.tb-file{font-size:11px;color:var(--sidebar-muted);margin-left:4px;flex-shrink:0}
+.tb-spacer{flex:1}
+#tb-stats{font-size:11px;color:var(--sidebar-muted)}
+.btn{border:none;padding:5px 12px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600;transition:background .15s}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-sm{padding:3px 9px;font-size:11px}
+.btn-xs{padding:2px 6px;font-size:10px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover:not(:disabled){background:var(--accent-h)}
+.btn-success{background:var(--success);color:#fff}.btn-success:hover:not(:disabled){filter:brightness(1.1)}
+.btn-danger{background:var(--danger);color:#fff}.btn-danger:hover:not(:disabled){filter:brightness(1.1)}
+.btn-ghost{background:rgba(255,255,255,.08);color:var(--sidebar-text)}.btn-ghost:hover:not(:disabled){background:rgba(255,255,255,.14)}
+.btn-warning{background:#e67e00;color:#fff}.btn-warning:hover:not(:disabled){filter:brightness(1.1)}
+.btn-secondary{background:#ecf0f1;color:var(--text)}.btn-secondary:hover:not(:disabled){background:#dde1e3}
+.btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover:not(:disabled){background:rgba(59,158,222,.08)}
+.btn-danger-outline{background:transparent;color:var(--danger);border:1px solid var(--danger)}.btn-danger-outline:hover:not(:disabled){background:rgba(231,76,60,.08)}
+
+/* Workspace */
+.workspace{display:grid;grid-template-columns:340px 1fr;overflow:hidden}
+
+/* Tree panel */
+#tree-panel{background:var(--sidebar);display:flex;flex-direction:column;overflow:hidden;border-right:1px solid #0a1520}
+#tree-controls{padding:8px;background:var(--sidebar2);border-bottom:1px solid #0a1520;display:flex;flex-direction:column;gap:6px}
+#tree-controls input[type=text]{background:var(--sidebar);border:1px solid var(--sidebar3);color:var(--sidebar-text);padding:6px 8px;border-radius:var(--radius);font-size:12px;width:100%}
+#tree-controls input[type=text]::placeholder{color:var(--sidebar-muted)}
+#tree-controls select{background:var(--sidebar);border:1px solid var(--sidebar3);color:var(--sidebar-text);padding:5px 6px;border-radius:var(--radius);font-size:11px;flex:1}
+#tree-controls input[type=text]:focus,#tree-controls select:focus{outline:none;border-color:var(--accent)}
+.ctrl-row{display:flex;gap:6px}
+
+/* Category tabs */
+#cat-tabs{display:flex;overflow-x:auto;background:var(--sidebar2);border-bottom:1px solid #0a1520;min-height:30px;flex-shrink:0}
+#cat-tabs::-webkit-scrollbar{height:3px}
+.cat-tab{padding:5px 10px;cursor:pointer;white-space:nowrap;font-size:11px;font-weight:600;color:var(--sidebar-muted);border:none;background:transparent;border-right:1px solid #0a1520;flex-shrink:0;transition:background .15s}
+.cat-tab:hover{background:var(--sidebar3);color:var(--sidebar-text)}
+.cat-tab.active{background:var(--sidebar);color:#7ec8e3;border-bottom:2px solid #7ec8e3}
+
+/* Tree nodes */
+#tree-container{flex:1;overflow-y:auto}
+#tree-container::-webkit-scrollbar{width:4px}
+#tree-container::-webkit-scrollbar-thumb{background:var(--sidebar3);border-radius:2px}
+.tree-node{display:flex;align-items:center;gap:4px;cursor:grab;color:var(--sidebar-text);min-height:26px;padding-right:6px;border-left:3px solid transparent;transition:background .1s}
+.tree-node:hover{background:var(--sidebar2)}
+.tree-node.selected{background:var(--sidebar3)!important}
+.tree-node.flagged .node-lbl::before{content:'🚩 ';font-size:10px}
+.tree-node.modified .node-id{color:var(--warning)!important}
+/* Glisser-déposer (déplacer un nœud = changer de parent ; Ctrl+glisser = copier) */
+.tree-node.dragging{opacity:.35}
+.tree-node.drag-over-valid{outline:2px solid var(--success);outline-offset:-2px;background:rgba(46,204,113,.15)}
+.tree-node.drag-over-invalid{outline:2px solid var(--danger);outline-offset:-2px;background:rgba(231,76,60,.12);cursor:no-drop}
+.tree-toggle{width:16px;text-align:center;font-size:10px;flex-shrink:0;color:var(--sidebar-muted);user-select:none}
+.tbadge{font-size:9px;padding:1px 4px;border-radius:2px;font-weight:700;letter-spacing:.2px;flex-shrink:0;text-transform:uppercase}
+.tbadge.t-categorie{background:#5b2d8a;color:#e8d5f5}
+.tbadge.t-header{background:#394a5c;color:#aec0d4}
+.tbadge.t-critere{background:#1a4b7a;color:#a8d0f0}
+.tbadge.t-constat{background:#7a1c1c;color:#f5d0d0}
+.tbadge.t-recommandation{background:#1a5c2a;color:#a8e4bb}
+.tbadge.t-saisie_valeur{background:#6a1050;color:#f4c2e8}
+.node-id{font-family:var(--mono);font-size:10px;color:var(--sidebar-muted);flex-shrink:0;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.node-lbl{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.flag-mark{font-size:10px;flex-shrink:0}
+.mod-dot{font-size:9px;color:var(--warning);flex-shrink:0}
+.search-header{padding:7px 10px;font-size:11px;color:var(--sidebar-muted);border-bottom:1px solid #0a1520;background:var(--sidebar2)}
+
+/* Editor */
+#editor-panel{background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+#editor-empty{display:flex;align-items:center;justify-content:center;flex:1;color:var(--text-muted);flex-direction:column;gap:12px}
+#editor-content{display:none;flex-direction:column;height:100%;overflow:hidden}
+#ed-header{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--border);border-left:4px solid transparent;flex-shrink:0;flex-wrap:wrap}
+.ed-id{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--text)}
+.tag-modified{background:#fff3cd;color:#856404;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px}
+.tag-flagged{background:#fdebd0;color:#a04000;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px}
+.cl-badge{display:inline-block;padding:3px 9px;border-radius:3px;font-size:11px;font-weight:500;border:1px solid transparent}
+#ed-breadcrumb{padding:5px 16px;background:#eeecea;border-bottom:1px solid var(--border);font-size:11px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:0}
+.bc-link{color:var(--accent);cursor:pointer}.bc-link:hover{text-decoration:underline}
+
+#ed-form{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px}
+#ed-form::-webkit-scrollbar{width:5px}
+#ed-form::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.flbl{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+.fval-mono{font-family:var(--mono);font-size:12px;color:var(--text);padding:6px 8px;background:#f8f7f4;border:1px solid var(--border);border-radius:var(--radius);word-break:break-all}
+#ed-form textarea,#ed-form input[type=text],#ed-form select{width:100%;border:1px solid var(--border);border-radius:var(--radius);padding:7px 9px;font-family:inherit;font-size:13px;color:var(--text);background:#fff;resize:vertical}
+#ed-form textarea:focus,#ed-form input[type=text]:focus,#ed-form select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(59,158,222,.15)}
+.field-hint{font-size:10px;color:var(--text-muted)}
+.val-ok{font-size:11px;color:var(--success)}.val-warn{font-size:11px;color:var(--warning)}.val-err{font-size:11px;color:var(--danger)}
+
+/* Children list */
+.children-list{display:flex;flex-direction:column;gap:3px;max-height:260px;overflow-y:auto}
+.child-item{display:flex;align-items:center;gap:5px;padding:4px 6px;background:#f8f7f4;border:1px solid #e5e2db;border-radius:var(--radius);border-left:3px solid transparent;cursor:pointer;transition:background .1s}
+.child-item:hover{background:#eef3f8;border-color:var(--accent)}
+.reorder-btn{background:transparent;border:1px solid #ccc;border-radius:2px;padding:0 3px;cursor:pointer;font-size:10px;line-height:1.4;color:#888;flex-shrink:0}
+.reorder-btn:hover:not(:disabled){background:#e8e8e8;color:#333}
+.reorder-btn:disabled{opacity:.3;cursor:not-allowed}
+.reorder-col{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.child-id{font-family:var(--mono);font-size:10px;color:var(--text-muted);flex-shrink:0}
+.child-lbl{font-size:12px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.child-nav{font-size:11px;color:var(--accent);flex-shrink:0;padding:2px 4px}
+
+/* Subpanels */
+.subpanel{border:1px solid var(--border);border-radius:var(--radius);padding:10px;margin-top:6px;background:#f8f9fc}
+.subpanel-warn{background:#fffbf0;border-color:#f0d080}
+.subpanel-success{background:#f0fff4;border-color:#a0d8a0}
+.subpanel-danger{background:#fff5f5;border-color:#f0b0b0}
+.subpanel-blue{background:#f0f5fb;border-color:#c8dbef}
+
+/* ID rename panel */
+#id-rename-panel{margin-top:6px}
+#rename-preview{font-size:11px;margin-top:4px}
+
+/* Parent item */
+.parent-item{display:flex;align-items:center;gap:6px;padding:5px 8px;background:#f0f5fb;border:1px solid #c8dbef;border-radius:var(--radius);cursor:pointer}
+.parent-item:hover{background:#e4eef8}
+
+
+
+/* Legacy */
+.legacy-box{background:#f9f9f9;border:1px solid #e0e0e0;border-radius:var(--radius);padding:10px;font-family:var(--mono);font-size:11px;white-space:pre-wrap;word-break:break-all;color:#555}
+
+/* Review */
+.review-active{background:#fef9e7;border:1px solid #f0a500;border-radius:var(--radius);padding:10px}
+.divider{border:none;border-top:1px solid var(--border)}
+
+/* Footer */
+#ed-footer{padding:10px 16px;background:var(--panel);border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0}
+#save-feedback{font-size:11px;color:var(--success);opacity:0;transition:opacity .3s}
+
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+/* Ghost properties */
+.ghost-row{display:flex;align-items:center;gap:8px;padding:4px 8px;border-top:1px solid #f0d0a0;font-size:11px}
+.ghost-key{font-family:var(--mono);font-size:10px;color:#c04;flex-shrink:0;min-width:120px}
+.ghost-val{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#555}
+/* Section match badge in search */
+.sec-badge{font-size:9px;font-family:var(--mono);color:var(--accent);background:rgba(59,158,222,.1);border:1px solid rgba(59,158,222,.3);border-radius:2px;padding:1px 4px;flex-shrink:0}
+/* Flagged view header */
+.flagged-header{padding:7px 10px;font-size:11px;border-bottom:1px solid #0a1520;background:#2a1a1a;color:#f4c2a0;display:flex;align-items:center;justify-content:space-between}
+
+/* Balise registry panel */
+#balise-panel{display:none;flex-direction:column;overflow:hidden;background:var(--bg)}
+#balise-toolbar{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--border);flex-wrap:wrap}
+#balise-toolbar input[type=text]{border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;font-size:12px;background:#fff;font-family:inherit}
+#balise-filename{font-size:11px;color:var(--text-muted);font-family:var(--mono)}
+#balise-content{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:20px}
+.balise-summary{display:flex;gap:18px;font-size:12px;color:var(--text-muted);flex-wrap:wrap}
+.balise-section-title{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.balise-list{display:flex;flex-direction:column;gap:6px}
+.balise-row{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.balise-row-unofficial{border-color:#f0b0b0}
+.balise-row-head{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer}
+.balise-row-head:hover{background:#f5f4f0}
+.balise-name{font-family:var(--mono);font-size:12px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.balise-count{font-size:10px;color:var(--text-muted);background:#eee;padding:1px 8px;border-radius:10px;flex-shrink:0}
+.balise-count-zero{color:#bbb}
+.balise-row-body{border-top:1px solid var(--border);padding:4px 0;background:#fafaf8}
+.balise-node-item{display:flex;align-items:center;gap:8px;padding:5px 14px;cursor:pointer;font-size:12px}
+.balise-node-item:hover{background:#eef3f8}
+.balise-empty-hint{font-size:12px;color:var(--text-muted);padding:8px 0}
+</style>
+</head>
+<body>
+
+<div id="import-screen">
+  <div class="import-box" id="drop-zone">
+    <div style="font-size:40px;margin-bottom:16px;opacity:.2;line-height:1">⬡</div>
+    <div class="import-title">ANC Tree Editor</div>
+    <div class="import-sub">Éditeur d'arbre décisionnel v3</div>
+    <button class="btn-import" onclick="openFileWithPicker()">
+      📂 Ouvrir tree.json
+    </button>
+    <div class="import-hint">ou glissez-déposez le fichier ici</div>
+  </div>
+</div>
+
+<div id="main-app">
+  <div id="toolbar">
+    <span class="tb-logo">⬡ ANC Tree</span>
+    <span class="tb-file" id="tb-file"></span>
+    <span class="tb-spacer"></span>
+    <span id="tb-stats"></span>
+    <button class="btn btn-ghost btn-sm" id="btn-flagged" onclick="toggleFlaggedView()" title="Afficher / masquer les nœuds à revoir">🚩 <span id="flag-count" style="font-size:10px"></span></button>
+    <button class="btn btn-ghost btn-sm" id="btn-balises" onclick="toggleBaliseView()" title="Gérer la liste officielle des balises DOCX">🏷️ Balises</button>
+    <button class="btn btn-ghost btn-sm" id="btn-undo" disabled onclick="undo()">↩ Annuler</button>
+    <button class="btn btn-ghost btn-sm" onclick="openFileWithPicker()" title="Ouvrir un fichier (donne accès à la sauvegarde directe)">📂 Ouvrir</button>
+    <button class="btn btn-primary btn-sm" id="btn-save" onclick="saveFile()" title="Enregistrer (écrase le fichier original si ouvert via le bouton Ouvrir)">💾 Enregistrer</button>
+    <button class="btn btn-success btn-sm" onclick="saveFileAs()" title="Enregistrer sous un nouveau nom">↓ Enregistrer sous…</button>
+  </div>
+  <div class="workspace">
+    <aside id="tree-panel">
+      <div id="tree-controls">
+        <input type="text" id="search-input" placeholder="🔍 ID, libellé ou balise…" oninput="doSearch(this.value)">
+        <div class="ctrl-row">
+          <select id="type-filter" onchange="setTypeFilter(this.value)" style="flex:1">
+            <option value="">Tous les types</option>
+            <option value="critere">Critère</option>
+            <option value="constat">Constat</option>
+            <option value="recommandation">Recommandation</option>
+            <option value="saisie_valeur">Saisie valeur</option>
+            <option value="categorie">Catégorie</option>
+            <option value="header">En-tête</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="collapseAll()" title="Tout réduire">⊟</button>
+        </div>
+      </div>
+      <div id="cat-tabs"></div>
+      <div id="tree-container"></div>
+    </aside>
+    <main id="editor-panel">
+      <div id="editor-empty">
+        <div style="font-size:48px;opacity:.1">⬡</div>
+        <div>Sélectionnez un nœud dans l'arbre</div>
+        <div style="font-size:11px;color:#bbb">↤ cliquez sur un nœud</div>
+      </div>
+      <div id="editor-content">
+        <div id="ed-header"></div>
+        <div id="ed-breadcrumb"></div>
+        <div id="ed-form"></div>
+        <div id="ed-footer"></div>
+      </div>
+    </main>
+  </div>
+  <div id="balise-panel">
+    <div id="balise-toolbar">
+      <span style="font-weight:700;color:var(--sidebar,#141f2e);font-size:13px">🏷️ Liste officielle des balises DOCX</span>
+      <span id="balise-filename">balise_registry.json</span>
+      <span class="tb-spacer"></span>
+      <input type="text" id="balise-search" placeholder="🔍 filtrer…" oninput="baliseSearchQuery=this.value;renderBalisePanel()" style="width:150px">
+      <input type="text" id="new-balise-input" placeholder="nom_de_la_balise" onkeydown="if(event.key==='Enter')addBaliseInline()" style="width:180px">
+      <button class="btn btn-success btn-sm" onclick="addBaliseInline()">+ Ajouter</button>
+      <button class="btn btn-warning btn-sm" onclick="flagUnofficialBalises()" title="Marquer 'à revoir' tous les nœuds dont la balise n'est pas dans la liste officielle">🚩 Flaguer les non-déclarées</button>
+      <button class="btn btn-ghost btn-sm" onclick="openBaliseFile()" title="Charger une liste de balises depuis un fichier JSON">📂 Ouvrir</button>
+      <button class="btn btn-primary btn-sm" onclick="saveBaliseFile()" title="Enregistrer (écrase le fichier original si ouvert via le bouton Ouvrir)">💾 Enregistrer</button>
+      <button class="btn btn-success btn-sm" onclick="saveBaliseFileAs()" title="Enregistrer sous un nouveau nom">↓ Enregistrer sous…</button>
+    </div>
+    <div id="balise-content"></div>
+  </div>
+</div>
+<input type="file" id="file-tree" accept=".json" style="display:none" onchange="loadTreeFile(event)">
+<input type="file" id="file-balise" accept=".json" style="display:none" onchange="loadBaliseFileFallback(event)">
+
+<script>
+// ════════════════════════════════════════════════
+// CONSTANTS
+// ════════════════════════════════════════════════
+const TYPE_LABELS={categorie:'CAT',header:'HDR',critere:'CRIT',constat:'CST',recommandation:'RECO',saisie_valeur:'SAI'};
+const VALID_TYPES=['categorie','header','critere','constat','recommandation','saisie_valeur'];
+const VALID_CLASSEMENTS=["Absence d'installation","Assainissement incomplet","Danger pour la sécurité des personnes","Dysfonctionnement majeur","Défaut d'entretien ou d'usure","Défaut de sécurité sanitaire","Défaut de structure ou de fermeture","Recommandation de travaux","Simple constat","Simple remarque","Sous-dimensionnement significatif"];
+const CL={"Simple remarque":{bg:'#dae8fc',fg:'#0a3d6b',bar:'#6fa8d4'},"Recommandation de travaux":{bg:'#d5e8d4',fg:'#1a5c2a',bar:'#67b37d'},"Défaut d'entretien ou d'usure":{bg:'#fff2cc',fg:'#7a5900',bar:'#c9a800'},"Sous-dimensionnement significatif":{bg:'#ffe6cc',fg:'#7a3500',bar:'#d79b00'},"Défaut de structure ou de fermeture":{bg:'#fa6800',fg:'#fff',bar:'#c04000'},"Dysfonctionnement majeur":{bg:'#f8cecc',fg:'#7a1010',bar:'#c0504d'},"Assainissement incomplet":{bg:'#e1d5e7',fg:'#4a2060',bar:'#9673a6'},"Absence d'installation":{bg:'#76608a',fg:'#fff',bar:'#5a4068'},"Défaut de sécurité sanitaire":{bg:'#e51400',fg:'#fff',bar:'#a00000'},"Danger pour la sécurité des personnes":{bg:'#8b0000',fg:'#fff',bar:'#5a0000'},"Simple constat":{bg:'#e8e8e8',fg:'#444',bar:'#aaa'}};
+const REGISTRY={"Bac à graisses":{s:"pr"},"BàG_dimensions":{s:"ok"},"BàG_entretien":{s:"ok"},"BàG_parasites":{s:"ok"},"BàG_structurel":{s:"ok"},"Filtre compact":{s:"pr"},"Filtre planté":{s:"pr"},"Filtre à sable horizontal":{s:"pr"},"Filtre à sable vertical Drainé":{s:"pr"},"Filtre à sable vertical non drainé":{s:"pr"},"Fosse":{s:"pr"},"Lit d'épandage":{s:"pr"},"Microstation":{s:"pr"},"Préfiltre":{s:"pr"},"Tertre":{s:"pr"},"Tranchée d'épandage":{s:"pr"},"acces_installation":{s:"ok"},"annexe_acces":{s:"ok"},"annexe_dimensions":{s:"ok"},"annexe_entretien":{s:"ok"},"annexe_parasites":{s:"ok"},"annexe_structurel":{s:"ok"},"cadre_visite2":{s:"ok"},"canaEU_acces":{s:"ok"},"canaEU_entretien":{s:"ok"},"canaEU_parasites":{s:"ok"},"canaEU_structurel":{s:"ok"},"fa_agrement":{s:"ok"},"fa_dimensions":{s:"ok"},"fa_entretien":{s:"ok"},"fa_parasites":{s:"ok"},"fa_structurel":{s:"ok"},"fa_type":{s:"ok"},"fosse chimique":{s:"ok"},"fosse_acces":{s:"ok"},"fosse_dimensions":{s:"ok"},"fosse_entretien":{s:"ok"},"fosse_parasites":{s:"ok"},"fosse_structurel":{s:"ok"},"fosse_ventilation":{s:"ok"},"habitation":{s:"ok"},"implantation":{s:"ok"},"obstacle_acces":{s:"ok"},"prefiltre_entretien":{s:"ok"},"prefiltre_parasite":{s:"ok"},"prefiltre_structurel":{s:"ok"},"reco_acces_installation":{s:"ok"},"reco_annexe_bf":{s:"ok"},"reco_annexe_conformité":{s:"ok"},"reco_canaEU_bf":{s:"ok"},"reco_canaEU_conformité":{s:"ok"},"reco_contexte_conformité":{s:"ok"},"reco_fa_bf":{s:"ok"},"reco_fa_conformité":{s:"ok"},"reco_implantation_bf":{s:"ok"},"reco_primaire_bf":{s:"ok"},"reco_primaire_conformité":{s:"ok"},"reco_rejet_bf":{s:"ok"},"reco_rejet_conformité":{s:"ok"},"reco_secondaire_bf":{s:"ok"},"reco_secondaire_conformité":{s:"ok"},"reco_zone_enjeu":{s:"ok"},"rejet_pb":{s:"ok"},"secondaire_acces":{s:"ok"},"secondaire_dimensions":{s:"ok"},"secondaire_parasites":{s:"ok"},"secondaire_regard_bouclage":{s:"ok"},"secondaire_regard_collecte":{s:"ok"},"secondaire_regard_repartition":{s:"ok"},"secondaire_structurel":{s:"ok"},"zone_enjeu":{s:"ok"}};
+
+// ════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════
+let tree=null,selectedId=null,expandedIds=new Set(),activeCatId=null;
+let filterType='',searchQuery='',pendingChanges={},modifiedIds=new Set();
+let isDirty=false,currentFilename='tree.json';
+const undoStack=[],MAX_UNDO=15;
+let fileHandle=null; // File System Access API handle (null si ouvert via input/drag)
+let flaggedViewActive=false;
+let baliseRegistry=[]; // liste officielle des balises DOCX (tableau de strings), éditable
+// baliseDefaultTexts : { balise: "texte affiché si la balise est vide dans une section
+// affichée" } — choix de rédaction du contrôleur, éditable balise par balise dans le
+// panneau 🏷️ Balises. Une balise absente de cette map se voit appliquer baliseFallbackText
+// (texte de repli global, lui aussi éditable). Aucune règle basée sur le nom de la
+// balise n'est codée en dur : chaque balise est traitée de façon identique.
+let baliseDefaultTexts={};
+let baliseFallbackText='R.A.S.'; // texte de repli global, éditable, utilisé si une balise n'a pas de texte propre
+// baliseDisplayBlocks : { blocId: { flag, balises, children? } } — config des blocs
+// conditionnels du template DOCX ({#afficher_x}...{/afficher_x}), lue par
+// docxBuilder.js au runtime. Cet outil n'a PAS ENCORE d'UI dédiée pour l'éditer
+// (voir avertissement dans le panneau 🏷️ Balises) : elle est uniquement préservée
+// telle quelle au chargement/enregistrement pour éviter qu'ouvrir puis enregistrer
+// balise_registry.json depuis cet outil ne l'efface silencieusement. null = absente
+// du fichier chargé (docxBuilder.js utilisera alors son filet de sécurité codé en dur).
+let baliseDisplayBlocks=null;
+let baliseFileHandle=null;
+let baliseFilename='balise_registry.json';
+let baliseViewActive=false;
+let baliseSearchQuery='';
+// baliseSource : 'file' (chargée depuis un fichier réel), 'cache' (retrouvée dans le
+// cache navigateur, PROPRE À CE POSTE — ne se synchronise pas entre machines/navigateurs),
+// 'bootstrap' (liste par défaut, ni fichier ni cache). Sert uniquement à avertir
+// l'utilisateur quand la liste affichée n'est peut-être pas la version canonique.
+let baliseSource='bootstrap';
+const BALISE_LS_KEY='ancTreeEditor_baliseRegistry';
+function initBaliseRegistry(){
+  // Priorité : dernière liste utilisée (cache navigateur) > liste REGISTRY historique (amorçage)
+  // ATTENTION : le cache est local au navigateur/poste courant, il ne synchronise rien
+  // entre plusieurs postes — d'où le badge de source affiché dans le panneau Balises.
+  try{
+    const cached=localStorage.getItem(BALISE_LS_KEY);
+    if(cached){
+      const parsed=JSON.parse(cached);
+      // Nouveau format : { list, defaultTexts, fallbackText }
+      if(parsed&&Array.isArray(parsed.list)&&parsed.list.length){
+        baliseRegistry=parsed.list;
+        baliseDefaultTexts=(parsed.defaultTexts&&typeof parsed.defaultTexts==='object')?parsed.defaultTexts:{};
+        baliseFallbackText=typeof parsed.fallbackText==='string'?parsed.fallbackText:'R.A.S.';
+        baliseDisplayBlocks=(parsed.displayBlocks&&typeof parsed.displayBlocks==='object')?parsed.displayBlocks:null;
+        baliseSource='cache';return;
+      }
+      // Ancien format (juste un tableau) — migration douce, pas de textes connus
+      if(Array.isArray(parsed)&&parsed.length){
+        baliseRegistry=parsed;baliseDefaultTexts={};baliseFallbackText='R.A.S.';baliseDisplayBlocks=null;baliseSource='cache';return;
+      }
+    }
+  }catch(e){}
+  baliseRegistry=Object.keys(REGISTRY).sort();
+  baliseDefaultTexts={};
+  baliseFallbackText='R.A.S.';
+  baliseDisplayBlocks=null;
+  baliseSource='bootstrap';
+}
+function persistBaliseRegistryCache(){
+  try{localStorage.setItem(BALISE_LS_KEY,JSON.stringify({list:baliseRegistry,defaultTexts:baliseDefaultTexts,fallbackText:baliseFallbackText,displayBlocks:baliseDisplayBlocks}));}catch(e){}
+}
+initBaliseRegistry();
+document.addEventListener('DOMContentLoaded',updateBaliseFileLabel);
+
+// ════════════════════════════════════════════════
+// HISTORY / UNDO
+// ════════════════════════════════════════════════
+function pushHistory(desc){
+  undoStack.push({snap:JSON.parse(JSON.stringify(tree)),desc,cat:activeCatId});
+  if(undoStack.length>MAX_UNDO)undoStack.shift();
+  updateUndoBtn();
+}
+function undo(){
+  if(!undoStack.length)return;
+  const e=undoStack.pop();
+  tree=e.snap; selectedId=null; pendingChanges={}; isDirty=false; modifiedIds.clear();
+  if(e.cat&&tree[e.cat]){
+    activeCatId=e.cat;
+    document.querySelectorAll('.cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.catId===e.cat));
+  }
+  expandedIds.clear(); renderTree(); updateStats(); updateUndoBtn();
+  document.getElementById('editor-empty').style.display='flex';
+  document.getElementById('editor-content').style.display='none';
+  showFeedback('↩ Annulé : '+e.desc);
+}
+function updateUndoBtn(){
+  const b=document.getElementById('btn-undo');
+  if(!b)return;
+  b.disabled=undoStack.length===0;
+  b.textContent=undoStack.length?`↩ Annuler (${undoStack.length})`:'↩ Annuler';
+}
+
+// ════════════════════════════════════════════════
+// CASCADE RENAME
+// ════════════════════════════════════════════════
+function applyRename(oldPfx,newPfx){
+  const mapping={};
+  Object.keys(tree).forEach(id=>{
+    if(id===oldPfx) mapping[id]=newPfx;
+    else if(id.startsWith(oldPfx+'.')||id.startsWith(oldPfx+'__'))
+      mapping[id]=newPfx+id.slice(oldPfx.length);
+  });
+  if(!Object.keys(mapping).length)return mapping;
+  const newNodes={};
+  Object.entries(mapping).forEach(([old,nw])=>{
+    const node=JSON.parse(JSON.stringify(tree[old]));
+    node.children=(node.children||[]).map(c=>mapping[c]||c);
+    if(node.parentId&&mapping[node.parentId])node.parentId=mapping[node.parentId];
+    newNodes[nw]=node;
+  });
+  Object.keys(mapping).forEach(id=>delete tree[id]);
+  Object.assign(tree,newNodes);
+  Object.values(tree).forEach(node=>{
+    if(node.children){
+      let ch=false;
+      const nc=node.children.map(c=>{const m=mapping[c];if(m){ch=true;return m;}return c;});
+      if(ch)node.children=nc;
+    }
+    if(node.parentId&&mapping[node.parentId])node.parentId=mapping[node.parentId];
+    if(node.exclusionGroup&&mapping[node.exclusionGroup])node.exclusionGroup=mapping[node.exclusionGroup];
+  });
+  if(selectedId&&mapping[selectedId])selectedId=mapping[selectedId];
+  const ne=new Set();expandedIds.forEach(id=>ne.add(mapping[id]||id));expandedIds=ne;
+  const nm=new Set();modifiedIds.forEach(id=>nm.add(mapping[id]||id));modifiedIds=nm;
+  return mapping;
+}
+
+function validateNewId(oldId,newId){
+  if(!newId)return 'ID vide';
+  if(newId===oldId)return 'Même ID';
+  if(/\s/.test(newId))return 'Pas d\'espaces dans un ID';
+  // Compute what would be created
+  const beingRenamed=new Set(Object.keys(tree).filter(id=>id===oldId||id.startsWith(oldId+'.')||id.startsWith(oldId+'__')));
+  const conflicts=Object.keys(tree)
+    .filter(id=>id===oldId||id.startsWith(oldId+'.')||id.startsWith(oldId+'__'))
+    .map(id=>id===oldId?newId:newId+id.slice(oldId.length))
+    .filter(nid=>tree[nid]&&!beingRenamed.has(nid));
+  if(conflicts.length)return `Conflit : "${conflicts[0]}" existe déjà`;
+  return null;
+}
+
+function getAffectedCount(nodeId){
+  return Object.keys(tree).filter(id=>id===nodeId||id.startsWith(nodeId+'.')||id.startsWith(nodeId+'__')).length;
+}
+
+// ════════════════════════════════════════════════
+// ID EDIT UI
+// ════════════════════════════════════════════════
+let idEditOpen=false;
+function toggleIdEdit(){
+  idEditOpen=!idEditOpen;
+  const p=document.getElementById('id-rename-panel');
+  if(!p)return;
+  if(idEditOpen){
+    p.style.display='block';
+    const inp=document.getElementById('new-id-input');
+    if(inp){inp.value=selectedId;inp.focus();inp.select();}
+    updateRenamePreview(selectedId);
+  } else {
+    p.style.display='none';
+  }
+}
+function updateRenamePreview(newId){
+  const el=document.getElementById('rename-preview');
+  if(!el||!selectedId)return;
+  const err=validateNewId(selectedId,newId);
+  const n=getAffectedCount(selectedId);
+  if(err) el.innerHTML=`<span class="val-err">✗ ${esc(err)}</span>`;
+  else el.innerHTML=`<span class="val-ok">✓ ${n} nœud${n>1?'s':''} renommé${n>1?'s':''}</span>`;
+}
+function applyIdEdit(){
+  const newId=document.getElementById('new-id-input')?.value?.trim();
+  if(!newId||!selectedId)return;
+  const err=validateNewId(selectedId,newId);
+  if(err){alert('Erreur : '+err);return;}
+  const oldId=selectedId;
+  const n=getAffectedCount(oldId);
+  if(!confirm(`Renommer "${oldId}" → "${newId}" (${n} nœud${n>1?'s':''})\nLes IDs de tous les descendants seront mis à jour.`))return;
+  pushHistory(`Renommage ${oldId} → ${newId}`);
+  applyRename(oldId,newId);
+  modifiedIds.add(selectedId); // selectedId updated by applyRename
+  updateStats(); renderTree();
+  if(selectedId&&tree[selectedId])renderEditor(selectedId);
+  idEditOpen=false;
+  showFeedback(`✓ Renommé → ${newId}`);
+}
+
+
+
+// ════════════════════════════════════════════════
+// REORDER — le renumérotage automatique recalcule les IDs ensuite
+// ════════════════════════════════════════════════
+function doReorderChild(e,childId,dir){
+  e.stopPropagation();
+  if(!selectedId||!tree[selectedId])return;
+  const arr=tree[selectedId].children;
+  const idx=arr.indexOf(childId);
+  if(idx<0)return;
+  const swapIdx=idx+dir;
+  if(swapIdx<0||swapIdx>=arr.length)return;
+  pushHistory(`Déplacement de ${childId} ${dir>0?'vers le bas':'vers le haut'}`);
+  // Simple permutation dans le tableau des enfants : autoRenumberTree()
+  // (appelé juste après) recalcule tous les IDs impactés d'après le nouvel
+  // ordre — plus besoin de gérer un renommage en cascade ici.
+  [arr[idx],arr[swapIdx]]=[arr[swapIdx],arr[idx]];
+  autoRenumberTree();
+  updateStats();renderTree();renderEditor(selectedId);
+}
+
+// ════════════════════════════════════════════════
+// ADD CHILD
+// ════════════════════════════════════════════════
+let addChildTargetId=null;
+function toggleAddChild(parentId){
+  const p=document.getElementById('add-child-panel');
+  if(!p)return;
+  if(p.style.display==='none'){
+    addChildTargetId=parentId||selectedId;
+    p.style.display='block';
+    const suggested=suggestChildId(addChildTargetId);
+    const inp=document.getElementById('new-child-id');
+    if(inp){inp.value=suggested;inp.focus();}
+    document.getElementById('add-child-error').textContent='';
+  } else {
+    p.style.display='none';
+    addChildTargetId=null;
+  }
+}
+function suggestChildId(parentId){
+  const children=(tree[parentId]?.children)||[];
+  let max=0;
+  children.forEach(cid=>{
+    if(cid.startsWith(parentId+'.')){
+      const sfx=cid.slice(parentId.length+1);
+      const dot=sfx.indexOf('.');
+      const part=dot>=0?sfx.slice(0,dot):sfx;
+      const n=parseInt(part);
+      if(!isNaN(n)&&n>max)max=n;
+    }
+  });
+  return parentId+'.'+(max+1);
+}
+function confirmAddChild(){
+  const pid=addChildTargetId||selectedId;
+  const childId=document.getElementById('new-child-id')?.value?.trim();
+  const type=document.getElementById('new-child-type')?.value;
+  const label=document.getElementById('new-child-label')?.value?.trim()||'';
+  const errEl=document.getElementById('add-child-error');
+  if(!childId){errEl.textContent='ID requis.';return;}
+  if(tree[childId]){errEl.textContent=`L'ID "${childId}" existe déjà.`;return;}
+  if(/\s/.test(childId)){errEl.textContent='Pas d\'espaces dans un ID.';return;}
+  pushHistory(`Ajout ${childId}`);
+  const node={type,label,parentId:pid,children:[]};
+  if(type==='constat'){node.section='';node.classement='Simple remarque';}
+  if(type==='recommandation'){node.section='';}
+  tree[childId]=node;
+  tree[pid].children.push(childId);
+  modifiedIds.add(childId);modifiedIds.add(pid);
+  const[finalChildId,finalParentId]=autoRenumberTree([childId,pid]); // renumérotage silencieux
+  updateStats();renderTree();renderEditor(finalParentId);
+  setTimeout(()=>navigateTo(finalChildId),80);
+  showFeedback(`✓ Créé : ${finalChildId}`);
+}
+
+// ════════════════════════════════════════════════
+// RENUMÉROTATION AUTOMATIQUE
+// Recalcule les IDs de tout l'arbre d'après l'ordre réel des enfants
+// (convention : racines "1","2"… ; enfants numériques "parent.n" ;
+// constat "parent.cst" ; recommandation "parent.reco"). Appelée en
+// silence après chaque modification structurelle (glisser-déposer,
+// ajout, suppression, réordonnancement) : plus de bouton manuel.
+// ════════════════════════════════════════════════
+function computeRenumberMapping(){
+  // Phase 1 : parcours en profondeur (DFS) pour calculer le nouvel ID de chaque nœud
+  const mapping={};
+  function dfs(nodeId,newId){
+    mapping[nodeId]=newId;
+    const children=(tree[nodeId]?.children||[]).filter(c=>tree[c]);
+    const nCst=children.filter(c=>tree[c]?.type==='constat').length;
+    const nReco=children.filter(c=>tree[c]?.type==='recommandation').length;
+    let numN=0,cstN=0,recoN=0;
+    children.forEach(cid=>{
+      const t=tree[cid]?.type;
+      let nid;
+      if(t==='constat'){cstN++;nid=newId+(nCst>1?`.cst${cstN}`:'.cst');}
+      else if(t==='recommandation'){recoN++;nid=newId+(nReco>1?`.reco${recoN}`:'.reco');}
+      else{numN++;nid=`${newId}.${numN}`;}
+      dfs(cid,nid);
+    });
+  }
+  // Racines triées par numéro de libellé (ordre des catégories/onglets)
+  const roots=Object.entries(tree)
+    .filter(([,n])=>n.parentId===null)
+    .sort((a,b)=>parseInt((a[1].label||'').match(/\d+/)?.[0]||99)-parseInt((b[1].label||'').match(/\d+/)?.[0]||99));
+  roots.forEach(([rid],i)=>dfs(rid,String(i+1)));
+  return mapping; // {ancienId: nouvelId}
+}
+function applyRenumberMapping(mapping){
+  // Phase 2 : reconstruction de l'arbre en une seule passe (évite les collisions intermédiaires)
+  const newTree={};
+  Object.entries(tree).forEach(([oldId,node])=>{
+    const newId=mapping[oldId]||oldId;
+    const n={...node};
+    if(n.parentId)n.parentId=mapping[n.parentId]||n.parentId;
+    n.children=(n.children||[]).map(c=>mapping[c]||c);
+    if(n.exclusionGroup&&mapping[n.exclusionGroup])n.exclusionGroup=mapping[n.exclusionGroup];
+    newTree[newId]=n;
+  });
+  Object.keys(tree).forEach(k=>delete tree[k]);
+  Object.assign(tree,newTree);
+  // Traduction des identifiants suivis par l'état de l'appli
+  if(selectedId&&mapping[selectedId])selectedId=mapping[selectedId];
+  const ne=new Set();expandedIds.forEach(id=>ne.add(mapping[id]||id));expandedIds=ne;
+  const nm=new Set();modifiedIds.forEach(id=>nm.add(mapping[id]||id));modifiedIds=nm;
+  // Les IDs qui ont réellement changé sont marqués "modifié" (repère visuel)
+  Object.keys(mapping).forEach(oldId=>{if(mapping[oldId]!==oldId)modifiedIds.add(mapping[oldId]);});
+}
+// trackIds : ancien(s) ID dont on veut connaître le nouvel ID après renumérotation
+// (ex. le nœud qu'on vient de glisser). Renvoyés dans le même ordre.
+function autoRenumberTree(trackIds){
+  const mapping=computeRenumberMapping();
+  applyRenumberMapping(mapping);
+  return (trackIds||[]).map(id=>mapping[id]||id);
+}
+
+// ════════════════════════════════════════════════
+// DRAG'N'DROP DANS L'ARBRE
+// Glisser un nœud sur un autre = le déplacer (changer de parent).
+// Ctrl (ou Cmd sur Mac) enfoncé pendant le dépôt = copier la branche
+// au lieu de la déplacer. Aucune confirmation : l'opération est
+// immédiate et annulable via "↩ Annuler".
+// ════════════════════════════════════════════════
+let dragSourceId=null; // ID du nœud actuellement glissé (null = pas de drag en cours)
+function canDropOn(sourceId,targetId,isCopy){
+  const src=tree[sourceId],tgt=tree[targetId];
+  if(!src||!tgt)return{ok:false,reason:'Nœud introuvable'};
+  if(sourceId===targetId)return{ok:false,reason:'Cible = nœud déplacé'};
+  if(tgt.type==='constat'||tgt.type==='recommandation')return{ok:false,reason:'Un constat/recommandation ne peut pas être parent'};
+  if(!isCopy){
+    if(src.type==='constat'||src.type==='recommandation')return{ok:false,reason:'Un constat/recommandation ne se déplace pas seul (Ctrl+glisser pour le copier)'};
+    if(src.parentId===targetId)return{ok:false,reason:'Déjà le parent actuel'};
+    if(getAllDescendants(sourceId).includes(targetId))return{ok:false,reason:'La cible est un descendant du nœud déplacé'};
+  }
+  return{ok:true};
+}
+function finishDragOp(newFocusId,msg){
+  buildCategoryTabs(); // au cas où le nœud a changé de statut racine/catégorie
+  updateStats();
+  navigateTo(newFocusId);
+  showFeedback(msg);
+}
+function performDragMove(sourceId,targetId){
+  const node=tree[sourceId];
+  const oldParentId=node.parentId;
+  pushHistory(`Déplacement de ${sourceId} vers ${targetId}`);
+  if(oldParentId&&tree[oldParentId])tree[oldParentId].children=tree[oldParentId].children.filter(c=>c!==sourceId);
+  tree[targetId].children.push(sourceId);
+  node.parentId=targetId;
+  modifiedIds.add(targetId);if(oldParentId)modifiedIds.add(oldParentId);
+  const[newId]=autoRenumberTree([sourceId]);
+  finishDragOp(newId,`✓ Déplacé → ${newId}`);
+}
+function performDragCopy(sourceId,targetId){
+  pushHistory(`Copie de ${sourceId} vers ${targetId}`);
+  // IDs temporaires uniques : le renumérotage automatique (juste après) leur
+  // donne leur ID définitif — pas besoin de calculer les bons numéros ici.
+  const mapping={};let tmp=0;
+  const buildMap=(id)=>{mapping[id]='__tmp_copy_'+(tmp++)+'__';(tree[id].children||[]).forEach(buildMap);};
+  buildMap(sourceId);
+  Object.entries(mapping).forEach(([oldId,tmpId])=>{
+    const orig=tree[oldId];
+    const clone=JSON.parse(JSON.stringify(orig));
+    clone.parentId=(oldId===sourceId)?targetId:mapping[orig.parentId];
+    clone.children=(clone.children||[]).map(c=>mapping[c]);
+    // exclusionGroup interne à la branche copiée → remappé ; externe → conservé tel quel
+    if(clone.exclusionGroup&&mapping[clone.exclusionGroup])clone.exclusionGroup=mapping[clone.exclusionGroup];
+    delete clone.review; // le marqueur de révision n'est pas repris sur une copie
+    tree[tmpId]=clone;
+  });
+  tree[targetId].children.push(mapping[sourceId]);
+  modifiedIds.add(targetId);
+  const[newRootId]=autoRenumberTree([mapping[sourceId]]);
+  finishDragOp(newRootId,`✓ Copié → ${newRootId}`);
+}
+
+// ════════════════════════════════════════════════
+// DELETE BRANCH
+// ════════════════════════════════════════════════
+function deleteBranch(){
+  if(!selectedId||!tree[selectedId])return;
+  const node=tree[selectedId];
+  const desc=getAllDescendants(selectedId);
+  const total=1+desc.length;
+  if(!confirm(`Supprimer "${(node.label||selectedId).slice(0,60)}" ?\n${total} nœud${total>1?'s':''} au total (nœud + ${desc.length} descendant${desc.length>1?'s':''}).\n\nAnnulable via le bouton "↩ Annuler".`))return;
+  pushHistory(`Suppression ${selectedId} (${total} nœuds)`);
+  const pid=node.parentId;
+  const wasRoot=pid===null;
+  const wasActiveCat=wasRoot&&selectedId===activeCatId;
+  if(pid&&tree[pid])tree[pid].children=tree[pid].children.filter(c=>c!==selectedId);
+  [selectedId,...desc].forEach(id=>delete tree[id]);
+  selectedId=null;
+  pendingChanges={};isDirty=false;
+  document.getElementById('editor-empty').style.display='flex';
+  document.getElementById('editor-content').style.display='none';
+  if(wasRoot){
+    buildCategoryTabs();
+    if(wasActiveCat){const roots=getSortedRoots();if(roots.length)switchCategory(roots[0].id);else{activeCatId=null;document.getElementById('tree-container').innerHTML='';}}
+  }
+  autoRenumberTree(); // referme les trous de numérotation laissés par la suppression
+  renderTree();updateStats();
+  showFeedback(`🗑 ${total} nœud${total>1?'s':''} supprimé${total>1?'s':''}`);
+}
+
+// ════════════════════════════════════════════════
+// FILE LOADING & SAVING
+// ════════════════════════════════════════════════
+async function openFileWithPicker(){
+  if('showOpenFilePicker' in window){
+    try{
+      const [handle]=await window.showOpenFilePicker({
+        types:[{description:'JSON',accept:{'application/json':['.json']}}],multiple:false
+      });
+      fileHandle=handle;
+      currentFilename=handle.name;
+      const file=await handle.getFile();
+      const text=await file.text();
+      initWithTree(JSON.parse(text));
+    }catch(err){
+      if(err.name!=='AbortError'){
+        // Navigateur sans support API ou erreur → fallback input
+        document.getElementById('file-tree').click();
+      }
+    }
+  } else {
+    document.getElementById('file-tree').click();
+  }
+}
+
+function loadTreeFile(e){
+  // Fallback : ouverture via <input type="file"> → pas de handle d'écriture
+  const file=e.target.files[0];if(!file)return;e.target.value='';
+  fileHandle=null; // pas de handle disponible via input
+  currentFilename=file.name;
+  const r=new FileReader();
+  r.onload=ev=>{try{initWithTree(JSON.parse(ev.target.result));}catch(err){alert('Erreur JSON: '+err.message);}};
+  r.readAsText(file);
+}
+
+async function saveFile(){
+  if(!tree)return;
+  if(fileHandle){
+    try{
+      const writable=await fileHandle.createWritable();
+      await writable.write(JSON.stringify(tree,null,2));
+      await writable.close();
+      modifiedIds.clear();isDirty=false;
+      updateStats();updateSaveButton();
+      showFeedback('✓ Fichier enregistré — '+currentFilename);
+    }catch(err){
+      if(err.name!=='AbortError')alert('Erreur lors de l\'enregistrement : '+err.message);
+    }
+  } else {
+    // Pas de handle → Enregistrer sous
+    saveFileAs();
+  }
+}
+
+async function saveFileAs(){
+  if(!tree)return;
+  if('showSaveFilePicker' in window){
+    try{
+      const handle=await window.showSaveFilePicker({
+        suggestedName:currentFilename,
+        types:[{description:'JSON',accept:{'application/json':['.json']}}]
+      });
+      fileHandle=handle;
+      currentFilename=handle.name;
+      document.getElementById('tb-file').textContent=currentFilename;
+      await saveFile();
+    }catch(err){
+      if(err.name!=='AbortError'){
+        // Fallback téléchargement classique
+        exportTreeDownload();
+      }
+    }
+  } else {
+    exportTreeDownload();
+  }
+}
+
+function updateSaveButton(){
+  const btn=document.getElementById('btn-save');if(!btn)return;
+  if(fileHandle){
+    btn.textContent='💾 Enregistrer';
+    btn.title='Écrase '+currentFilename+' (Ctrl+S)';
+    btn.className='btn btn-primary btn-sm';
+  } else {
+    btn.textContent='💾 Enregistrer…';
+    btn.title='Aucun handle — ouvre la boîte de dialogue de sauvegarde';
+    btn.className='btn btn-ghost btn-sm';
+  }
+}
+
+function updateFlagCount(){
+  if(!tree)return;
+  const n=Object.values(tree).filter(nd=>nd.review?.flagged).length;
+  const el=document.getElementById('flag-count');if(el)el.textContent=n?`(${n})`:'';
+  const btn=document.getElementById('btn-flagged');
+  if(btn)btn.style.color=n?'#f0a500':'';
+}
+
+function initWithTree(json){
+  tree=json;selectedId=null;expandedIds.clear();modifiedIds.clear();
+  pendingChanges={};isDirty=false;undoStack.length=0;flaggedViewActive=false;
+  document.getElementById('import-screen').style.display='none';
+  document.getElementById('main-app').style.display='grid';
+  document.getElementById('tb-file').textContent=currentFilename;
+  buildCategoryTabs();
+  const roots=getSortedRoots();
+  if(roots.length)switchCategory(roots[0].id);
+  updateStats();updateUndoBtn();updateSaveButton();updateFlagCount();
+}
+
+// ════════════════════════════════════════════════
+// CATEGORY
+// ════════════════════════════════════════════════
+function getSortedRoots(){
+  return Object.entries(tree).filter(([,n])=>n.parentId===null)
+    .map(([id,node])=>({id,node}))
+    .sort((a,b)=>{
+      const na=parseInt((a.node.label||'').match(/\d+/)?.[0]||'99');
+      const nb=parseInt((b.node.label||'').match(/\d+/)?.[0]||'99');
+      return na-nb;
+    });
+}
+function buildCategoryTabs(){
+  const tabs=document.getElementById('cat-tabs');tabs.innerHTML='';
+  getSortedRoots().forEach(({id,node})=>{
+    const btn=document.createElement('button');
+    btn.className='cat-tab';btn.dataset.catId=id;
+    btn.textContent=(node.label||'').match(/\d+/)?.[0]||id.slice(0,4);
+    btn.title=node.label||id;
+    btn.onclick=()=>switchCategory(id);
+    tabs.appendChild(btn);
+  });
+}
+function switchCategory(catId){
+  activeCatId=catId;expandedIds.clear();
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.catId===catId));
+  renderTree();
+}
+function collapseAll(){expandedIds.clear();renderTree();}
+
+// ════════════════════════════════════════════════
+// TREE RENDERING
+// ════════════════════════════════════════════════
+function renderTree(){
+  const c=document.getElementById('tree-container');c.innerHTML='';
+  if(!activeCatId||!tree[activeCatId])return;
+  renderSubtree(c,activeCatId,0);
+}
+function renderSubtree(container,nodeId,depth){
+  if(!tree[nodeId])return;
+  if(filterType&&tree[nodeId].type!==filterType&&depth>0){
+    if(expandedIds.has(nodeId))(tree[nodeId].children||[]).forEach(cid=>renderSubtree(container,cid,depth+1));
+    return;
+  }
+  container.appendChild(createNodeEl(nodeId,depth));
+  if(expandedIds.has(nodeId))(tree[nodeId].children||[]).forEach(cid=>renderSubtree(container,cid,depth+1));
+}
+function createNodeEl(nodeId,depth){
+  const node=tree[nodeId];
+  const cl=node.classement?CL[node.classement]:null;
+  const el=document.createElement('div');
+  el.className=['tree-node',node.type,nodeId===selectedId?'selected':'',modifiedIds.has(nodeId)?'modified':'',node.review?.flagged?'flagged':''].filter(Boolean).join(' ');
+  el.dataset.nodeId=nodeId;el.dataset.depth=depth;
+  el.draggable=true; // active le glisser-déposer natif HTML5 (reparentage/copie)
+  if(cl)el.style.borderLeftColor=cl.bar;
+  el.style.paddingLeft=(depth*14+(cl?3:6))+'px';
+  const idS=nodeId.length>22?nodeId.slice(0,10)+'…':nodeId;
+  const hc=(node.children||[]).length>0,ie=expandedIds.has(nodeId);
+  el.innerHTML=`<span class="tree-toggle">${hc?(ie?'▾':'▸'):''}</span><span class="tbadge t-${node.type}">${TYPE_LABELS[node.type]||'?'}</span><span class="node-id" title="${esc(nodeId)}">${esc(idS)}</span><span class="node-lbl" title="${esc(node.label||'')}">${esc(node.label||'')}</span>${node.review?.flagged?'<span class="flag-mark">🚩</span>':''}${modifiedIds.has(nodeId)?'<span class="mod-dot">●</span>':''}`;
+  return el;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const treeContainer=document.getElementById('tree-container');
+  treeContainer.addEventListener('click',e=>{
+    const el=e.target.closest('.tree-node');if(!el)return;
+    const nodeId=el.dataset.nodeId;
+    if(e.target.classList.contains('tree-toggle'))toggleExpand(nodeId,el);
+    else handleNodeSelect(nodeId);
+  });
+  // --- Drag'n'drop : déplacer (glisser) ou copier (Ctrl+glisser) un nœud ---
+  treeContainer.addEventListener('dragstart',e=>{
+    const el=e.target.closest('.tree-node');if(!el)return;
+    dragSourceId=el.dataset.nodeId;
+    e.dataTransfer.effectAllowed='copyMove';
+    e.dataTransfer.setData('text/plain',dragSourceId); // requis par certains navigateurs
+    el.classList.add('dragging');
+  });
+  treeContainer.addEventListener('dragend',e=>{
+    const el=e.target.closest('.tree-node');if(el)el.classList.remove('dragging');
+    treeContainer.querySelectorAll('.drag-over-valid,.drag-over-invalid').forEach(n=>n.classList.remove('drag-over-valid','drag-over-invalid'));
+    dragSourceId=null;
+  });
+  treeContainer.addEventListener('dragover',e=>{
+    const el=e.target.closest('.tree-node');if(!el||!dragSourceId)return;
+    e.preventDefault(); // nécessaire pour autoriser le drop
+    const isCopy=e.ctrlKey||e.metaKey;
+    const check=canDropOn(dragSourceId,el.dataset.nodeId,isCopy);
+    e.dataTransfer.dropEffect=check.ok?(isCopy?'copy':'move'):'none';
+    treeContainer.querySelectorAll('.drag-over-valid,.drag-over-invalid').forEach(n=>{if(n!==el)n.classList.remove('drag-over-valid','drag-over-invalid');});
+    el.classList.toggle('drag-over-valid',check.ok);
+    el.classList.toggle('drag-over-invalid',!check.ok);
+  });
+  treeContainer.addEventListener('dragleave',e=>{
+    const el=e.target.closest('.tree-node');if(el)el.classList.remove('drag-over-valid','drag-over-invalid');
+  });
+  treeContainer.addEventListener('drop',e=>{
+    const el=e.target.closest('.tree-node');if(!el||!dragSourceId)return;
+    e.preventDefault();
+    el.classList.remove('drag-over-valid','drag-over-invalid');
+    const srcId=dragSourceId,targetId=el.dataset.nodeId;dragSourceId=null;
+    const isCopy=e.ctrlKey||e.metaKey;
+    const check=canDropOn(srcId,targetId,isCopy);
+    if(!check.ok){showFeedback('✗ '+check.reason);return;}
+    if(isCopy)performDragCopy(srcId,targetId);
+    else performDragMove(srcId,targetId);
+  });
+  const dz=document.getElementById('drop-zone');
+  dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+  dz.addEventListener('drop',e=>{
+    e.preventDefault();dz.classList.remove('drag-over');
+    const f=e.dataTransfer.files[0];
+    if(f){fileHandle=null;currentFilename=f.name;const r=new FileReader();r.onload=ev=>{try{initWithTree(JSON.parse(ev.target.result));}catch(err){alert('Erreur JSON: '+err.message);}};r.readAsText(f);}
+  });
+  document.addEventListener('keydown',e=>{
+    if((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();undo();}
+    if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();baliseViewActive?saveBaliseFile():saveFile();}
+  });
+});
+function toggleExpand(nodeId,nodeEl){
+  const node=tree[nodeId];if(!node||(node.children||[]).length===0)return;
+  const depth=parseInt(nodeEl.dataset.depth);
+  const container=document.getElementById('tree-container');
+  if(expandedIds.has(nodeId)){
+    expandedIds.delete(nodeId);
+    const ds=getAllDescendants(nodeId),dss=new Set(ds);
+    ds.forEach(d=>expandedIds.delete(d));
+    [...container.querySelectorAll('.tree-node')].forEach(el=>{if(dss.has(el.dataset.nodeId))el.remove();});
+    nodeEl.querySelector('.tree-toggle').textContent='▸';
+  } else {
+    expandedIds.add(nodeId);
+    const kids=filterType?(node.children||[]).filter(c=>tree[c]&&tree[c].type===filterType):(node.children||[]);
+    const frag=document.createDocumentFragment();
+    kids.forEach(cid=>frag.appendChild(createNodeEl(cid,depth+1)));
+    nodeEl.after(frag);
+    nodeEl.querySelector('.tree-toggle').textContent='▾';
+  }
+}
+function getAllDescendants(nodeId){
+  const r=[];const n=tree[nodeId];if(!n?.children)return r;
+  n.children.forEach(c=>{r.push(c);r.push(...getAllDescendants(c));});return r;
+}
+
+// ════════════════════════════════════════════════
+// SEARCH
+// ════════════════════════════════════════════════
+function doSearch(q){
+  flaggedViewActive=false; // quitter le mode révision si on tape une recherche
+  searchQuery=q.trim();
+  if(searchQuery.length<2){renderTree();return;}
+  const container=document.getElementById('tree-container');container.innerHTML='';
+  const ql=searchQuery.toLowerCase();
+  const results=Object.entries(tree).map(([id,node])=>{
+    if(filterType&&node.type!==filterType)return null;
+    const matchId=id.toLowerCase().includes(ql);
+    const matchLabel=(node.label||'').toLowerCase().includes(ql);
+    const matchSection=(node.section||'').toLowerCase().includes(ql);
+    if(!matchId&&!matchLabel&&!matchSection)return null;
+    return{id,node,matchId,matchLabel,matchSection};
+  }).filter(Boolean);
+  const hdr=document.createElement('div');hdr.className='search-header';
+  hdr.textContent=`${results.length} résultat${results.length!==1?'s':''} pour "${searchQuery}"`;
+  container.appendChild(hdr);
+  results.slice(0,300).forEach(({id,node,matchId,matchLabel,matchSection})=>{
+    const cl=node.classement?CL[node.classement]:null;
+    const el=document.createElement('div');
+    el.className=['tree-node',node.type,id===selectedId?'selected':'',modifiedIds.has(id)?'modified':'',node.review?.flagged?'flagged':''].filter(Boolean).join(' ');
+    el.dataset.nodeId=id;el.dataset.depth=0;
+    el.style.paddingLeft='8px';if(cl)el.style.borderLeftColor=cl.bar;
+    const path=getPathLabels(id);
+    const secBadge=matchSection&&node.section?`<span class="sec-badge">balise: ${esc(node.section)}</span>`:'';
+    const secLine=(node.section&&!matchSection)?`<div style="font-size:9px;color:var(--sidebar-muted);font-family:var(--mono)">${esc(node.section)}</div>`:'';
+    el.innerHTML=`<span class="tbadge t-${node.type}">${TYPE_LABELS[node.type]||'?'}</span><span class="node-id" style="max-width:none;flex-shrink:0" title="${esc(id)}">${esc(id)}</span><div style="flex:1;min-width:0"><div class="node-lbl">${esc(node.label||'')}</div>${secBadge}${secLine}${path?`<div style="font-size:10px;color:var(--sidebar-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(path)}</div>`:''}</div>${node.review?.flagged?'<span class="flag-mark">🚩</span>':''}`;
+    el.addEventListener('click',()=>{clearSearch();navigateTo(id);});
+    container.appendChild(el);
+  });
+  if(results.length>300){const m=document.createElement('div');m.style.cssText='padding:6px 10px;font-size:11px;color:var(--sidebar-muted)';m.textContent=`… ${results.length-300} autres`;container.appendChild(m);}
+}
+function clearSearch(){searchQuery='';document.getElementById('search-input').value='';}
+function setTypeFilter(t){filterType=t;searchQuery.length>=2?doSearch(searchQuery):renderTree();}
+
+// ════════════════════════════════════════════════
+// FLAGGED VIEW
+// ════════════════════════════════════════════════
+function toggleFlaggedView(){
+  flaggedViewActive=!flaggedViewActive;
+  if(flaggedViewActive){
+    clearSearch();
+    showFlaggedNodes();
+  } else {
+    renderTree();
+  }
+}
+function showFlaggedNodes(){
+  if(!tree)return;
+  const container=document.getElementById('tree-container');container.innerHTML='';
+  const flagged=Object.entries(tree).filter(([,node])=>node.review?.flagged);
+  const hdr=document.createElement('div');hdr.className='flagged-header';
+  hdr.innerHTML=`<span>🚩 ${flagged.length} nœud${flagged.length!==1?'s':''} à revoir</span><button class="btn btn-xs btn-ghost" onclick="toggleFlaggedView()">✕ Vue normale</button>`;
+  container.appendChild(hdr);
+  if(!flagged.length){
+    const empty=document.createElement('div');
+    empty.style.cssText='padding:16px;font-size:12px;color:var(--sidebar-muted);text-align:center';
+    empty.textContent='Aucun nœud marqué à revoir.';
+    container.appendChild(empty);return;
+  }
+  flagged.forEach(([id,node])=>{
+    const cl=node.classement?CL[node.classement]:null;
+    const el=document.createElement('div');
+    el.className=['tree-node',node.type,id===selectedId?'selected':''].filter(Boolean).join(' ');
+    el.dataset.nodeId=id;el.dataset.depth=0;
+    el.style.paddingLeft='8px';if(cl)el.style.borderLeftColor=cl.bar;
+    const note=node.review?.note?`<div style="font-size:10px;color:#c08040;font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(node.review.note.slice(0,60))}</div>`:'';
+    const path=getPathLabels(id);
+    el.innerHTML=`<span class="flag-mark">🚩</span><span class="tbadge t-${node.type}">${TYPE_LABELS[node.type]||'?'}</span><span class="node-id" style="max-width:none;flex-shrink:0">${esc(id)}</span><div style="flex:1;min-width:0"><div class="node-lbl">${esc(node.label||'')}</div>${note}${path?`<div style="font-size:10px;color:var(--sidebar-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(path)}</div>`:''}</div>`;
+    el.addEventListener('click',()=>navigateTo(id));
+    container.appendChild(el);
+  });
+}
+function getPathLabels(nodeId){
+  const p=[];let cur=tree[nodeId]?.parentId,s=0;
+  while(cur&&s++<20){const n=tree[cur];if(!n)break;p.unshift((n.label||cur).slice(0,25));cur=n.parentId;}
+  return p.join(' › ');
+}
+
+// ════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════
+function navigateTo(nodeId){
+  if(!tree[nodeId])return;
+  clearSearch();filterType='';document.getElementById('type-filter').value='';
+  const catId=findRoot(nodeId);if(!catId)return;
+  if(catId!==activeCatId){
+    activeCatId=catId;expandedIds.clear();
+    document.querySelectorAll('.cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.catId===catId));
+  }
+  getAncestors(nodeId).forEach(id=>expandedIds.add(id));
+  renderTree();handleNodeSelect(nodeId);
+  setTimeout(()=>{const el=document.querySelector(`.tree-node[data-node-id="${CSS.escape(nodeId)}"]`);if(el)el.scrollIntoView({block:'center',behavior:'smooth'});},30);
+}
+function findRoot(nodeId){
+  let cur=nodeId,s=0;
+  while(cur&&s++<50){const n=tree[cur];if(!n)return null;if(n.parentId===null)return cur;cur=n.parentId;}
+  return null;
+}
+function getAncestors(nodeId){
+  const p=[];let cur=tree[nodeId]?.parentId,s=0;
+  while(cur&&s++<50){p.unshift(cur);cur=tree[cur]?.parentId;}return p;
+}
+
+// ════════════════════════════════════════════════
+// SELECTION
+// ════════════════════════════════════════════════
+function handleNodeSelect(nodeId){
+  if(isDirty&&!confirm('Modifications non enregistrées — les abandonner ?')){return;}
+  pendingChanges={};isDirty=false;
+  document.querySelectorAll('.tree-node.selected').forEach(el=>el.classList.remove('selected'));
+  selectedId=nodeId;
+  const el=document.querySelector(`.tree-node[data-node-id="${CSS.escape(nodeId)}"]`);
+  if(el)el.classList.add('selected');
+  idEditOpen=false;
+  renderEditor(nodeId);
+}
+
+// ════════════════════════════════════════════════
+// EDITOR
+// ════════════════════════════════════════════════
+function renderEditor(nodeId){
+  const node=tree[nodeId];if(!node)return;
+  pendingChanges={};isDirty=false;idEditOpen=false;
+  document.getElementById('editor-empty').style.display='none';
+  document.getElementById('editor-content').style.display='flex';
+  renderEditorHeader(nodeId,node);renderBreadcrumb(nodeId);
+  renderEditorForm(nodeId,node);renderEditorFooter(nodeId,node);
+}
+function renderEditorHeader(nodeId,node){
+  const cl=node.classement?CL[node.classement]:null;
+  const el=document.getElementById('ed-header');
+  el.style.borderLeftColor=cl?cl.bar:'transparent';
+  const idD=nodeId.length>35?nodeId.slice(0,16)+'…':nodeId;
+  el.innerHTML=`<span class="tbadge t-${node.type}" style="font-size:10px;padding:3px 8px">${TYPE_LABELS[node.type]||'?'}</span><span class="ed-id" title="${esc(nodeId)}">${esc(idD)}</span>${modifiedIds.has(nodeId)?'<span class="tag-modified">● modifié</span>':''}${node.review?.flagged?'<span class="tag-flagged">🚩 à revoir</span>':''}${cl?`<span class="cl-badge" style="background:${cl.bg};color:${cl.fg};border-color:${cl.bar}">${esc(node.classement)}</span>`:''}<div style="flex:1"></div><button class="btn btn-xs btn-secondary" onclick="copyId()" title="Copier l'ID">📋</button>`;
+}
+function renderBreadcrumb(nodeId){
+  const el=document.getElementById('ed-breadcrumb');
+  const anc=getAncestors(nodeId);
+  const parts=anc.map(id=>`<span class="bc-link" onclick="navigateTo('${esc(id)}')" title="${esc(tree[id]?.label||id)}">${esc((tree[id]?.label||id).slice(0,25))}</span>`);
+  const cur=esc((tree[nodeId]?.label||nodeId).slice(0,40));
+  el.innerHTML=(parts.length?parts.join('<span style="color:#aaa;margin:0 3px">›</span>')+'<span style="color:#aaa;margin:0 3px">›</span>':'')+`<span>${cur}</span>`;
+}
+
+function renderEditorForm(nodeId,node){
+  const el=document.getElementById('ed-form');
+  const parts=[];
+
+  // Label
+  parts.push(`<div class="fg"><label class="flbl">Libellé</label><textarea id="f-label" rows="3" oninput="setPend('label',this.value)">${esc(node.label||'')}</textarea></div>`);
+
+  // Type + ID (avec renommage inline)
+  const typeOpts=VALID_TYPES.map(t=>`<option value="${t}" ${node.type===t?'selected':''}>${t}</option>`).join('');
+  const n=getAffectedCount(nodeId);
+  parts.push(`<div class="fg-row">
+    <div class="fg"><label class="flbl">Type</label>
+      <select id="f-type" onchange="setPend('type',this.value)">${typeOpts}</select>
+      <span class="field-hint">⚠ Modifier le type peut invalider la structure</span>
+    </div>
+    <div class="fg"><label class="flbl">ID du nœud</label>
+      <div style="display:flex;gap:6px;align-items:center">
+        <div class="fval-mono" style="flex:1;overflow:hidden;text-overflow:ellipsis" title="${esc(nodeId)}">${esc(nodeId)}</div>
+        <button class="btn btn-outline btn-xs" onclick="toggleIdEdit()">✏ Renommer</button>
+      </div>
+      <div id="id-rename-panel" style="display:none" class="subpanel subpanel-blue">
+        <label class="flbl">Nouvel ID</label>
+        <input type="text" id="new-id-input" value="${esc(nodeId)}" oninput="updateRenamePreview(this.value)" style="font-family:var(--mono);margin-top:4px">
+        <div id="rename-preview" style="margin-top:4px;font-size:11px"></div>
+        <div class="field-hint" style="margin-top:3px">${n} nœud${n>1?'s':''} concerné${n>1?'s':''} (ce nœud + ${n-1} descendant${n-1>1?'s':''})</div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <button class="btn btn-primary btn-sm" onclick="applyIdEdit()">✓ Appliquer</button>
+          <button class="btn btn-secondary btn-sm" onclick="toggleIdEdit()">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>`);
+
+  // Section/Balise
+  const showSec=['constat','recommandation','categorie','header','saisie_valeur'].includes(node.type);
+  if(showSec){
+    const isSaisie=node.type==='saisie_valeur';
+    const regOpts=[...baliseRegistry].sort().map(k=>`<option value="${esc(k)}">`).join('');
+    const valHtml=isSaisie?'':renderSectionVal(node.section||'');
+    parts.push(`<div class="fg"><label class="flbl">${isSaisie?'Champ DOCX (section)':'Section / Balise'}</label>
+      <input type="text" id="f-section" value="${esc(node.section||'')}" list="sec-opts" oninput="setPend('section',this.value);updateSectionVal(this.value,${isSaisie})">
+      <datalist id="sec-opts">${regOpts}</datalist>
+      <div id="section-val">${valHtml}</div>
+    </div>`);
+  }
+
+  // Classement
+  if(node.type==='constat'){
+    const clOpts=VALID_CLASSEMENTS.map(c=>{const co=CL[c];return`<option value="${esc(c)}" ${node.classement===c?'selected':''} style="${co?`background:${co.bg};color:${co.fg}`:''})">${esc(c)}</option>`;}).join('');
+    const cl=node.classement?CL[node.classement]:null;
+    parts.push(`<div class="fg"><label class="flbl">Classement</label>
+      <select id="f-classement" onchange="setPend('classement',this.value);updateClPreview(this.value)">
+        <option value="">— aucun —</option>${clOpts}
+      </select>
+      <div id="cl-preview" style="margin-top:6px">${cl?`<span class="cl-badge" style="background:${cl.bg};color:${cl.fg};border:1px solid ${cl.bar}">${esc(node.classement)}</span>`:''}</div>
+    </div>`);
+  }
+
+  // Exclusion (critère) — selectionMode supprimé (n'existe plus dans v4)
+  if(node.type==='critere'){
+    const membersHtml=renderExclGroupMembers(node.exclusionGroup||'',nodeId);
+    parts.push(`<div class="fg"><label class="flbl">Groupe d'exclusion</label>
+      <input type="text" id="f-excl" value="${esc(node.exclusionGroup||'')}"
+             oninput="setPend('exclusionGroup',this.value||undefined);updateExclMembers(this.value,'${esc(nodeId)}')"
+             placeholder="Valeur partagée entre les membres du groupe radio (ex : 1.2.3)">
+      <div id="excl-members" style="margin-top:4px">${membersHtml}</div>
+    </div>`);
+  }
+
+  // Nœud parent (lecture seule) — pour changer de parent ou copier vers un
+  // autre parent : glisser ce nœud dans l'arbre (Ctrl+glisser = copier)
+  if(node.parentId!==null){
+    const par=tree[node.parentId];
+    parts.push(`<div class="fg"><label class="flbl">Nœud parent</label>
+      <div class="parent-item" onclick="navigateTo('${esc(node.parentId)}')">
+        <span class="tbadge t-${par?.type||'critere'}">${TYPE_LABELS[par?.type]||'?'}</span>
+        <span class="child-id">${esc(node.parentId)}</span>
+        <span class="child-lbl">${esc((par?.label||'').slice(0,50))}</span>
+        <span style="font-size:11px;color:var(--accent);flex-shrink:0">↑ naviguer</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px">↕ Glisser ce nœud dans l'arbre pour le déplacer · Ctrl+glisser pour le copier</div>
+    </div>`);
+  } else {
+    parts.push(`<div class="fg"><label class="flbl">Nœud parent</label>
+      <div style="font-size:11px;color:var(--text-muted);padding:5px 0;font-style:italic">Nœud racine — sans parent</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px">↕ Glisser ce nœud dans l'arbre pour lui assigner un parent · Ctrl+glisser pour le copier</div>
+    </div>`);
+  }
+
+  // Children (with reorder + add)
+  const children=node.children||[];
+  const childRows=children.slice(0,30).map((cid,idx)=>{
+    const c=tree[cid];const cl=c?.classement?CL[c.classement]:null;
+    return `<div class="child-item" style="${cl?`border-left-color:${cl.bar}`:''}" onclick="navigateTo('${esc(cid)}')">
+      <div class="reorder-col">
+        <button class="reorder-btn" onclick="doReorderChild(event,'${esc(cid)}',-1)" ${idx===0?'disabled':''} title="Monter">↑</button>
+        <button class="reorder-btn" onclick="doReorderChild(event,'${esc(cid)}',1)" ${idx===children.length-1?'disabled':''} title="Descendre">↓</button>
+      </div>
+      <span class="tbadge t-${c?.type||'critere'}">${TYPE_LABELS[c?.type]||'?'}</span>
+      <span class="child-id">${esc(cid)}</span>
+      <span class="child-lbl">${esc((c?.label||'').slice(0,55))}</span>
+      <span class="child-nav" onclick="event.stopPropagation();navigateTo('${esc(cid)}')">→</span>
+    </div>`;
+  }).join('');
+  const moreStr=children.length>30?`<div style="padding:4px 8px;font-size:11px;color:var(--text-muted)">… et ${children.length-30} autres</div>`:'';
+
+  // Add child form
+  const addPanel=`<div style="margin-top:6px">
+    <button class="btn btn-outline btn-sm" onclick="toggleAddChild('${esc(nodeId)}')">+ Ajouter un enfant</button>
+    <div id="add-child-panel" style="display:none" class="subpanel subpanel-success" style="margin-top:8px">
+      <div class="fg-row">
+        <div class="fg"><label class="flbl">ID</label>
+          <input type="text" id="new-child-id" style="font-family:var(--mono)">
+        </div>
+        <div class="fg"><label class="flbl">Type</label>
+          <select id="new-child-type">
+            <option value="critere">Critère</option>
+            <option value="constat">Constat</option>
+            <option value="recommandation">Recommandation</option>
+            <option value="header">En-tête</option>
+            <option value="saisie_valeur">Saisie valeur</option>
+            <option value="categorie">Catégorie</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg" style="margin-top:8px"><label class="flbl">Libellé (optionnel)</label>
+        <input type="text" id="new-child-label">
+      </div>
+      <div id="add-child-error" style="font-size:11px;color:var(--danger);margin-top:4px"></div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <button class="btn btn-success btn-sm" onclick="confirmAddChild()">✓ Créer</button>
+        <button class="btn btn-secondary btn-sm" onclick="toggleAddChild()">Annuler</button>
+      </div>
+    </div>
+  </div>`;
+
+  parts.push(`<div class="fg"><label class="flbl">Enfants (${children.length})</label>
+    ${children.length?`<div class="children-list">${childRows}${moreStr}</div>`:'<div style="color:var(--text-muted);font-size:12px;margin-bottom:4px">Aucun enfant</div>'}
+    ${addPanel}
+  </div>`);
+
+  // Propriétés fantômes (champs inconnus du schéma actuel)
+  const ghosts=getGhostFields(node);
+  if(Object.keys(ghosts).length){
+    const ghostRows=Object.entries(ghosts).map(([k,v])=>
+      `<div class="ghost-row">
+        <span class="ghost-key">${esc(k)}</span>
+        <span class="ghost-val" title="${esc(String(v))}">${esc(String(v).slice(0,80))}</span>
+        <button class="btn btn-xs btn-danger-outline" onclick="deleteGhostField('${esc(k)}')" title="Supprimer cette propriété">✕</button>
+      </div>`
+    ).join('');
+    parts.push(`<div class="fg"><label class="flbl" style="color:var(--warning)">⚠ Propriétés non reconnues (${Object.keys(ghosts).length})</label>
+      <div style="border:1px solid #f0d0a0;border-radius:var(--radius);overflow:hidden;background:#fffbf0">
+        <div style="padding:3px 8px;font-size:10px;color:#7a5500;border-bottom:1px solid #f0d0a0">Ces champs ne font plus partie du schéma v4 — vérifiez avant de supprimer.</div>
+        ${ghostRows}
+      </div>
+    </div>`);
+  }
+
+  // Legacy
+  if(node.legacy&&Object.keys(node.legacy).length){
+    parts.push(`<div class="fg"><label class="flbl">⚠ Champs legacy</label><div class="legacy-box">${esc(JSON.stringify(node.legacy,null,2))}</div></div>`);
+  }
+
+  // Review
+  parts.push(`<hr class="divider"><div class="fg"><label class="flbl">Marqueur de révision</label><div id="review-panel">${renderReviewPanel(node)}</div></div>`);
+
+  el.innerHTML=parts.join('');
+}
+
+function renderReviewPanel(node){
+  if(!node.review?.flagged)return`<button class="btn btn-outline btn-sm" onclick="toggleReviewFlag()">🚩 Marquer à revoir</button>`;
+  return`<div class="review-active"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="color:var(--warning);font-weight:600">🚩 Marqué à revoir</span><button class="btn btn-sm btn-danger-outline" onclick="toggleReviewFlag()">✕ Retirer</button></div><label class="flbl">Note</label><textarea id="f-review-note" rows="2" oninput="setReviewNote(this.value)">${esc(node.review?.note||'')}</textarea></div>`;
+}
+
+function renderEditorFooter(nodeId,node){
+  document.getElementById('ed-footer').innerHTML=`
+    <button class="btn btn-primary" onclick="saveCurrentNode()">✓ Enregistrer</button>
+    <button class="btn btn-secondary" onclick="discardChanges()">Annuler</button>
+    <div style="flex:1"></div>
+    <span id="save-feedback"></span>
+    <button class="btn btn-danger-outline btn-sm" onclick="deleteBranch()" title="Supprimer ce nœud et tous ses descendants">🗑 Supprimer la branche</button>
+  `;
+}
+
+// ════════════════════════════════════════════════
+// PENDING / SAVE
+// ════════════════════════════════════════════════
+function setPend(field,value){isDirty=true;if(value===undefined||value==='')pendingChanges[field]=undefined;else pendingChanges[field]=value;}
+function saveCurrentNode(){
+  if(!selectedId)return;
+  const node=tree[selectedId];
+  Object.entries(pendingChanges).forEach(([k,v])=>{if(v===undefined)delete node[k];else node[k]=v;});
+  pendingChanges={};isDirty=false;modifiedIds.add(selectedId);
+  updateTreeNodeEl(selectedId);renderEditor(selectedId);updateStats();showFeedback('✓ Enregistré');
+}
+function discardChanges(){if(!selectedId)return;pendingChanges={};isDirty=false;renderEditor(selectedId);}
+
+// ════════════════════════════════════════════════
+// REVIEW
+// ════════════════════════════════════════════════
+function toggleReviewFlag(){
+  if(!selectedId)return;const node=tree[selectedId];
+  if(node.review?.flagged)delete node.review;else node.review={flagged:true,note:''};
+  modifiedIds.add(selectedId);updateTreeNodeEl(selectedId);updateStats();updateFlagCount();
+  document.getElementById('review-panel').innerHTML=renderReviewPanel(node);renderEditorHeader(selectedId,node);
+  if(flaggedViewActive)showFlaggedNodes(); // rafraîchir la vue révision si active
+}
+function setReviewNote(note){if(!selectedId)return;const n=tree[selectedId];if(!n.review)n.review={flagged:true};n.review.note=note;modifiedIds.add(selectedId);}
+
+// ════════════════════════════════════════════════
+// SECTION / CLASSEMENT VALIDATION
+// ════════════════════════════════════════════════
+function renderSectionVal(section){
+  if(!section)return`<span class="val-warn">⚠ Section non renseignée</span>`;
+  if(baliseRegistry.includes(section))return`<span class="val-ok">✓ Balise officielle</span>`;
+  return`<span class="val-err">✗ Balise non déclarée : "${esc(section)}"</span>`;
+}
+function updateSectionVal(val,isSaisie){setPend('section',val);if(isSaisie)return;const el=document.getElementById('section-val');if(el)el.innerHTML=renderSectionVal(val);}
+function updateClPreview(val){setPend('classement',val||undefined);const el=document.getElementById('cl-preview');if(!el)return;const cl=val?CL[val]:null;el.innerHTML=cl?`<span class="cl-badge" style="background:${cl.bg};color:${cl.fg};border:1px solid ${cl.bar}">${esc(val)}</span>`:'';}
+
+// ════════════════════════════════════════════════
+// DOM UPDATE
+// ════════════════════════════════════════════════
+function updateTreeNodeEl(nodeId){
+  const el=document.querySelector(`.tree-node[data-node-id="${CSS.escape(nodeId)}"]`);if(!el)return;
+  const node=tree[nodeId];const cl=node.classement?CL[node.classement]:null;
+  el.className=['tree-node',node.type,nodeId===selectedId?'selected':'',modifiedIds.has(nodeId)?'modified':'',node.review?.flagged?'flagged':''].filter(Boolean).join(' ');
+  el.style.borderLeftColor=cl?cl.bar:'transparent';
+  const hc=(node.children||[]).length>0,ie=expandedIds.has(nodeId),idS=nodeId.length>22?nodeId.slice(0,10)+'…':nodeId;
+  el.innerHTML=`<span class="tree-toggle">${hc?(ie?'▾':'▸'):''}</span><span class="tbadge t-${node.type}">${TYPE_LABELS[node.type]||'?'}</span><span class="node-id" title="${esc(nodeId)}">${esc(idS)}</span><span class="node-lbl" title="${esc(node.label||'')}">${esc(node.label||'')}</span>${node.review?.flagged?'<span class="flag-mark">🚩</span>':''}${modifiedIds.has(nodeId)?'<span class="mod-dot">●</span>':''}`;
+}
+
+// ════════════════════════════════════════════════
+// GROUPE D'EXCLUSION — membres
+// ════════════════════════════════════════════════
+function renderExclGroupMembers(groupName,currentId){
+  if(!groupName||!groupName.trim())return'';
+  const members=Object.entries(tree)
+    .filter(([id,node])=>node.exclusionGroup===groupName)
+    .map(([id,node])=>({id,label:node.label||'',isCurrent:id===currentId}));
+  if(!members.length)
+    return`<div class="val-warn" style="font-size:10px">⚠ Aucun autre nœud avec ce groupe</div>`;
+  const rows=members.map(m=>`
+    <div onclick="navigateTo('${esc(m.id)}')" style="display:flex;align-items:center;gap:5px;padding:3px 7px;font-size:11px;cursor:pointer;border-top:1px solid #ece9e3;${m.isCurrent?'background:#e8eeff;':''}">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted);flex-shrink:0">${esc(m.id)}</span>
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:${m.isCurrent?'var(--accent)':'var(--text)'}">${esc(m.label.slice(0,52))}</span>
+      ${m.isCurrent?'<span style="font-size:9px;color:var(--accent);flex-shrink:0">← actuel</span>':''}
+    </div>`).join('');
+  return`<div style="border:1px solid #dedad4;border-radius:3px;overflow:hidden;margin-top:2px">
+    <div style="padding:2px 7px;background:#f0ede8;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px">${members.length} membre${members.length>1?'s':''} — cliquer pour naviguer</div>
+    ${rows}
+  </div>`;
+}
+
+function updateExclMembers(groupName,currentId){
+  const el=document.getElementById('excl-members');
+  if(el)el.innerHTML=renderExclGroupMembers(groupName,currentId);
+}
+
+// ════════════════════════════════════════════════
+// GHOST PROPERTIES
+// ════════════════════════════════════════════════
+const SCHEMA_FIELDS={
+  _common:new Set(['type','label','parentId','children','legacy','review','_id']),
+  categorie:new Set(['section','exclusionGroup']),
+  header:new Set(['section','exclusionGroup']),
+  critere:new Set(['exclusionGroup','section']),
+  constat:new Set(['section','classement','exclusionGroup']),
+  recommandation:new Set(['section','classement','exclusionGroup']),
+  saisie_valeur:new Set(['section','exclusionGroup']),
+};
+function getGhostFields(node){
+  const expected=new Set([...SCHEMA_FIELDS._common,...(SCHEMA_FIELDS[node.type]||[])]);
+  const ghosts={};
+  Object.keys(node).forEach(k=>{if(!expected.has(k))ghosts[k]=node[k];});
+  return ghosts;
+}
+function deleteGhostField(fieldName){
+  if(!selectedId||!tree[selectedId])return;
+  if(!confirm(`Supprimer la propriété "${fieldName}" du nœud "${selectedId}" ?\n\nAnnulable via ↩ Annuler.`))return;
+  pushHistory(`Suppression propriété "${fieldName}" sur ${selectedId}`);
+  delete tree[selectedId][fieldName];
+  modifiedIds.add(selectedId);
+  renderEditor(selectedId);updateStats();
+  showFeedback(`✓ Propriété "${fieldName}" supprimée`);
+}
+
+// ════════════════════════════════════════════════
+// EXPORT / DOWNLOAD FALLBACK
+// ════════════════════════════════════════════════
+function exportTreeDownload(){
+  // Téléchargement classique avec horodatage (fallback si File System Access indisponible)
+  if(!tree)return;
+  const now=new Date();
+  const yy=String(now.getFullYear()).slice(-2);
+  const mo=String(now.getMonth()+1).padStart(2,'0');
+  const dd=String(now.getDate()).padStart(2,'0');
+  const hh=String(now.getHours()).padStart(2,'0');
+  const mi=String(now.getMinutes()).padStart(2,'0');
+  const suffix=yy+mo+dd+hh+mi;
+  const base=currentFilename.replace(/\.json$/i,'').replace(/_\d{10}$/,'');
+  const blob=new Blob([JSON.stringify(tree,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=`${base}_${suffix}.json`;
+  a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// ════════════════════════════════════════════════
+// BALISE REGISTRY — panneau (liste officielle des balises DOCX)
+// ════════════════════════════════════════════════
+function toggleBaliseView(){
+  if(!tree){alert('Ouvrez d\'abord un fichier tree.json.');return;}
+  if(!baliseViewActive&&isDirty&&!confirm('Modifications non enregistrées sur le nœud en cours — les abandonner ?'))return;
+  baliseViewActive=!baliseViewActive;
+  pendingChanges={};isDirty=false;
+  document.querySelector('.workspace').style.display=baliseViewActive?'none':'grid';
+  document.getElementById('balise-panel').style.display=baliseViewActive?'flex':'none';
+  const btn=document.getElementById('btn-balises');
+  if(btn)btn.className=baliseViewActive?'btn btn-primary btn-sm':'btn btn-ghost btn-sm';
+  if(baliseViewActive){updateBaliseFileLabel();renderBalisePanel();}
+}
+function leaveBaliseView(){
+  baliseViewActive=false;
+  document.querySelector('.workspace').style.display='grid';
+  document.getElementById('balise-panel').style.display='none';
+  const btn=document.getElementById('btn-balises');
+  if(btn)btn.className='btn btn-ghost btn-sm';
+}
+function navigateFromBalise(nodeId){
+  leaveBaliseView();
+  navigateTo(nodeId);
+}
+
+function getNodesUsingSection(sectionName){
+  if(!tree)return[];
+  return Object.entries(tree)
+    .filter(([,node])=>node.section===sectionName)
+    .map(([id,node])=>({id,label:node.label||'',type:node.type}))
+    .sort((a,b)=>a.id.localeCompare(b.id));
+}
+function getUnofficialSections(){
+  if(!tree)return[];
+  const official=new Set(baliseRegistry);
+  const map={};
+  Object.entries(tree).forEach(([id,node])=>{
+    const s=node.section;
+    if(!s||!s.trim())return;
+    if(official.has(s))return;
+    if(!map[s])map[s]=[];
+    map[s].push({id,label:node.label||'',type:node.type});
+  });
+  return Object.entries(map)
+    .map(([section,nodes])=>({section,nodes:nodes.sort((a,b)=>a.id.localeCompare(b.id))}))
+    .sort((a,b)=>a.section.localeCompare(b.section));
+}
+
+function renderBalisePanel(){
+  if(!tree)return;
+  const container=document.getElementById('balise-content');
+  if(!container)return;
+  const ql=baliseSearchQuery.trim().toLowerCase();
+  const official=[...baliseRegistry].sort((a,b)=>a.localeCompare(b)).filter(b=>!ql||b.toLowerCase().includes(ql));
+  const unofficialAll=getUnofficialSections();
+  const unofficial=unofficialAll.filter(u=>!ql||u.section.toLowerCase().includes(ql));
+  const totalNodesWithSection=Object.values(tree).filter(n=>n.section&&n.section.trim()).length;
+  const totalUnofficialNodes=unofficialAll.reduce((s,u)=>s+u.nodes.length,0);
+
+  const nodeItemHtml=n=>`<div class="balise-node-item" onclick="navigateFromBalise('${esc(n.id)}')">
+      <span class="tbadge t-${n.type}">${TYPE_LABELS[n.type]||'?'}</span>
+      <span class="child-id">${esc(n.id)}</span>
+      <span class="child-lbl">${esc((n.label||'').slice(0,70))}</span>
+      ${tree[n.id]?.review?.flagged?'<span class="flag-mark">🚩</span>':''}
+    </div>`;
+
+  let html='';
+  html+=`<div class="balise-summary">
+    <span><strong>${baliseRegistry.length}</strong> balise${baliseRegistry.length>1?'s':''} officielle${baliseRegistry.length>1?'s':''}</span>
+    <span><strong>${totalNodesWithSection}</strong> nœud${totalNodesWithSection>1?'s':''} avec balise renseignée</span>
+    <span style="${totalUnofficialNodes?'color:var(--danger);font-weight:600':''}">${totalUnofficialNodes} nœud${totalUnofficialNodes>1?'s':''} avec balise non déclarée</span>
+  </div>`;
+
+  if(!baliseDisplayBlocks){
+    html+=`<div style="font-size:11px;color:#7a5500;background:#fff2cc;border:1px solid #e0c060;border-radius:var(--radius);padding:7px 10px">
+      ⚠ Ce fichier balise_registry.json ne contient pas (encore) de section <code>displayBlocks</code>
+      (config des blocs conditionnels du rapport DOCX — quels blocs comme "Fosse" ou "Ouvrages annexes"
+      s'affichent selon les balises renseignées). Le générateur de rapport utilise en attendant une
+      configuration de secours intégrée au code. Cet outil ne permet pas encore de l'éditer
+      visuellement ; elle est préservée telle quelle si vous ouvrez un fichier qui la contient déjà.
+    </div>`;
+  }
+
+  html+=`<div style="font-size:11px;color:var(--text-muted);background:#f0f5fb;border:1px solid #c8dbef;border-radius:var(--radius);padding:7px 10px;display:flex;flex-direction:column;gap:6px">
+    <div>📝 Texte affiché quand une section conditionnelle est visible mais qu'une balise précise reste vide. Chaque balise peut avoir son propre texte (dépliez-la ci-dessous) ; sans texte propre, le texte de repli global ci-dessous s'applique.</div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <label class="flbl" style="font-size:9px;white-space:nowrap">Texte de repli global</label>
+      <input type="text" value="${esc(baliseFallbackText)}" placeholder="(aucun — les balises vides resteront vides)"
+             oninput="setBaliseFallbackText(this.value)" style="font-size:11px;flex:1">
+    </div>
+  </div>`;
+
+  html+='<div><div class="balise-section-title">📋 Balises officielles</div>';
+  if(!official.length){
+    html+=`<div class="balise-empty-hint">Aucune balise${ql?' correspondant à la recherche':' — ajoutez-en une ci-dessus'}.</div>`;
+  }else{
+    html+='<div class="balise-list">';
+    official.forEach((b,idx)=>{
+      const nodes=getNodesUsingSection(b);
+      const rowId='off-'+idx;
+      const customText=baliseDefaultTexts[b];
+      const hasCustom=customText!==undefined&&customText!==null&&String(customText).trim()!=='';
+      html+=`<div class="balise-row">
+        <div class="balise-row-head" onclick="toggleBaliseRow('${rowId}')">
+          <span class="tree-toggle" id="tog-${rowId}">▸</span>
+          <span class="balise-name" title="${esc(b)}">${esc(b)}</span>
+          ${hasCustom?`<span title="Texte personnalisé : ${esc(customText)}" style="font-size:11px">📝</span>`:''}
+          <span class="balise-count ${nodes.length?'':'balise-count-zero'}">${nodes.length} nœud${nodes.length>1?'s':''}</span>
+          <button class="btn btn-xs btn-outline" onclick="event.stopPropagation();startRenameBalise('${esc(b)}')" title="Renommer (répercuté sur les nœuds qui l'utilisent)">✏</button>
+          <button class="btn btn-xs btn-danger-outline" onclick="event.stopPropagation();deleteBalise('${esc(b)}')" title="Retirer de la liste officielle">✕</button>
+        </div>
+        <div class="balise-row-body" id="body-${rowId}" style="display:none">
+          <div style="padding:8px 14px;border-bottom:1px solid var(--border);background:#fbfaf7;display:flex;flex-direction:column;gap:4px">
+            <label class="flbl" style="font-size:9px">Texte si la section s'affiche mais que cette balise reste vide</label>
+            <input type="text" value="${esc(hasCustom?customText:'')}" placeholder="${baliseFallbackText?esc(baliseFallbackText)+'  (texte de repli global)':'(aucun texte de repli défini)'}"
+                   oninput="setBaliseDefaultText('${esc(b)}',this.value)" style="font-size:11px">
+          </div>
+          ${nodes.length?nodes.map(nodeItemHtml).join(''):'<div class="balise-empty-hint" style="padding-left:14px">Aucun nœud n\'utilise cette balise actuellement.</div>'}
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+
+  html+='<div><div class="balise-section-title" style="color:var(--danger)">⚠ Balises utilisées mais non déclarées</div>';
+  if(!unofficial.length){
+    html+=`<div class="balise-empty-hint">${unofficialAll.length?'Aucune correspondant à la recherche.':'Aucune — tous les nœuds utilisent une balise officielle. 👍'}</div>`;
+  }else{
+    html+='<div class="balise-list">';
+    unofficial.forEach(({section,nodes},idx)=>{
+      const rowId='unof-'+idx;
+      html+=`<div class="balise-row balise-row-unofficial">
+        <div class="balise-row-head" onclick="toggleBaliseRow('${rowId}')">
+          <span class="tree-toggle" id="tog-${rowId}">▸</span>
+          <span class="balise-name" style="color:var(--danger)" title="${esc(section)}">${esc(section)}</span>
+          <span class="balise-count">${nodes.length} nœud${nodes.length>1?'s':''}</span>
+          <button class="btn btn-xs btn-success" onclick="event.stopPropagation();addBaliseFromUnofficial('${esc(section)}')" title="Ajouter à la liste officielle">+ Officialiser</button>
+        </div>
+        <div class="balise-row-body" id="body-${rowId}" style="display:none">
+          ${nodes.map(nodeItemHtml).join('')}
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  }
+  html+='</div>';
+
+  container.innerHTML=html;
+}
+
+function toggleBaliseRow(rowId){
+  const body=document.getElementById('body-'+rowId);
+  const tog=document.getElementById('tog-'+rowId);
+  if(!body)return;
+  const isOpen=body.style.display!=='none';
+  body.style.display=isOpen?'none':'block';
+  if(tog)tog.textContent=isOpen?'▸':'▾';
+}
+
+function addBaliseInline(){
+  const inp=document.getElementById('new-balise-input');if(!inp)return;
+  const val=inp.value.trim();if(!val)return;
+  if(baliseRegistry.includes(val)){alert('Cette balise existe déjà dans la liste officielle.');return;}
+  baliseRegistry.push(val);
+  persistBaliseRegistryCache();
+  inp.value='';
+  renderBalisePanel();
+  showFeedback(`✓ Balise "${val}" ajoutée`);
+}
+function addBaliseFromUnofficial(section){
+  if(baliseRegistry.includes(section))return;
+  baliseRegistry.push(section);
+  persistBaliseRegistryCache();
+  renderBalisePanel();
+  showFeedback(`✓ "${section}" ajoutée à la liste officielle`);
+}
+function deleteBalise(name){
+  if(!confirm(`Retirer "${name}" de la liste officielle des balises ?\nLes nœuds qui l'utilisent ne seront pas modifiés, mais elle apparaîtra alors comme non déclarée.`))return;
+  baliseRegistry=baliseRegistry.filter(b=>b!==name);
+  delete baliseDefaultTexts[name];
+  persistBaliseRegistryCache();
+  renderBalisePanel();
+  showFeedback(`🗑 "${name}" retirée de la liste officielle`);
+}
+function startRenameBalise(oldName){
+  const newName=prompt('Nouveau nom pour la balise :',oldName);
+  if(newName===null)return;
+  const trimmed=newName.trim();
+  if(!trimmed||trimmed===oldName)return;
+  if(baliseRegistry.includes(trimmed)){alert('Une balise avec ce nom existe déjà dans la liste officielle.');return;}
+  const affected=Object.entries(tree).filter(([,node])=>node.section===oldName);
+  const msg=affected.length
+    ?`Renommer "${oldName}" → "${trimmed}" ?\n${affected.length} nœud${affected.length>1?'s':''} du tree.json seront mis à jour pour utiliser la nouvelle balise.`
+    :`Renommer "${oldName}" → "${trimmed}" dans la liste officielle ?`;
+  if(!confirm(msg))return;
+  if(affected.length){
+    pushHistory(`Renommage balise ${oldName} → ${trimmed} (${affected.length} nœuds)`);
+    affected.forEach(([id,node])=>{node.section=trimmed;modifiedIds.add(id);});
+    updateStats();
+  }
+  baliseRegistry=baliseRegistry.map(b=>b===oldName?trimmed:b);
+  if(Object.prototype.hasOwnProperty.call(baliseDefaultTexts,oldName)){
+    baliseDefaultTexts[trimmed]=baliseDefaultTexts[oldName];
+    delete baliseDefaultTexts[oldName];
+  }
+  persistBaliseRegistryCache();
+  renderBalisePanel();
+  showFeedback(`✓ Balise renommée → ${trimmed}`);
+}
+
+// ── Texte de remplacement (affiché quand une section est visible mais
+// qu'une balise précise reste vide) ─────────────────────────────────────────
+// Deux niveaux, tous deux éditables et stockés dans balise_registry.json :
+//   - baliseDefaultTexts[balise] : texte propre à cette balise
+//   - baliseFallbackText         : texte de repli utilisé si la balise n'a
+//                                  pas de texte propre
+// Aucune règle basée sur le nom de la balise n'est codée en dur ici — même
+// logique que dans docxBuilder.js (resolveDefaultText).
+function setBaliseDefaultText(balise,value){
+  const v=(value||'').trim();
+  if(v)baliseDefaultTexts[balise]=v;
+  else delete baliseDefaultTexts[balise];
+  persistBaliseRegistryCache();
+}
+function setBaliseFallbackText(value){
+  baliseFallbackText=(value||'').trim();
+  persistBaliseRegistryCache();
+}
+function flagUnofficialBalises(){
+  if(!tree)return;
+  const officialSet=new Set(baliseRegistry);
+  const targets=Object.entries(tree).filter(([,node])=>node.section&&node.section.trim()&&!officialSet.has(node.section));
+  if(!targets.length){alert('Aucun nœud avec une balise non officielle.');return;}
+  if(!confirm(`Marquer ${targets.length} nœud(s) utilisant une balise non officielle comme "à revoir" ?`))return;
+  pushHistory(`Flag balises non officielles (${targets.length} nœuds)`);
+  targets.forEach(([id,node])=>{
+    const noteAdd=`Balise non officielle : "${node.section}"`;
+    if(!node.review)node.review={flagged:true,note:noteAdd};
+    else{
+      node.review.flagged=true;
+      if(!node.review.note)node.review.note=noteAdd;
+      else if(!node.review.note.includes(noteAdd))node.review.note+=' | '+noteAdd;
+    }
+    modifiedIds.add(id);
+  });
+  updateStats();updateFlagCount();renderBalisePanel();
+  showFeedback(`🚩 ${targets.length} nœud(s) marqué(s) à revoir`);
+}
+
+// ── Fichier balise_registry.json : ouverture / enregistrement ────────────────
+async function openBaliseFile(){
+  if('showOpenFilePicker' in window){
+    try{
+      const [handle]=await window.showOpenFilePicker({types:[{description:'JSON',accept:{'application/json':['.json']}}],multiple:false});
+      baliseFileHandle=handle;baliseFilename=handle.name;
+      const file=await handle.getFile();const text=await file.text();
+      applyLoadedBaliseJson(JSON.parse(text));
+    }catch(err){
+      if(err.name!=='AbortError')document.getElementById('file-balise').click();
+    }
+  }else{
+    document.getElementById('file-balise').click();
+  }
+}
+function loadBaliseFileFallback(e){
+  const file=e.target.files[0];if(!file)return;e.target.value='';
+  baliseFileHandle=null;baliseFilename=file.name;
+  const r=new FileReader();
+  r.onload=ev=>{try{applyLoadedBaliseJson(JSON.parse(ev.target.result));}catch(err){alert('Erreur JSON : '+err.message);}};
+  r.readAsText(file);
+}
+function applyLoadedBaliseJson(json){
+  let arr=null,defaults={},fallback='R.A.S.',displayBlocks=null;
+  if(Array.isArray(json))arr=json;
+  else if(json&&Array.isArray(json.balises)){
+    arr=json.balises;
+    if(json.defaultTexts&&typeof json.defaultTexts==='object')defaults=json.defaultTexts;
+    if(typeof json.defaultFallbackText==='string')fallback=json.defaultFallbackText;
+    // displayBlocks : pas encore d'UI d'édition dans cet outil (voir avertissement dans
+    // le panneau 🏷️ Balises) — on le préserve tel quel pour ne pas l'effacer au prochain
+    // enregistrement depuis cet outil.
+    if(json.displayBlocks&&typeof json.displayBlocks==='object'&&Object.keys(json.displayBlocks).length)displayBlocks=json.displayBlocks;
+  }
+  else{alert('Format non reconnu — attendu un tableau de balises ou {"balises":[...]}.');return;}
+  baliseRegistry=[...new Set(arr.filter(x=>typeof x==='string'&&x.trim()))].sort();
+  // Ne conserver que les textes correspondant à des balises encore présentes dans la liste
+  const kept={};
+  baliseRegistry.forEach(b=>{if(defaults[b]!==undefined)kept[b]=defaults[b];});
+  baliseDefaultTexts=kept;
+  baliseFallbackText=fallback;
+  baliseDisplayBlocks=displayBlocks;
+  baliseSource='file';
+  persistBaliseRegistryCache();
+  updateBaliseFileLabel();
+  renderBalisePanel();
+  showFeedback('✓ Liste de balises chargée — '+baliseFilename);
+}
+/** Sérialise l'état courant en objet balise_registry.json (displayBlocks inclus si connu). */
+function _serializeBaliseRegistry(){
+  const out={balises:[...baliseRegistry].sort(),defaultTexts:baliseDefaultTexts,defaultFallbackText:baliseFallbackText};
+  if(baliseDisplayBlocks)out.displayBlocks=baliseDisplayBlocks;
+  return out;
+}
+async function saveBaliseFile(){
+  if(baliseFileHandle){
+    try{
+      const writable=await baliseFileHandle.createWritable();
+      await writable.write(JSON.stringify(_serializeBaliseRegistry(),null,2));
+      await writable.close();
+      baliseSource='file';updateBaliseFileLabel();
+      showFeedback('✓ Liste enregistrée — '+baliseFilename);
+    }catch(err){
+      if(err.name!=='AbortError')alert('Erreur lors de l\'enregistrement : '+err.message);
+    }
+  }else{
+    saveBaliseFileAs();
+  }
+}
+async function saveBaliseFileAs(){
+  if('showSaveFilePicker' in window){
+    try{
+      const handle=await window.showSaveFilePicker({suggestedName:baliseFilename,types:[{description:'JSON',accept:{'application/json':['.json']}}]});
+      baliseFileHandle=handle;baliseFilename=handle.name;
+      updateBaliseFileLabel();
+      await saveBaliseFile();
+    }catch(err){
+      if(err.name!=='AbortError')exportBaliseDownload();
+    }
+  }else{
+    exportBaliseDownload();
+  }
+}
+function exportBaliseDownload(){
+  const blob=new Blob([JSON.stringify(_serializeBaliseRegistry(),null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=baliseFilename||'balise_registry.json';
+  a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  baliseSource='file';updateBaliseFileLabel();
+}
+function updateBaliseFileLabel(){
+  const el=document.getElementById('balise-filename');
+  if(!el)return;
+  const badges={
+    file:{txt:'✓ fichier',style:'color:#1a5c2a;background:#d5e8d4'},
+    cache:{txt:'⚠ cache navigateur — non partagé entre postes',style:'color:#7a5500;background:#fff2cc'},
+    bootstrap:{txt:'⚠ liste par défaut — à charger ou enregistrer',style:'color:#7a5500;background:#fff2cc'},
+  };
+  const b=badges[baliseSource]||badges.bootstrap;
+  el.innerHTML=`${esc(baliseFilename)} <span style="font-family:var(--font-body,sans-serif);font-size:9px;padding:1px 6px;border-radius:8px;margin-left:4px;${b.style}">${b.txt}</span>`;
+}
+
+// ════════════════════════════════════════════════
+// STATS / UTILS
+// ════════════════════════════════════════════════
+function updateStats(){
+  if(!tree)return;
+  const total=Object.keys(tree).length,mod=modifiedIds.size;
+  const el=document.getElementById('tb-stats');if(!el)return;
+  el.innerHTML=`<span style="color:var(--sidebar-muted)">${total} nœuds</span>${mod?`<span style="color:var(--warning)"> · ${mod} modifié${mod>1?'s':''}</span>`:''}`;
+  updateFlagCount();
+}
+function showFeedback(msg){
+  const el=document.getElementById('save-feedback');if(!el)return;
+  el.textContent=msg;el.style.cssText='font-size:11px;color:var(--success);opacity:1;transition:opacity .3s';
+  setTimeout(()=>el.style.opacity='0',2500);
+}
+function copyId(){if(!selectedId)return;navigator.clipboard.writeText(selectedId).then(()=>showFeedback('📋 ID copié'));}
+function esc(s){return(s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+</script>
+</body>
+</html>

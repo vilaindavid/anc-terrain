@@ -29,6 +29,13 @@
  *   { value: number }         pour un saisie_valeur
  * Rien n'est jamais "verrouillé" : décocher ne supprime pas les réponses
  * plus profondes, elles réapparaissent si on recoche.
+ *
+ * CHAMP `excluded` (v4.1)
+ * ───────────────────────
+ * Un critère appartenant à un exclusionGroup dont un autre membre est coché
+ * reçoit `excluded: true` dans l'arbre visible. L'UI peut alors le griser
+ * pour indiquer visuellement qu'il a été écarté par la sélection courante.
+ * Le clic reste fonctionnel (permet de changer la sélection dans le groupe).
  */
 
 // ─── Sections (onglets) ────────────────────────────────────────────────────
@@ -219,18 +226,32 @@ export function collectRecords(node, tree) {
  *   header:       { id, type:'header', label, children }
  *   saisie_valeur:{ id, type:'saisie_valeur', label, value }
  *   critere:      { id, type:'critere', label, exclusionGroup, checked,
- *                    records, children }
+ *                    excluded, records, children }
  *
  * `children` ne contient que les nœuds affichables (headers toujours
  * déroulés, critere déroulé seulement si coché). constat/recommandation
  * n'apparaissent jamais comme lignes : ils sont exposés via `records`.
+ *
+ * `excluded` est true quand un autre membre du même exclusionGroup est coché.
+ * L'UI grise le nœud pour indiquer qu'il est écarté, mais le clic reste
+ * possible (change la sélection dans le groupe radio).
  */
 export function buildVisibleTree(sectionId, tree, answers) {
   if (!tree[sectionId]) return [];
-  return _buildChildren(sectionId, tree, answers);
+
+  // Pré-calcul unique (O(n)) : groupes d'exclusion qui ont un membre coché.
+  // Évite de rescanner tout l'arbre pour chaque critère pendant _buildChildren.
+  const activeGroups = new Set();
+  for (const [id, node] of Object.entries(tree)) {
+    if (node.exclusionGroup && isChecked(id, answers)) {
+      activeGroups.add(node.exclusionGroup);
+    }
+  }
+
+  return _buildChildren(sectionId, tree, answers, activeGroups);
 }
 
-function _buildChildren(nodeId, tree, answers) {
+function _buildChildren(nodeId, tree, answers, activeGroups) {
   const node = tree[nodeId];
   if (!node) return [];
   const out = [];
@@ -245,7 +266,7 @@ function _buildChildren(nodeId, tree, answers) {
         id: childId,
         type: 'header',
         label: child.label,
-        children: _buildChildren(childId, tree, answers), // toujours déplié
+        children: _buildChildren(childId, tree, answers, activeGroups), // toujours déplié
       });
       continue;
     }
@@ -262,14 +283,20 @@ function _buildChildren(nodeId, tree, answers) {
 
     if (child.type === 'critere') {
       const checked = isChecked(childId, answers);
+      // excluded = un autre membre du même groupe radio est actuellement coché
+      const excluded = !checked &&
+        !!child.exclusionGroup &&
+        activeGroups.has(child.exclusionGroup);
+
       out.push({
         id: childId,
         type: 'critere',
         label: child.label,
         exclusionGroup: child.exclusionGroup || null,
         checked,
+        excluded,
         records: checked ? collectRecords(child, tree) : [],
-        children: checked ? _buildChildren(childId, tree, answers) : [],
+        children: checked ? _buildChildren(childId, tree, answers, activeGroups) : [],
       });
     }
   }

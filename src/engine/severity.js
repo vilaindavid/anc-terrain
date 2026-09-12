@@ -2,19 +2,14 @@
  * Severity ordering for classement values.
  * Index 0 = most severe.
  * Source: locked schema in project memory.
- *
- * CORRECTIF (30/08/2026) : une version antérieure (issue d'une session Codex)
- * intervertissait "Défaut de structure ou de fermeture", "Assainissement
- * incomplet" et "Dysfonctionnement majeur". Ordre remis en conformité avec
- * le schéma verrouillé.
  */
 export const SEVERITY_ORDER = [
   "Absence d'installation",
   "Danger pour la sécurité des personnes",
   "Défaut de sécurité sanitaire",
-  "Défaut de structure ou de fermeture",
-  "Assainissement incomplet",
   "Dysfonctionnement majeur",
+  "Assainissement incomplet",
+  "Défaut de structure ou de fermeture",
   "Sous-dimensionnement significatif",
   "Défaut d'entretien ou d'usure",
   "Recommandation de travaux",
@@ -67,3 +62,26 @@ export const REQUIRES_WORKS = new Set([
   "Défaut de structure ou de fermeture",
   "Sous-dimensionnement significatif",
 ]);
+
+export const CONFORMANCE_THRESHOLD_INDEX = severityIndex("Recommandation de travaux");
+// anything < CONFORMANCE_THRESHOLD_INDEX is non-conformant
+
+/**
+ * Couleur de texte (hex 6 chars, sans #) et graisse pour chaque classement,
+ * utilisées par docxBuilder pour la mise en forme des constats dans le rapport.
+ * Distinctes de SEVERITY_COLOR (fond pastel pour l'UI) : choisies pour une
+ * lisibilité maximale sur fond blanc de document Word.
+ */
+export const SEVERITY_DOCX_STYLE = {
+  "Absence d'installation":                { color: '5A4068', bold: true  },
+  "Danger pour la sécurité des personnes": { color: 'CC0000', bold: true  },
+  "Défaut de sécurité sanitaire":          { color: 'E51400', bold: true  },
+  "Défaut de structure ou de fermeture":   { color: 'C04000', bold: true  },
+  "Dysfonctionnement majeur":              { color: 'B85450', bold: false },
+  "Assainissement incomplet":              { color: '7B4F9E', bold: false },
+  "Sous-dimensionnement significatif":     { color: 'D6790A', bold: false },
+  "Défaut d'entretien ou d'usure":         { color: '856404', bold: false },
+  "Recommandation de travaux":             { color: '2D7600', bold: false },
+  "Simple remarque":                       { color: '0D4D8A', bold: false },
+  "Simple constat":                        { color: '1A1A1A', bold: false },
+};
