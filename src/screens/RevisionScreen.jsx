@@ -4,10 +4,6 @@
  * Sections listées verticalement (dérivées de l'arbre, plus de liste figée).
  * Chaque section se déplie pour montrer ses constats avec bandeau de sévérité.
  * Taper un constat ouvre l'éditeur inline (annotation + retour au wizard).
- *
- * Une carte "Informations du dossier" en haut de l'écran permet d'accéder
- * à l'AdminScreen en mode édition pour corriger le nom, l'adresse, la date
- * de visite, etc. sans avoir à recréer une session.
  */
 
 import { useState, useEffect } from 'react';
@@ -19,6 +15,9 @@ import SeverityBadge from '../components/SeverityBadge.jsx';
 
 export default function RevisionScreen({ tree, sessionId, nav }) {
   const [session, setSession]     = useState(null);
+  // Nombre de réponses/constats/saisies qui pointent vers des nœuds absents
+  // de l'arbre courant — voir note dans load() ci-dessous.
+  const [orphanedCount, setOrphanedCount] = useState(0);
   const [expanded, setExpanded]   = useState(new Set());
   const [editing, setEditing]     = useState(null); // nodeId being edited
   const [noteVal, setNoteVal]     = useState('');
@@ -26,13 +25,43 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
   const load = async () => {
     const s = await getSession(sessionId);
     if (!s) { setSession(s); return; }
+    // Vue d'affichage uniquement : une mise à jour de l'arbre (suppression
+    // de branches, etc.) ne doit JAMAIS effacer silencieusement et
+    // irréversiblement des données de terrain déjà saisies. On calcule la
+    // version filtrée pour l'écran, mais on ne la sauvegarde plus ici — la
+    // purge reste une action explicite (bandeau d'avertissement + bouton).
     const { session: repaired, removedCount } = repairOrphanedData(s, tree);
-    if (removedCount > 0) {
-      await saveSession(repaired);
-      setSession(repaired);
-    } else {
-      setSession(s);
-    }
+    setSession(repaired);
+    setOrphanedCount(removedCount);
+  };
+
+  const handlePurgeOrphaned = async () => {
+    if (!window.confirm(
+      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) qui portent sur des critères absents de l'arbre actuel ?\n\nCette action est irréversible.`
+    )) return;
+    const fresh = await getSession(sessionId);
+    if (!fresh) return;
+    const { session: cleaned } = repairOrphanedData(fresh, tree);
+    await saveSession(cleaned);
+    setOrphanedCount(0);
+    setSession(cleaned);
+  };
+
+  const toggleRejetSuperficiel = async () => {
+    // On repart d'une lecture fraîche de la base (et non de `session`, qui
+    // peut être la vue filtrée pour l'affichage) pour ne jamais persister
+    // par effet de bord une session "réparée" en modifiant ce simple
+    // réglage manuel.
+    const fresh = await getSession(sessionId);
+    if (!fresh) return;
+    const updated = {
+      ...fresh,
+      admin: { ...fresh.admin, rejet_superficiel: !fresh.admin?.rejet_superficiel },
+    };
+    await saveSession(updated);
+    const { session: repaired, removedCount } = repairOrphanedData(updated, tree);
+    setSession(repaired);
+    setOrphanedCount(removedCount);
   };
 
   useEffect(() => { load(); }, [sessionId]);
@@ -50,7 +79,7 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
   if (!session) return <div className="screen"><div className="spinner" style={{ margin: 'auto', marginTop: 60 }} /></div>;
 
   const { admin, constats = [], saisies = [] } = session;
-  const verdict = computeVerdict(constats);
+  const verdict = computeVerdict(constats, admin);
 
   // Grouper les constats par section
   const bySection = {};
@@ -82,10 +111,6 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
     load();
   };
 
-  const dateVisiteStr = admin.date_visite
-    ? new Date(admin.date_visite).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' })
-    : '—';
-
   return (
     <div className="screen">
       <div className="topbar">
@@ -100,6 +125,23 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
         </button>
       </div>
 
+      {orphanedCount > 0 && (
+        <div style={{ background: '#FEF3C7', color: '#92400E', padding: '10px 16px',
+                       fontSize: '.8rem', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{ flex: 1 }}>
+            ⚠️ {orphanedCount} élément{orphanedCount > 1 ? 's' : ''} (réponse{orphanedCount > 1 ? 's' : ''}/constat{orphanedCount > 1 ? 's' : ''}/saisie{orphanedCount > 1 ? 's' : ''})
+            {orphanedCount > 1 ? ' portent' : ' porte'} sur des critères absents de l'arbre actuel. Conservé{orphanedCount > 1 ? 's' : ''} tel quel dans le dossier, mais non visible{orphanedCount > 1 ? 's' : ''} ici.
+          </span>
+          <button
+            style={{ background: '#fff', color: '#92400E', border: 'none', borderRadius: 6,
+                      minHeight: 32, padding: '0 10px', fontSize: '.78rem', cursor: 'pointer', fontWeight: 600 }}
+            onClick={handlePurgeOrphaned}
+          >
+            🗑 Purger définitivement
+          </button>
+        </div>
+      )}
+
       {/* Verdict summary */}
       <div style={{ background: verdict.conforme ? '#1E8449' : '#C0392B', color: '#fff',
                      padding: '12px 16px', fontSize: '.9rem', display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -109,36 +151,32 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
         {verdict.maxClassement && (
           <span style={{ opacity: .85, fontSize: '.85rem' }}>— {verdict.maxClassement}</span>
         )}
-        <button
-          className="btn"
-          onClick={() => nav.goExport(sessionId)}
-          style={{ marginLeft: 'auto', background: '#fff', color: '#1a1a1a',
-                   minHeight: 36, padding: '0 14px', fontSize: '.82rem' }}
-        >
-          ↑ Exporter
-        </button>
+        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
+          {/* Réglage manuel : n'est déductible d'aucun constat de l'arbre,
+              c'est une observation de terrain que l'inspecteur coche lui-même. */}
+          <label
+            title="Coche la case « Dont rejet superficiel » du rapport DOCX"
+            style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '.8rem', cursor: 'pointer',
+                      background: 'rgba(255,255,255,.15)', padding: '4px 10px', borderRadius: 6 }}
+          >
+            <input
+              type="checkbox"
+              checked={!!session.admin?.rejet_superficiel}
+              onChange={toggleRejetSuperficiel}
+            />
+            Rejet superficiel
+          </label>
+          <button
+            className="btn"
+            onClick={() => nav.goExport(sessionId)}
+            style={{ background: '#fff', color: '#1a1a1a', minHeight: 36, padding: '0 14px', fontSize: '.82rem' }}
+          >
+            ↑ Exporter
+          </button>
+        </div>
       </div>
 
       <div style={{ overflowY: 'auto', flex: 1 }}>
-        {/* Informations du dossier — accessibles et modifiables à tout moment */}
-        <div className="card" style={{ margin: '10px 12px' }}>
-          <div className="card-body" style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p className="card-label">Informations du dossier</p>
-              <p style={{ fontWeight: 700, marginTop: 2 }}>{admin.nom_proprietaire}</p>
-              <p className="text-muted" style={{ fontSize: '.85rem' }}>{admin.adresse}</p>
-              <p className="text-muted" style={{ fontSize: '.85rem' }}>Visite du {dateVisiteStr}</p>
-            </div>
-            <button
-              className="btn btn-ghost"
-              style={{ minHeight: 44, padding: '0 14px', fontSize: '.82rem', flexShrink: 0 }}
-              onClick={() => nav.goAdmin(sessionId)}
-            >
-              ✏️ Modifier
-            </button>
-          </div>
-        </div>
-
         {sections.map(sec => {
           const secId    = sec.id;
           const csts      = bySection[secId] || [];

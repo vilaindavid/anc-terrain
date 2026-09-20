@@ -1,35 +1,22 @@
 /**
- * mailTemplate — generate the mail_proprietaire.txt body.
+ * mailTemplate — génère le corps du mail mail_proprietaire.txt.
  *
- * The inspector copies this text into their mail client and sends the PDF
- * to the owner after the office finalises the docx.
+ * L'inspecteur copie ce texte dans son client mail et y joint le PDF
+ * du rapport après finalisation du .docx au bureau.
  */
 
 import { computeVerdict } from '../engine/verdict.js';
 
-const DELAI_TEXT = {
-  '1_an':  'sous 1 an (ou 12 mois en cas de cession immobilière)',
-  '4_ans': 'sous 4 ans (ou 12 mois en cas de cession immobilière)',
-  'aucun': '',
-};
-
 export function buildMailText(session) {
   const { admin, constats = [] } = session;
-  const verdict = computeVerdict(constats);
+  const verdict = computeVerdict(constats, admin);
 
   const date = new Date(admin.date_visite).toLocaleDateString('fr-FR', {
     day: '2-digit', month: 'long', year: 'numeric',
   });
 
   const objet = `Rapport de contrôle ANC — ${admin.adresse} — dossier ${admin.id_dossier}`;
-
-  const verdictPara = verdict.conforme
-    ? `À l'issue du contrôle, l'installation est déclarée CONFORME${verdict.checkboxes.conforme_reco ? ', avec recommandations de travaux ou d\'entretien' : ''}.`
-    : `À l'issue du contrôle, l'installation est déclarée NON CONFORME.${
-        verdict.delai && verdict.delai !== 'aucun'
-          ? ` Des travaux de mise en conformité sont obligatoires ${DELAI_TEXT[verdict.delai]}.`
-          : ''
-      }`;
+  const verdictPara = _mailVerdictParagraph(verdict);
 
   return `Objet : ${objet}
 
@@ -58,4 +45,31 @@ N° dossier : ${admin.id_dossier}
 Propriétaire : ${admin.nom_proprietaire}
 ${admin.nom_occupant ? `Occupant : ${admin.nom_occupant}\n` : ''}Date de visite : ${date}
 `;
+}
+
+/**
+ * Construit le paragraphe de verdict pour le mail selon le caseType.
+ * Les phrases réglementaires (absence/risque/sans_risque) sont utilisées
+ * telles quelles depuis verdict.summaryText — texte exact CCMV.
+ */
+function _mailVerdictParagraph(verdict) {
+  const addPeriod = s => /[.!?]$/.test(s.trim()) ? s : `${s}.`;
+
+  switch (verdict.caseType) {
+    case 'absence':
+    case 'risque':
+    case 'sans_risque':
+      // Phrases 1, 2, 3 — texte réglementaire utilisé directement
+      return addPeriod(verdict.summaryText);
+
+    case 'conforme_reco':
+      return (
+        "À l'issue du contrôle, l'installation est déclarée CONFORME, " +
+        "avec recommandations de travaux et d'entretien. Sans obligation de travaux."
+      );
+
+    case 'conforme':
+    default:
+      return "À l'issue du contrôle, l'installation est déclarée CONFORME.";
+  }
 }

@@ -26,14 +26,21 @@ export default function PhotoCapture({ sessionId, nodeId, balise, onCapture }) {
     const ext      = file.name.split('.').pop() || 'jpg';
     const filename = `${sessionId}_${balise || nodeId}_photo.${ext}`;
 
-    // Read as dataUrl for offline storage
-    const dataUrl = await _readAsDataUrl(file);
-    const photoId = await addPhoto({ sessionId, nodeId, balise, filename, mimeType: file.type, dataUrl });
+    try {
+      // Read as dataUrl for offline storage
+      const dataUrl = await _readAsDataUrl(file);
+      const photoId = await addPhoto({ sessionId, nodeId, balise, filename, mimeType: file.type, dataUrl });
 
-    onCapture?.({ id: photoId, sessionId, nodeId, balise, filename, mimeType: file.type, dataUrl });
-
-    // Reset input so the same file can be re-selected if needed
-    e.target.value = '';
+      onCapture?.({ id: photoId, sessionId, nodeId, balise, filename, mimeType: file.type, dataUrl });
+    } catch (err) {
+      // addPhoto refuse d'enregistrer une photo sans contenu binaire
+      // exploitable — on prévient l'inspecteur plutôt que de le laisser
+      // croire que la photo a été prise.
+      alert('La photo n\'a pas pu être enregistrée : ' + err.message + '\nMerci de reprendre la photo.');
+    } finally {
+      // Reset input so the same file can be re-selected if needed
+      e.target.value = '';
+    }
   };
 
   return (

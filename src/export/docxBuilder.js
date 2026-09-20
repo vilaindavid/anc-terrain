@@ -39,37 +39,57 @@ async function loadTemplate() {
 
 // ─── Marqueurs de couleur ────────────────────────────────────────────────────
 //
-// Format : «RRGGBB:B»texte«END»
-// Les guillemets « [U+00AB] et » [U+00BB] ne sont pas des caractères XML
-// spéciaux et passent inchangés à travers l'échappement de docxtemplater.
-// Le texte capturé entre les marqueurs est déjà échappé XML (par docxtemplater)
-// et doit être réinséré tel quel dans <w:t>.
+// Format constat avec badge : «RRGGBB»ÉTIQUETTE_GRAVITÉ¤texte_du_constat«END»
+// Format constat sans badge : «RRGGBB»¤texte_du_constat«END»
+// Format note               : «888888»¤[Note : texte]«END»
+//
+// ¤ (U+00A4) sépare l'étiquette du badge du texte du constat.
+// « [U+00AB] et » [U+00BB] ne sont pas des caractères XML spéciaux.
+// Après le rendu docxtemplater, applyRichFormatting() génère :
+//   - un run « badge » : fond coloré (w:shd), texte blanc/sombre selon luminosité
+//   - un <w:br/> (saut de ligne dans la cellule)
+//   - un run « constat » : texte noir sans formatage
 
 const MARKER_END = '\u00ABEND\u00BB';
+const UNBADGED_CLASSEMENTS = new Set(['Simple constat', 'Simple remarque']);
+
+/**
+ * Calcule la couleur du texte du badge (blanc ou quasi-noir) selon la luminosité
+ * relative du fond, pour garantir le contraste.
+ */
+function _badgeTextColor(bgHex) {
+  const r = parseInt(bgHex.slice(0, 2), 16);
+  const g = parseInt(bgHex.slice(2, 4), 16);
+  const b = parseInt(bgHex.slice(4, 6), 16);
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return lum > 0.5 ? '1A1A1A' : 'FFFFFF';
+}
 
 /**
  * Construit la valeur pour une balise riche (avec données).
  *
  * Ordre :
  *   1. valeur de saisie (texte neutre, sans marqueur)
- *   2. constats triés par gravité, chacun sur sa propre ligne :
- *        ligne  texte constat  → marqueur coloré
- *        ligne  [Note : ...]   → marqueur gris italique (si note présente)
+ *   2. constats triés par gravité, chacun sur deux lignes :
+ *        «COLOR»ÉTIQUETTE¤texte_constat«END»  → badge + saut de ligne + texte
+ *        «COLOR»¤texte_constat«END»            → texte sans badge (classements simples)
+ *        «888888»¤[Note : ...]«END»            → texte gris italique (si note)
  *
- * Le \n entre lignes est converti en <w:br/> par docxtemplater (linebreaks:true),
- * ce qui place chaque segment dans son propre run — indispensable pour que
- * applyRichFormatting() puisse les cibler individuellement.
+ * Le \n entre items est converti en <w:br/> par docxtemplater (linebreaks:true),
+ * ce qui isole chaque segment dans son propre run.
  *
- * @param {string|null} saisieText  valeur mesurée (ex. « 3000 L »)
- * @param {Array<{text,classement,note}>} cstItems  constats triés sévérité desc
+ * @param {string|null}                        saisieText  valeur mesurée
+ * @param {Array<{text,classement,note}>}      cstItems    constats triés sévérité desc
  */
 function buildRichValue(saisieText, cstItems) {
   const parts = [];
-  if (saisieText) parts.push(saisieText); // texte neutre, pas de marqueur
+  if (saisieText) parts.push(saisieText);
   for (const { text, classement, note } of cstItems) {
     const st = SEVERITY_DOCX_STYLE[classement] || { color: '1A1A1A', bold: false };
-    parts.push(`\u00AB${st.color}:${st.bold ? '1' : '0'}\u00BB${text}${MARKER_END}`);
-    if (note) parts.push(`\u00AB888888:0\u00BB[Note\u00a0: ${note}]${MARKER_END}`);
+    const label = UNBADGED_CLASSEMENTS.has(classement) ? '' : classement;
+    // «COLOR»ÉTIQUETTE¤texte«END» (ou sans étiquette pour les classements simples)
+    parts.push(`\u00AB${st.color}\u00BB${label}\u00A4${text}${MARKER_END}`);
+    if (note) parts.push(`\u00AB888888\u00BB\u00A4[Note\u00a0: ${note}]${MARKER_END}`);
   }
   return parts.join('\n');
 }
@@ -79,12 +99,18 @@ function buildRichValue(saisieText, cstItems) {
 let _baliseTextConfigCache = null;
 
 /**
- * Charge defaultTexts, defaultFallbackText et richTextBalises depuis
+ * Charge defaultTexts, defaultFallbackText, richTextBalises et les balises
+ * toujours visibles depuis
  * balise_registry.json (cache mémoire).
  */
 async function loadBaliseTextConfig() {
   if (_baliseTextConfigCache) return _baliseTextConfigCache;
-  const empty = { defaultTexts: {}, fallbackText: '', richTextBalises: new Set() };
+  const empty = {
+    defaultTexts: {},
+    fallbackText: '',
+    richTextBalises: new Set(),
+    alwaysVisibleBalises: new Set(),
+  };
   try {
     const res = await fetch(`${import.meta.env.BASE_URL}balise_registry.json`);
     if (!res.ok) { _baliseTextConfigCache = empty; return _baliseTextConfigCache; }
@@ -93,6 +119,11 @@ async function loadBaliseTextConfig() {
       defaultTexts: (json && typeof json.defaultTexts === 'object' && json.defaultTexts) || {},
       fallbackText: (json && typeof json.defaultFallbackText === 'string') ? json.defaultFallbackText : '',
       richTextBalises: new Set(Array.isArray(json.richTextBalises) ? json.richTextBalises : []),
+      alwaysVisibleBalises: new Set(
+        Array.isArray(json?.displayBlocks?.toujoursVisible?.balises)
+          ? json.displayBlocks.toujoursVisible.balises
+          : [],
+      ),
     };
   } catch (e) {
     _baliseTextConfigCache = empty;
@@ -139,9 +170,18 @@ function applyDefaultTexts(map, balises, defaultTexts, fallbackText) {
  *  2. Balises riches : la valeur contient des marqueurs de couleur qui seront
  *     convertis en runs Word colorés par applyRichFormatting() après le rendu.
  */
-function buildPlaceholders(session, { defaultTexts = {}, fallbackText = '', richTextBalises = new Set() } = {}) {
+function buildPlaceholders(session, {
+  defaultTexts = {},
+  fallbackText = '',
+  richTextBalises = new Set(),
+  alwaysVisibleBalises = new Set(),
+} = {}) {
   const { admin, constats = [], saisies = [] } = session;
-  const verdict = computeVerdict(constats);
+  // admin doit être fourni ici : les zones à enjeu (sanitaire/environnemental)
+  // font basculer un cas (c) de "sans risque" à "risque sanitaire ou
+  // environnemental" (cf. verdict.js). Sans admin, le rapport DOCX pouvait
+  // afficher un verdict différent de celui du mail et des écrans de synthèse.
+  const verdict = computeVerdict(constats, admin);
 
   // ── Métadonnées admin ──────────────────────────────────────────────────
   const map = {
@@ -166,13 +206,13 @@ function buildPlaceholders(session, { defaultTexts = {}, fallbackText = '', rich
   }
 
   // ── Constats (groupés par balise, classement conservé) ─────────────────
-  // Triés sévérité desc, puis nodeId asc — identique à l'ancienne logique.
+  // Triés sévérité desc, puis nodeId asc. Un constat parent (ex. 3.1.cst)
+  // précède toutefois toujours ses descendants (3.1.1.cst, etc.) : les
+  // constats d'introduction restent ainsi attachés au texte qu'ils introduisent.
   const constatsByBalise = {}; // { balise: [{text, classement, note}] }
   const recosByBalise    = {}; // { balise: [string] }
 
-  const sorted = [...constats].sort((a, b) =>
-    compareSeverity(a.classement, b.classement) || a.nodeId.localeCompare(b.nodeId)
-  );
+  const sorted = [...constats].sort(compareConstatsForReport);
 
   for (const cst of sorted) {
     const bc = cst.balise_constat;
@@ -226,13 +266,46 @@ function buildPlaceholders(session, { defaultTexts = {}, fallbackText = '', rich
   const { flags, activeBalises } = buildAffichageFlags(map);
   Object.assign(map, flags);
 
-  // ── Textes par défaut pour les blocs conditionnels actifs ───────────────
-  applyDefaultTexts(map, activeBalises, defaultTexts, fallbackText);
+  // ── Textes par défaut pour les blocs visibles ───────────────────────────
+  // Les balises de contexte sont toujours visibles dans le template : elles
+  // doivent donc recevoir leur texte par défaut au même titre que les blocs
+  // conditionnels actifs.
+  applyDefaultTexts(
+    map,
+    new Set([...activeBalises, ...alwaysVisibleBalises]),
+    defaultTexts,
+    fallbackText,
+  );
 
   // Proxy : '' pour toute balise absente (évite les erreurs docxtemplater)
   return new Proxy(map, {
     get: (target, prop) => (prop in target ? target[prop] : ''),
   });
+}
+
+/** Retourne l'identifiant du constat dans l'arbre, avec compatibilité anciennes sessions. */
+function getConstatSourceId(constat) {
+  return constat.sourceConstatId || (constat.nodeId ? `${constat.nodeId}.cst` : '');
+}
+
+/**
+ * Compare deux constats pour le rapport.
+ * Les nœuds `X.cst` sont des titres/introductions pour les nœuds sous `X`.
+ * Leur priorité sur leurs descendants est volontairement évaluée avant la
+ * gravité ; les autres constats conservent le classement historique par gravité.
+ */
+function compareConstatsForReport(a, b) {
+  const sourceA = getConstatSourceId(a);
+  const sourceB = getConstatSourceId(b);
+  const baseA = sourceA.replace(/\.cst$/, '');
+  const baseB = sourceB.replace(/\.cst$/, '');
+
+  if (baseA && sourceA === `${baseA}.cst` && baseB.startsWith(`${baseA}.`)) return -1;
+  if (baseB && sourceB === `${baseB}.cst` && baseA.startsWith(`${baseB}.`)) return 1;
+
+  return compareSeverity(a.classement, b.classement)
+    || sourceA.localeCompare(sourceB)
+    || String(a.nodeId || '').localeCompare(String(b.nodeId || ''));
 }
 
 /** True si au moins une des balises listées contient du texte non vide dans map. */
@@ -323,14 +396,23 @@ function buildAffichageFlags(map) {
 
 /**
  * Remplace les marqueurs de couleur dans word/document.xml par des runs Word
- * colorés, après que docxtemplater a rendu le template.
+ * formatés (badge + texte constat), après que docxtemplater a rendu le template.
  *
- * Chaque marqueur «RRGGBB:B»texte«END» est détecté dans un élément <w:t>.
- * On remplace le <w:rPr> du run parent (propriétés héritées du template)
- * par notre <w:rPr> coloré, et le <w:t> par une version sans marqueur.
+ * Chaque marqueur dans un <w:t> est de la forme :
+ *   «RRGGBB»ÉTIQUETTE¤texte_constat«END»   → badge coloré + saut + texte neutre
+ *   «888888»¤[Note : ...]«END»             → texte gris italique (pas de badge)
  *
- * Note : le contenu capturé entre les marqueurs est déjà échappé XML par
- * docxtemplater (&amp; pour &, &lt; pour <, etc.) — on le réinsère tel quel.
+ * Le remplacement agit à l'intérieur du <w:r> existant :
+ *   - le <w:rPr> du template est remplacé par le rPr du badge
+ *   - on injecte </w:r><w:r> pour créer le run <w:br/> et le run du texte
+ *   - le </w:r> original du template ferme le dernier run injecté
+ *
+ * Note : le contenu entre les marqueurs est déjà échappé XML par docxtemplater
+ * (&amp; pour &, etc.) — réinsertion directe dans <w:t>.
+ *
+ * ⚠️  Token négatif (?:(?!<\/w:rPr>)[\s\S])* dans la capture du rPr : empêche
+ * le backtracking cross-run qui ferait consommer des runs entiers avant de
+ * trouver un <w:t>«...» valide (piège classique avec [\s\S]*? lazy simple).
  *
  * @param {PizZip} zip  zip issu de doc.getZip() après doc.render()
  */
@@ -340,19 +422,47 @@ function applyRichFormatting(zip) {
 
   let xml = file.asText();
 
-  // Pattern : (rPr existant optionnel) + <w:t> contenant notre marqueur
-  // Les guillemets «/» (U+00AB / U+00BB) ne nécessitent pas d'échappement XML.
-  // Le flag 'g' traite chaque run marqué indépendamment.
-  // ⚠️  Le token négatif (?:(?!<\/w:rPr>)[\s\S])* est indispensable pour éviter
-  // le backtracking cross-run : avec [\s\S]*? (lazy simple), le moteur peut
-  // étirer la capture du rPr à travers plusieurs runs entiers avant de trouver
-  // un <w:t>«...» valide, consommant ainsi le contenu des runs intermédiaires.
-  const MARKER_RE = /(?:<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<\/w:rPr>)?<w:t(?:\s[^>]*)?>«([0-9A-Fa-f]{6}):([01])»([\s\S]*?)«END»<\/w:t>/g;
+  const MARKER_RE = /(?:<w:rPr>(?:(?!<\/w:rPr>)[\s\S])*<\/w:rPr>)?<w:t(?:\s[^>]*)?>«([0-9A-Fa-f]{6})»([\s\S]*?)«END»<\/w:t>/g;
 
-  xml = xml.replace(MARKER_RE, (_match, color, bold, text) => {
-    const rPr = `<w:rPr><w:color w:val="${color}"/>${bold === '1' ? '<w:b/>' : ''}</w:rPr>`;
-    // `text` est déjà échappé XML par docxtemplater — réinsertion directe.
-    return `${rPr}<w:t xml:space="preserve">${text}</w:t>`;
+  xml = xml.replace(MARKER_RE, (_match, color, content) => {
+    // ¤ (U+00A4) sépare l'étiquette du badge du texte du constat
+    const sepIdx  = content.indexOf('\u00A4');
+    const label   = sepIdx >= 0 ? content.slice(0, sepIdx).trim() : '';
+    const text    = sepIdx >= 0 ? content.slice(sepIdx + 1) : content;
+
+    if (!label && color.toUpperCase() === '888888') {
+      // Note libre : texte gris italique, sans badge
+      return (
+        `<w:rPr><w:color w:val="${color}"/><w:i/></w:rPr>` +
+        `<w:t xml:space="preserve">${text}</w:t>`
+      );
+    }
+
+    if (!label) {
+      // Constat de classement simple : texte coloré, sans étiquette de gravité.
+      return (
+        `<w:rPr><w:color w:val="${color}"/></w:rPr>` +
+        `<w:t xml:space="preserve">${text}</w:t>`
+      );
+    }
+
+    // Badge : fond coloré (character shading), texte blanc ou sombre selon luminosité
+    const textColor = _badgeTextColor(color);
+    return (
+      // Run badge : fond coloré, texte contrasté, petit corps (9 pt)
+      `<w:rPr>` +
+        `<w:shd w:val="clear" w:color="auto" w:fill="${color}"/>` +
+        `<w:color w:val="${textColor}"/>` +
+        `<w:b/>` +
+        `<w:sz w:val="18"/><w:szCs w:val="18"/>` +
+      `</w:rPr>` +
+      `<w:t xml:space="preserve"> ${label} </w:t>` +
+      // Saut de ligne entre le badge et le texte du constat
+      `</w:r><w:r><w:rPr/><w:br/></w:r><w:r>` +
+      // Run texte constat : aucun formatage (hérite du style du paragraphe)
+      `<w:rPr/>` +
+      `<w:t xml:space="preserve">${text}</w:t>`
+    );
   });
 
   zip.file('word/document.xml', xml);

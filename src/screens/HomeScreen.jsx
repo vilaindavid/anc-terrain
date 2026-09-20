@@ -49,11 +49,10 @@ export default function HomeScreen({ nav }) {
           <SessionRow
             key={s.id}
             session={s}
-            onOpen={()     => nav.goWizard(s.id)}
-            onRevise={()   => nav.goRevision(s.id)}
-            onExport={()   => nav.goExport(s.id)}
-            onEditInfo={() => nav.goAdmin(s.id)}
-            onDelete={(e)  => handleDelete(s.id, e)}
+            onOpen={()    => nav.goWizard(s.id)}
+            onRevise={()  => nav.goRevision(s.id)}
+            onExport={()  => nav.goExport(s.id)}
+            onDelete={(e) => handleDelete(s.id, e)}
           />
         ))}
       </div>
@@ -61,9 +60,9 @@ export default function HomeScreen({ nav }) {
   );
 }
 
-function SessionRow({ session, onOpen, onRevise, onExport, onEditInfo, onDelete }) {
+function SessionRow({ session, onOpen, onRevise, onExport, onDelete }) {
   const { admin, status, constats = [], updatedAt } = session;
-  const verdict = computeVerdict(constats);
+  const verdict = computeVerdict(constats, admin);
   const dateStr = new Date(updatedAt).toLocaleDateString('fr-FR',
     { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 
@@ -106,11 +105,8 @@ function SessionRow({ session, onOpen, onRevise, onExport, onEditInfo, onDelete 
               ▶ Reprendre
             </button>
           )}
-          <button className="btn btn-ghost" style={{ flex: 1, minHeight: 48 }} onClick={onEditInfo}>
-            ✏️ Infos
-          </button>
           <button className="btn btn-ghost" style={{ flex: 1, minHeight: 48 }} onClick={onRevise}>
-            📋 Réviser
+            ✏️ Réviser
           </button>
           <button className="btn btn-accent" style={{ flex: 1, minHeight: 48 }} onClick={onExport}>
             ↑ Exporter
@@ -127,7 +123,7 @@ function SessionRow({ session, onOpen, onRevise, onExport, onEditInfo, onDelete 
 function _severityColor(classement) {
   const map = {
     "Simple remarque":                     "#dae8fc",
-    "Recommandation de travaux":           "#d5e8d4",
+    "Autre défaut":                        "#d5e8d4",
     "Défaut d'entretien ou d'usure":       "#fff2cc",
     "Sous-dimensionnement significatif":   "#ffe6cc",
     "Défaut de structure ou de fermeture": "#fa6800",

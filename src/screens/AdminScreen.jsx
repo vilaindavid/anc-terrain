@@ -1,81 +1,51 @@
 import { useState, useEffect } from 'react';
-import { createSession, getSession, saveSession } from '../data/db.js';
+import { createSession, getSession, updateSessionAdmin } from '../data/db.js';
 
 const TODAY = new Date().toISOString().split('T')[0];
 
 const EMPTY_FORM = {
-  id_dossier:       '',
-  adresse:          '',
-  nom_proprietaire: '',
-  nom_occupant:     '',
-  telephone:        '',
-  email:            '',
-  date_visite:      TODAY,
+  id_dossier:                '',
+  adresse:                   '',
+  nom_proprietaire:          '',
+  nom_occupant:              '',
+  telephone:                 '',
+  email:                     '',
+  type_filiere:              'traditionnelle',
+  date_visite:               TODAY,
+  zone_enjeu_sanitaire:      false,
+  zone_enjeu_environnemental: false,
 };
 
-// NOTE : le champ "Type de filière" (traditionnelle / agréée / les deux) a
-// été retiré de ce formulaire — il était devenu obsolète car le choix réel
-// de la filière se fait désormais dans l'arbre lui-même (section
-// "4. Traitement"). Les anciennes sessions qui contiendraient encore cette
-// valeur dans session.admin.type_filiere ne sont pas modifiées ; ce champ
-// est simplement ignoré partout dans l'app.
+export default function AdminScreen({ tree, sessionId, nav }) {
+  const isEditing = !!sessionId;
 
-export default function AdminScreen({ sessionId, nav }) {
-  // sessionId fourni  → on édite les infos d'un dossier déjà créé.
-  // sessionId absent  → on crée un nouveau dossier (comportement d'origine).
-  // Vérification stricte du type : un appel maladroit comme
-  // onClick={nav.goAdmin} transmettrait l'événement de clic (un objet,
-  // donc "truthy") comme s'il s'agissait d'un id, ce qui déclencherait à
-  // tort le mode édition. On ne considère donc valide qu'une chaîne non vide.
-  const isEditMode = typeof sessionId === 'string' && sessionId.length > 0;
+  const [form,    setForm]    = useState(EMPTY_FORM);
+  const [errors,  setErrors]  = useState({});
+  const [saving,  setSaving]  = useState(false);
+  // Tant qu'on n'a pas chargé le dossier existant, on n'affiche pas le
+  // formulaire vide : c'est justement ça qui causait l'écrasement (l'agent
+  // saisissait à nouveau le même n° de dossier dans un formulaire vierge).
+  const [loading, setLoading] = useState(isEditing);
 
-  const [form,     setForm]     = useState(EMPTY_FORM);
-  const [errors,   setErrors]   = useState({});
-  const [saving,   setSaving]   = useState(false);
-  const [loading,  setLoading]  = useState(isEditMode);
-  const [notFound, setNotFound] = useState(false);
-
-  // En mode édition, on charge les infos actuelles du dossier pour
-  // pré-remplir le formulaire. Le try/catch évite qu'une erreur (id
-  // invalide, base non ouverte, etc.) ne laisse la roue de chargement
-  // tourner indéfiniment sans jamais donner de retour à l'utilisateur.
   useEffect(() => {
-    if (!isEditMode) return;
+    if (!sessionId) return;
     let cancelled = false;
     (async () => {
-      try {
-        const session = await getSession(sessionId);
-        if (cancelled) return;
-        if (!session) {
-          setNotFound(true);
-          setLoading(false);
-          return;
-        }
-        const { id_dossier, adresse, nom_proprietaire, nom_occupant, telephone, email, date_visite } = session.admin;
-        setForm({
-          id_dossier,
-          adresse:          adresse || '',
-          nom_proprietaire: nom_proprietaire || '',
-          nom_occupant:     nom_occupant || '',
-          telephone:        telephone || '',
-          email:            email || '',
-          date_visite:      date_visite || TODAY,
-        });
-        setLoading(false);
-      } catch (err) {
-        if (cancelled) return;
-        console.error('Erreur de chargement de la session pour édition :', err);
-        setNotFound(true);
+      const existing = await getSession(sessionId);
+      if (!cancelled) {
+        if (existing) setForm({ ...EMPTY_FORM, ...existing.admin });
         setLoading(false);
       }
     })();
     return () => { cancelled = true; };
-  }, [isEditMode, sessionId]);
+  }, [sessionId]);
 
   const set = (field, value) => {
     setForm(f => ({ ...f, [field]: value }));
     setErrors(e => ({ ...e, [field]: null }));
   };
+
+  const toggle = (field) => setForm(f => ({ ...f, [field]: !f[field] }));
 
   const validate = () => {
     const e = {};
@@ -87,51 +57,35 @@ export default function AdminScreen({ sessionId, nav }) {
     return Object.keys(e).length === 0;
   };
 
-  const goBack = () => (isEditMode ? nav.goRevision(sessionId) : nav.goHome());
-
-  const handleSubmit = async () => {
+  const handleStart = async () => {
     if (!validate()) return;
     setSaving(true);
     try {
-      if (isEditMode) {
-        const session = await getSession(sessionId);
-        if (!session) throw new Error('Session introuvable.');
-        // Le n° de dossier (id_dossier) sert d'identifiant de session dans
-        // la base locale (clé primaire IndexedDB, noms de fichiers export…) :
-        // on ne le laisse jamais changer depuis ce formulaire, même s'il
-        // reste visible (champ désactivé ci-dessous).
-        session.admin = { ...session.admin, ...form, id_dossier: session.admin.id_dossier };
-        await saveSession(session);
+      if (isEditing) {
+        // Édition d'un dossier existant : on met à jour seulement les
+        // infos admin. On ne recrée JAMAIS la session ici — sinon
+        // db.put écraserait answers/constats/saisies déjà enregistrés.
+        await updateSessionAdmin(sessionId, form);
         nav.goRevision(sessionId);
       } else {
         const id = await createSession(form);
         nav.goWizard(id);
       }
     } catch (err) {
-      alert("Erreur lors de l'enregistrement : " + err.message);
+      alert('Erreur lors de l\'enregistrement : ' + err.message);
       setSaving(false);
     }
   };
 
   if (loading) {
     return (
-      <div className="screen" style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <div className="spinner" />
-      </div>
-    );
-  }
-
-  if (notFound) {
-    return (
       <div className="screen">
         <div className="topbar">
           <button className="topbar-back" onClick={nav.goHome}>←</button>
-          <span className="topbar-title">Dossier introuvable</span>
+          <span className="topbar-title">Modifier le dossier</span>
         </div>
         <div className="content">
-          <div className="card card-body">
-            <p>Cette session n'existe plus.</p>
-          </div>
+          <div className="spinner" style={{ marginTop: 40 }} />
         </div>
       </div>
     );
@@ -140,11 +94,12 @@ export default function AdminScreen({ sessionId, nav }) {
   return (
     <div className="screen">
       <div className="topbar">
-        <button className="topbar-back" onClick={goBack}>←</button>
-        <span className="topbar-title">{isEditMode ? 'Informations du dossier' : 'Nouveau contrôle'}</span>
+        <button className="topbar-back" onClick={isEditing ? () => nav.goRevision(sessionId) : nav.goHome}>←</button>
+        <span className="topbar-title">{isEditing ? 'Modifier le dossier' : 'Nouveau contrôle'}</span>
       </div>
 
       <div className="content">
+
         {/* Dossier */}
         <div className="card card-body">
           <p className="card-title">Identification du dossier</p>
@@ -155,11 +110,12 @@ export default function AdminScreen({ sessionId, nav }) {
                 onChange={e => set('id_dossier', e.target.value)}
                 placeholder="ex : 2025-0138"
                 autoCapitalize="none"
-                disabled={isEditMode}
+                disabled={isEditing}
+                title={isEditing ? 'Le n° de dossier ne peut pas être modifié ici (clé du dossier).' : undefined}
               />
-              {isEditMode && (
+              {isEditing && (
                 <span className="text-muted" style={{ fontSize: '.78rem' }}>
-                  Le n° de dossier ne peut pas être modifié après création.
+                  Le n° de dossier ne peut pas être changé depuis cet écran.
                 </span>
               )}
             </Field>
@@ -218,15 +174,86 @@ export default function AdminScreen({ sessionId, nav }) {
           </div>
         </div>
 
+        {/* Zone à enjeu — influence les délais de travaux pour les cas (c) */}
+        <div className="card card-body">
+          <p className="card-title">Zone à enjeu</p>
+          <p className="text-muted" style={{ fontSize: '.85rem', marginBottom: 12 }}>
+            Si la parcelle se situe dans une zone à enjeu, un défaut de type (c)
+            (incomplet, sous-dimensionné, dysfonctionnement majeur) entraîne une
+            obligation de travaux sous 4 ans au lieu d'une simple obligation
+            acquéreur. Les deux cases sont indépendantes.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div
+              className={`option-card rect ${form.zone_enjeu_sanitaire ? 'selected' : ''}`}
+              onClick={() => toggle('zone_enjeu_sanitaire')}
+            >
+              <div className="check" />
+              <div>
+                <div className="option-label" style={{ fontWeight: 600 }}>
+                  Zone à enjeu sanitaire
+                </div>
+                <div className="text-muted" style={{ fontSize: '.82rem' }}>
+                  Puits AEP à moins de 35 m, périmètre de captage, nuisances
+                  olfactives avec plainte…
+                </div>
+              </div>
+            </div>
+            <div
+              className={`option-card rect ${form.zone_enjeu_environnemental ? 'selected' : ''}`}
+              onClick={() => toggle('zone_enjeu_environnemental')}
+            >
+              <div className="check" />
+              <div>
+                <div className="option-label" style={{ fontWeight: 600 }}>
+                  Zone à enjeu environnemental
+                </div>
+                <div className="text-muted" style={{ fontSize: '.82rem' }}>
+                  Zone inondable, zone naturelle protégée (Natura 2000…),
+                  zone de baignade…
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Type de filière */}
+        <div className="card card-body">
+          <p className="card-title">Type de filière</p>
+          <p className="text-muted" style={{ fontSize: '.85rem', marginBottom: 12 }}>
+            Information indicative pour le dossier ; le choix réel se fait dans
+            l'arbre, section Traitement.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              { value: 'traditionnelle', label: 'Filière traditionnelle', sub: 'Fosse, épandage, filtre à sable…' },
+              { value: 'agréée',         label: 'Filière agréée',         sub: 'Microstation, filtre compact, filtre planté…' },
+              { value: 'les_deux',       label: 'Les deux',               sub: 'Présence des deux types sur la parcelle' },
+            ].map(opt => (
+              <div
+                key={opt.value}
+                className={`option-card ${form.type_filiere === opt.value ? 'selected' : ''}`}
+                onClick={() => set('type_filiere', opt.value)}
+              >
+                <div className="check" />
+                <div>
+                  <div className="option-label" style={{ fontWeight: 600 }}>{opt.label}</div>
+                  <div className="text-muted" style={{ fontSize: '.82rem' }}>{opt.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <button
           className="btn btn-primary btn-full"
-          onClick={handleSubmit}
+          onClick={handleStart}
           disabled={saving}
           style={{ minHeight: 56, fontSize: '1.05rem' }}
         >
           {saving
-            ? 'Enregistrement…'
-            : (isEditMode ? '✓ Enregistrer les modifications' : '▶ Démarrer le contrôle')}
+            ? (isEditing ? 'Enregistrement…' : 'Création…')
+            : (isEditing ? '💾 Enregistrer les modifications' : '▶ Démarrer le contrôle')}
         </button>
       </div>
     </div>

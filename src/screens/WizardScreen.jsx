@@ -13,6 +13,10 @@ export default function WizardScreen({ tree, sessionId, nav }) {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState(null);
+  // Nombre de réponses/constats/saisies qui pointent vers des nœuds absents
+  // de l'arbre courant (ex. branches retirées lors d'une mise à jour de
+  // tree.json). Affiché comme avertissement — jamais purgé automatiquement.
+  const [orphanedCount, setOrphanedCount] = useState(0);
 
   const sections = getSections(tree);
 
@@ -20,22 +24,33 @@ export default function WizardScreen({ tree, sessionId, nav }) {
     (async () => {
       const s = await getSession(sessionId);
       if (!s) return;
-      // Répare une éventuelle session enregistrée avant le nettoyage en
-      // cascade (réponses/constats/saisies orphelins d'un décochage
-      // incomplet). N'écrit en base que si quelque chose a réellement été
-      // nettoyé, pour ne pas alourdir chaque ouverture de session.
+      // Calcule une vue "réparée" (sans réponses/constats/saisies devenus
+      // invisibles suite à une mise à jour de l'arbre) UNIQUEMENT pour
+      // l'affichage courant. On ne l'enregistre JAMAIS automatiquement :
+      // une évolution de tree.json (suppression de branches, etc.) ne doit
+      // jamais effacer silencieusement et irréversiblement des données déjà
+      // saisies sur le terrain. La purge reste une action explicite de
+      // l'inspecteur (bandeau d'avertissement ci-dessous).
       const { session: repaired, removedCount } = repairOrphanedData(s, tree);
-      if (removedCount > 0) {
-        await saveSession(repaired);
-        setSession(repaired);
-      } else {
-        setSession(s);
-      }
+      setSession(repaired);
+      setOrphanedCount(removedCount);
       setActiveSection(s.currentSection && tree[s.currentSection] ? s.currentSection : sections[0]?.id);
       setLoading(false);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId, tree]);
+
+  const handlePurgeOrphaned = useCallback(async () => {
+    if (!window.confirm(
+      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) qui portent sur des critères absents de l'arbre actuel ?\n\nCette action est irréversible.`
+    )) return;
+    const fresh = await getSession(sessionId);
+    if (!fresh) return;
+    const { session: cleaned } = repairOrphanedData(fresh, tree);
+    await saveSession(cleaned);
+    setSession(cleaned);
+    setOrphanedCount(0);
+  }, [sessionId, tree, orphanedCount]);
 
   const refresh = useCallback(async () => {
     setSession(await getSession(sessionId));
@@ -107,10 +122,6 @@ export default function WizardScreen({ tree, sessionId, nav }) {
   const visibleTree = buildVisibleTree(activeSection, tree, session.answers);
   const { done, total, pct } = sectionProgress(activeSection, tree, session.answers);
 
-  // Navigation section suivante / révision finale
-  const currentSectionIdx = sections.findIndex(s => s.id === activeSection);
-  const nextSection        = sections[currentSectionIdx + 1] || null;
-
   return (
     <div className="screen">
       <div className="topbar" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 6 }}>
@@ -136,6 +147,23 @@ export default function WizardScreen({ tree, sessionId, nav }) {
           </p>
         </div>
       </div>
+
+      {orphanedCount > 0 && (
+        <div style={{ background: '#FEF3C7', color: '#92400E', padding: '10px 16px',
+                       fontSize: '.8rem', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{ flex: 1 }}>
+            ⚠️ {orphanedCount} élément{orphanedCount > 1 ? 's' : ''} (réponse{orphanedCount > 1 ? 's' : ''}/constat{orphanedCount > 1 ? 's' : ''}/saisie{orphanedCount > 1 ? 's' : ''})
+            {orphanedCount > 1 ? ' portent' : ' porte'} sur des critères absents de l'arbre actuel. Conservé{orphanedCount > 1 ? 's' : ''} tel quel dans le dossier, mais non visible{orphanedCount > 1 ? 's' : ''} ici.
+          </span>
+          <button
+            style={{ background: '#fff', color: '#92400E', border: 'none', borderRadius: 6,
+                      minHeight: 32, padding: '0 10px', fontSize: '.78rem', cursor: 'pointer', fontWeight: 600 }}
+            onClick={handlePurgeOrphaned}
+          >
+            🗑 Purger définitivement
+          </button>
+        </div>
+      )}
 
       {/* Onglets de section — toujours navigables, aucune séquence imposée */}
       <div style={{ display: 'flex', overflowX: 'auto', background: 'var(--c-surface)',
@@ -165,27 +193,6 @@ export default function WizardScreen({ tree, sessionId, nav }) {
           onNumeric={handleNumeric}
           onAnnotate={handleAnnotate}
         />
-
-        {/* ── Bouton navigation section suivante / terminer ── */}
-        <div style={{ paddingTop: 8, paddingBottom: 16 }}>
-          {nextSection ? (
-            <button
-              className="btn btn-accent btn-full"
-              style={{ minHeight: 52, fontSize: '.95rem', borderRadius: 10 }}
-              onClick={() => switchSection(nextSection.id)}
-            >
-              {nextSection.label} →
-            </button>
-          ) : (
-            <button
-              className="btn btn-primary btn-full"
-              style={{ minHeight: 52, fontSize: '.95rem', borderRadius: 10 }}
-              onClick={() => nav.goRevision(sessionId)}
-            >
-              ✅ Terminer — Réviser le rapport
-            </button>
-          )}
-        </div>
       </div>
     </div>
   );

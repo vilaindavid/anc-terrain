@@ -5,8 +5,7 @@
  * ───────
  * 'loading'   → initial fetch of tree.json + DB open
  * 'home'      → session list
- * 'admin'     → formulaire d'infos du dossier (création OU édition d'une
- *               session existante, selon qu'un sessionId est fourni)
+ * 'admin'     → new session form
  * 'wizard'    → guided field inspection
  * 'revision'  → collapsible overview / edit mode
  * 'export'    → export preview + download
@@ -52,10 +51,13 @@ export default function App() {
     setScreen('home');
   }, []);
 
-  // id absent → création d'un nouveau dossier ; id fourni → édition des
-  // infos d'un dossier existant (AdminScreen adapte son comportement).
+  // id optionnel : présent → écran « Infos / Modifier » d'un dossier
+  // existant ; absent → création d'un nouveau dossier.
   const goAdmin = useCallback((id) => {
-    setSessionId(id || null);
+    // Un gestionnaire React peut recevoir un MouseEvent si la fonction est
+    // passée directement à onClick. Seul un identifiant texte non vide peut
+    // ouvrir l'écran en mode édition.
+    setSessionId(typeof id === 'string' && id.trim() ? id : null);
     setScreen('admin');
   }, []);
 

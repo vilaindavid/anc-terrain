@@ -8,6 +8,10 @@ import { SEVERITY_COLOR, compareSeverity } from '../engine/severity.js';
 export default function ExportScreen({ tree, sessionId, nav }) {
   const [session,    setSession]    = useState(null);
   const [photoCount, setPhotoCount] = useState(0);
+  // Réponses/constats/saisies orphelins (arbre mis à jour) — voir note
+  // ci-dessous : jamais purgés automatiquement.
+  const [orphanedCount, setOrphanedCount] = useState(0);
+  const [skippedPhotos, setSkippedPhotos] = useState(0);
   const [progress,   setProgress]   = useState(0);
   const [status,     setStatus]     = useState('idle'); // idle | generating | done | error
   const [errorMsg,   setErrorMsg]   = useState('');
@@ -16,30 +20,44 @@ export default function ExportScreen({ tree, sessionId, nav }) {
     (async () => {
       const s = await getSession(sessionId);
       if (s) {
+        // Vue d'affichage / export uniquement — voir WizardScreen.jsx et
+        // RevisionScreen.jsx : on ne sauvegarde plus automatiquement la
+        // version "réparée". Une mise à jour de l'arbre (suppression de
+        // branches) ne doit jamais effacer silencieusement des données de
+        // terrain. La purge reste une action explicite ci-dessous.
         const { session: repaired, removedCount } = repairOrphanedData(s, tree);
-        if (removedCount > 0) {
-          await saveSession(repaired);
-          setSession(repaired);
-        } else {
-          setSession(s);
-        }
+        setSession(repaired);
+        setOrphanedCount(removedCount);
       }
       const photos = await getPhotosForSession(sessionId);
       setPhotoCount(photos.length);
     })();
   }, [sessionId, tree]);
 
+  const handlePurgeOrphaned = async () => {
+    if (!window.confirm(
+      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) qui portent sur des critères absents de l'arbre actuel ?\n\nCette action est irréversible.`
+    )) return;
+    const fresh = await getSession(sessionId);
+    if (!fresh) return;
+    const { session: cleaned } = repairOrphanedData(fresh, tree);
+    await saveSession(cleaned);
+    setSession(cleaned);
+    setOrphanedCount(0);
+  };
+
   if (!session) return <div className="screen"><div className="spinner" style={{ margin: 'auto', marginTop: 60 }} /></div>;
 
   const { admin, constats = [] } = session;
-  const verdict = computeVerdict(constats);
+  const verdict = computeVerdict(constats, admin);
 
   const handleExport = async () => {
     setStatus('generating');
     setProgress(0);
     setErrorMsg('');
     try {
-      const { blob, docxName } = await buildExportZip(session, pct => setProgress(pct));
+      const { blob, docxName, skippedPhotos: skipped } = await buildExportZip(session, pct => setProgress(pct));
+      setSkippedPhotos(skipped || 0);
       const zipName = docxName.replace('.docx', '.zip');
       await downloadBlob(blob, zipName);
 
@@ -61,6 +79,23 @@ export default function ExportScreen({ tree, sessionId, nav }) {
         <button className="topbar-back" onClick={() => nav.goRevision(sessionId)}>←</button>
         <span className="topbar-title">Export — {admin.id_dossier}</span>
       </div>
+
+      {orphanedCount > 0 && (
+        <div style={{ background: '#FEF3C7', color: '#92400E', padding: '10px 16px',
+                       fontSize: '.8rem', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <span style={{ flex: 1 }}>
+            ⚠️ {orphanedCount} élément{orphanedCount > 1 ? 's' : ''} du dossier {orphanedCount > 1 ? 'portent' : 'porte'} sur des critères absents
+            de l'arbre actuel : {orphanedCount > 1 ? 'ils ne seront pas inclus' : 'il ne sera pas inclus'} dans cet export, mais {orphanedCount > 1 ? 'restent conservés' : 'reste conservé'} dans le dossier.
+          </span>
+          <button
+            style={{ background: '#fff', color: '#92400E', border: 'none', borderRadius: 6,
+                      minHeight: 32, padding: '0 10px', fontSize: '.78rem', cursor: 'pointer', fontWeight: 600 }}
+            onClick={handlePurgeOrphaned}
+          >
+            🗑 Purger définitivement
+          </button>
+        </div>
+      )}
 
       <div className="content">
         {/* Session summary card */}
@@ -133,6 +168,12 @@ export default function ExportScreen({ tree, sessionId, nav }) {
             <p className="text-muted" style={{ marginTop: 4, fontSize: '.85rem' }}>
               Session marquée comme exportée. Ouvrez le dossier sur votre PC pour finaliser le rapport.
             </p>
+            {skippedPhotos > 0 && (
+              <p style={{ marginTop: 8, fontSize: '.82rem', color: '#92400E', fontWeight: 600 }}>
+                ⚠️ {skippedPhotos} photo{skippedPhotos > 1 ? 's' : ''} n'{skippedPhotos > 1 ? 'ont' : 'a'} pas pu être incluse{skippedPhotos > 1 ? 's' : ''}
+                (fichier manquant ou corrompu) — vérifiez sur l'appareil d'origine.
+              </p>
+            )}
             <button className="btn btn-ghost btn-full" style={{ marginTop: 16 }} onClick={nav.goHome}>
               ← Retour à l'accueil
             </button>

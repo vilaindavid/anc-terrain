@@ -7,12 +7,12 @@ export const SEVERITY_ORDER = [
   "Absence d'installation",
   "Danger pour la sécurité des personnes",
   "Défaut de sécurité sanitaire",
+  "Défaut de structure ou de fermeture",
   "Dysfonctionnement majeur",
   "Assainissement incomplet",
-  "Défaut de structure ou de fermeture",
   "Sous-dimensionnement significatif",
   "Défaut d'entretien ou d'usure",
-  "Recommandation de travaux",
+  "Autre défaut",
   "Simple remarque",
   "Simple constat",
 ];
@@ -31,7 +31,7 @@ export function compareSeverity(a, b) {
 /** Colour hex for each classement (from the draw.io legend). */
 export const SEVERITY_COLOR = {
   "Simple remarque":                    "#dae8fc",
-  "Recommandation de travaux":          "#d5e8d4",
+  "Autre défaut":                       "#d5e8d4",
   "Défaut d'entretien ou d'usure":      "#fff2cc",
   "Sous-dimensionnement significatif":  "#ffe6cc",
   "Défaut de structure ou de fermeture":"#fa6800",
@@ -63,7 +63,7 @@ export const REQUIRES_WORKS = new Set([
   "Sous-dimensionnement significatif",
 ]);
 
-export const CONFORMANCE_THRESHOLD_INDEX = severityIndex("Recommandation de travaux");
+export const CONFORMANCE_THRESHOLD_INDEX = severityIndex("Autre défaut");
 // anything < CONFORMANCE_THRESHOLD_INDEX is non-conformant
 
 /**
@@ -81,7 +81,7 @@ export const SEVERITY_DOCX_STYLE = {
   "Assainissement incomplet":              { color: '7B4F9E', bold: false },
   "Sous-dimensionnement significatif":     { color: 'D6790A', bold: false },
   "Défaut d'entretien ou d'usure":         { color: '856404', bold: false },
-  "Recommandation de travaux":             { color: '2D7600', bold: false },
+  "Autre défaut":                          { color: '2D7600', bold: false },
   "Simple remarque":                       { color: '0D4D8A', bold: false },
   "Simple constat":                        { color: '1A1A1A', bold: false },
 };

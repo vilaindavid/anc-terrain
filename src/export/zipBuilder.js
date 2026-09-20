@@ -20,7 +20,7 @@ import { getPhotosForSession } from '../data/db.js';
 /**
  * @param {object}  session   full session object from IndexedDB
  * @param {fn}      onProgress  called with 0-100 as generation progresses
- * @returns {Promise<Blob>}  zip Blob
+ * @returns {Promise<{blob: Blob, docxName: string, skippedPhotos: number}>}
  */
 export async function buildExportZip(session, onProgress) {
   const zip = new JSZip();
@@ -40,11 +40,25 @@ export async function buildExportZip(session, onProgress) {
 
   // ── 2. Add photos ────────────────────────────────────────────────────────
   const photos = await getPhotosForSession(session.id);
-  if (photos.length) {
+  let skippedPhotos = 0;
+  const usablePhotos = photos.filter(p => {
+    // Une entrée peut exister sans contenu binaire exploitable (dataUrl
+    // manquant, tronqué, ou stockage sous-jacent défaillant au moment de
+    // la capture). On l'ignore proprement plutôt que de faire échouer tout
+    // l'export du dossier avec les autres photos et le rapport DOCX déjà
+    // générés.
+    const ok = typeof p.dataUrl === 'string' && p.dataUrl.includes(',') && p.dataUrl.split(',')[1];
+    if (!ok) {
+      console.warn(`Photo ignorée à l'export (dataUrl manquant/invalide) — id=${p.id}, nodeId=${p.nodeId}`);
+      skippedPhotos++;
+    }
+    return ok;
+  });
+  if (usablePhotos.length) {
     const photoFolder = zip.folder('photos');
     // Track per-balise counter for sequential numbering
     const counters = {};
-    for (const photo of photos) {
+    for (const photo of usablePhotos) {
       const key = photo.balise || photo.nodeId;
       counters[key] = (counters[key] || 0) + 1;
       const nn  = String(counters[key]).padStart(2, '0');
@@ -69,7 +83,7 @@ export async function buildExportZip(session, onProgress) {
     ({ percent }) => report(90 + Math.round(percent * 0.1))
   );
   report(100);
-  return { blob, docxName };
+  return { blob, docxName, skippedPhotos };
 }
 
 /**
