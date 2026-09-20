@@ -126,8 +126,7 @@
     "parentId": "1.1.1",
     "children": [],
     "section": "cadre_visite",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.1"
+    "classement": "Simple constat"
   },
   "1.1.2.cst": {
     "type": "constat",
@@ -135,8 +134,7 @@
     "parentId": "1.1.2",
     "children": [],
     "section": "cadre_visite",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.1"
+    "classement": "Simple constat"
   },
   "1.1.3.cst": {
     "type": "constat",
@@ -144,8 +142,7 @@
     "parentId": "1.1.3",
     "children": [],
     "section": "cadre_visite",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.1"
+    "classement": "Simple constat"
   },
   "5.1": {
     "type": "critere",
@@ -308,7 +305,7 @@
     "parentId": "5.1.1.1",
     "children": [],
     "section": "annexe_PR_entretien",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.1.1.1.reco": {
     "type": "recommandation",
@@ -330,7 +327,7 @@
     "parentId": "5.1.2.1",
     "children": [],
     "section": "annexe_PR_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.1.2.1.reco": {
     "type": "recommandation",
@@ -360,7 +357,7 @@
     "parentId": "5.1.2.3",
     "children": [],
     "section": "annexe_PR_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.1.2.3.reco": {
     "type": "recommandation",
@@ -375,7 +372,7 @@
     "parentId": "5.1.2.4",
     "children": [],
     "section": "annexe_PR_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.1.2.4.reco": {
     "type": "recommandation",
@@ -433,7 +430,7 @@
     "label": "Bon fonctionnement du poste de relevage non vérifiable lors du contrôle (absence de défaut constaté lors du contrôle).",
     "parentId": "5.1.4.3",
     "children": [],
-    "section": "annexe_PR_acces",
+    "section": "annexe_PR_structurel",
     "classement": "Simple remarque"
   },
   "5.1.4.3.reco": {
@@ -514,7 +511,7 @@
     "parentId": "5.1.4.2",
     "children": [],
     "section": "annexe_PR_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.1.3.1.cst": {
     "type": "constat",
@@ -522,7 +519,7 @@
     "parentId": "5.1.3.1",
     "children": [],
     "section": "annexe_PR_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.1.1.2.cst": {
     "type": "constat",
@@ -897,7 +894,7 @@
   },
   "3.1": {
     "type": "critere",
-    "label": "Inaccessible",
+    "label": "Canalisation(s) inaccessible(s)",
     "parentId": "3",
     "children": [
       "3.1.cst",
@@ -909,7 +906,7 @@
   },
   "3.2": {
     "type": "critere",
-    "label": "Accessible",
+    "label": "Canalisation(s) accessible(s)",
     "parentId": "3",
     "children": [
       "3.2.cst",
@@ -919,67 +916,67 @@
       "3.2.4"
     ]
   },
-  "6.1.5.2.2": {
+  "6.1.6.2.2": {
     "type": "critere",
     "label": "avec mise en charge du dispositif amont",
-    "parentId": "6.1.5.2",
+    "parentId": "6.1.6.2",
     "children": [
-      "6.1.5.2.2.cst",
-      "6.1.5.2.2.reco"
+      "6.1.6.2.2.cst",
+      "6.1.6.2.2.reco"
     ],
-    "exclusionGroup": "6.1.3",
+    "exclusionGroup": "6.1.4",
     "legacy": {
       "exclusion": "oui"
     }
   },
-  "6.1.5.2.2.cst": {
+  "6.1.6.2.2.cst": {
     "type": "constat",
     "label": "Canalisation de rejet des effluents sous le fil d'eau de l'exutoire. Risque de mise en charge des éléments situés en amont et de dysfonctionnement.",
-    "parentId": "6.1.5.2.2",
+    "parentId": "6.1.6.2.2",
     "children": [],
     "section": "rejet_pb",
     "classement": "Dysfonctionnement majeur"
   },
-  "6.1.5.2.2.reco": {
+  "6.1.6.2.2.reco": {
     "type": "recommandation",
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
-    "parentId": "6.1.5.2.2",
+    "parentId": "6.1.6.2.2",
     "children": [],
     "section": "reco_rejet_conformité"
   },
-  "6.1.5.2.1": {
+  "6.1.6.2.1": {
     "type": "critere",
     "label": "sans mise en charge du dispositif amont",
-    "parentId": "6.1.5.2",
+    "parentId": "6.1.6.2",
     "children": [
-      "6.1.5.2.1.cst",
-      "6.1.5.2.1.reco"
+      "6.1.6.2.1.cst",
+      "6.1.6.2.1.reco"
     ],
-    "exclusionGroup": "6.1.3"
+    "exclusionGroup": "6.1.4"
   },
-  "6.1.5.2.1.reco": {
+  "6.1.6.2.1.reco": {
     "type": "recommandation",
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
-    "parentId": "6.1.5.2.1",
+    "parentId": "6.1.6.2.1",
     "children": [],
     "section": "reco_rejet_bf"
   },
-  "6.1.5.2": {
+  "6.1.6.2": {
     "type": "critere",
     "label": "Canalisation de rejet sous le fil d'eau de l'exutoire",
-    "parentId": "6.1.5",
+    "parentId": "6.1.6",
     "children": [
-      "6.1.5.2.1",
-      "6.1.5.2.2"
+      "6.1.6.2.1",
+      "6.1.6.2.2"
     ]
   },
-  "6.1.5.2.1.cst": {
+  "6.1.6.2.1.cst": {
     "type": "constat",
     "label": "Canalisation de rejet des effluents sous le fil d'eau de l'exutoire. Risque de mise en charge des éléments situés en amont et de dysfonctionnement.",
-    "parentId": "6.1.5.2.1",
+    "parentId": "6.1.6.2.1",
     "children": [],
     "section": "rejet_pb",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "6.2.3": {
     "type": "critere",
@@ -1011,9 +1008,7 @@
     "parentId": "4",
     "children": [
       "4.1.1",
-      "4.1.2",
-      "4.1.3",
-      "4.1.4"
+      "4.1.2"
     ],
     "exclusionGroup": "4"
   },
@@ -1196,7 +1191,7 @@
     "parentId": "4.2.1.1.2.5",
     "children": [],
     "section": "fa_agrement",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.1.3": {
     "type": "critere",
@@ -1426,7 +1421,7 @@
     "parentId": "4.2.1.1.1.4",
     "children": [],
     "section": "fa_agrement",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.1.1.5.cst": {
     "type": "constat",
@@ -1502,7 +1497,7 @@
     "parentId": "4.2.1.1.2.3",
     "children": [],
     "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.1.2.4.cst": {
     "type": "constat",
@@ -1579,7 +1574,7 @@
     "parentId": "4.2.1.1.4.3",
     "children": [],
     "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.1.5.1.1.cst": {
     "type": "constat",
@@ -1649,7 +1644,7 @@
     "parentId": "4.2.1.1.1.6",
     "children": [],
     "section": "fa_agrement",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.1.2.5": {
     "type": "critere",
@@ -2955,7 +2950,7 @@
     "parentId": "4.2.1.4.1.2",
     "children": [],
     "section": "fa_entretien",
-    "classement": "Recommandation de travaux",
+    "classement": "Autre défaut",
     "review": {
       "flagged": true,
       "note": ""
@@ -2967,7 +2962,7 @@
     "parentId": "4.2.1.4.1.3",
     "children": [],
     "section": "fa_entretien",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.4.1.4.cst": {
     "type": "constat",
@@ -3172,7 +3167,7 @@
     "parentId": "4.2.1.4.2.1.1",
     "children": [],
     "section": "fa_dimensions",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.4.2.2": {
     "type": "saisie_valeur",
@@ -3234,260 +3229,6 @@
     "children": [],
     "section": "reco_fa_conformité"
   },
-  "4.1.3.1": {
-    "type": "critere",
-    "label": "Débordement",
-    "parentId": "4.1.3",
-    "children": [
-      "4.1.3.1.1",
-      "4.1.3.1.2"
-    ]
-  },
-  "4.1.3.1.1": {
-    "type": "critere",
-    "label": "dans une réhausse",
-    "parentId": "4.1.3.1",
-    "children": [
-      "4.1.3.1.1.cst",
-      "4.1.3.1.1.reco"
-    ],
-    "exclusionGroup": "4.2.1.4.2"
-  },
-  "4.1.3.1.2": {
-    "type": "critere",
-    "label": "en surface",
-    "parentId": "4.1.3.1",
-    "children": [
-      "4.1.3.1.2.cst",
-      "4.1.3.1.2.reco"
-    ],
-    "exclusionGroup": "4.2.1.4.2"
-  },
-  "4.1.3": {
-    "type": "critere",
-    "label": "Fuites et Défauts de structure",
-    "parentId": "4.1",
-    "children": [
-      "4.1.3.1",
-      "4.1.3.2",
-      "4.1.3.3",
-      "4.1.3.4"
-    ]
-  },
-  "4.1.3.2.3": {
-    "type": "critere",
-    "label": "Avec défaut de résistance structurelle important et/ou défaut de fermeture (accès déformé compris)",
-    "parentId": "4.1.3.2",
-    "children": [
-      "4.1.3.2.3.cst",
-      "4.1.3.2.3.reco"
-    ],
-    "exclusionGroup": "4.2.1.4.1"
-  },
-  "4.1.3.3": {
-    "type": "critere",
-    "label": "Déformation d'un élément",
-    "parentId": "4.1.3",
-    "children": [
-      "4.1.3.3.1",
-      "4.1.3.3.2"
-    ]
-  },
-  "4.1.3.3.1": {
-    "type": "critere",
-    "label": "sans perturbation des écoulements (déformation parois interne et/ou externe)",
-    "parentId": "4.1.3.3",
-    "children": [
-      "4.1.3.3.1.cst"
-    ],
-    "exclusionGroup": "6.6.3"
-  },
-  "4.1.3.3.2": {
-    "type": "critere",
-    "label": "avec perturbation des écoulements (déformation paroi interne et/ou externe)",
-    "parentId": "4.1.3.3",
-    "children": [
-      "4.1.3.3.2.cst",
-      "4.1.3.3.2.reco"
-    ],
-    "exclusionGroup": "6.6.3"
-  },
-  "4.1.3.4": {
-    "type": "critere",
-    "label": "Réhausse d'un élément déboitée",
-    "parentId": "4.1.3",
-    "children": [
-      "4.1.3.4.cst",
-      "4.1.3.4.reco"
-    ]
-  },
-  "4.1.3.2.2": {
-    "type": "critere",
-    "label": "entrainant uniquement un défaut d'étanchéité",
-    "parentId": "4.1.3.2",
-    "children": [
-      "4.1.3.2.2.cst",
-      "4.1.3.2.2.reco"
-    ],
-    "exclusionGroup": "4.2.1.4.1"
-  },
-  "4.1.3.2.1": {
-    "type": "critere",
-    "label": "sans danger (tampons, réhausses, fosses, …)",
-    "parentId": "4.1.3.2",
-    "children": [
-      "4.1.3.2.1.cst",
-      "4.1.3.2.1.reco"
-    ],
-    "exclusionGroup": "4.2.1.4.1"
-  },
-  "4.1.3.1.2.cst": {
-    "type": "constat",
-    "label": "Mise en charge de xxxx entrainant un défaut d'écoulement avec contact possible avec les effluents en surface de parcelle. /!\\Le SPANC doit citer les désordres éventuels et conseils propres à l'élément concerné./!\\",
-    "parentId": "4.1.3.1.2",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Défaut de sécurité sanitaire"
-  },
-  "4.1.3.2.3.reco": {
-    "type": "recommandation",
-    "label": "Sécuriser l'élément en le réparant ou le remplaçant par un dispositif adapté et étanche.",
-    "parentId": "4.1.3.2.3",
-    "children": [],
-    "section": "reco_fa_conformité"
-  },
-  "4.1.3.2.1.cst": {
-    "type": "constat",
-    "label": "Défaut d'usure de xxxx (corrodé/fissuré ...). Fragilisation de l'élément nommé.",
-    "parentId": "4.1.3.2.1",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.3.2.1.reco": {
-    "type": "recommandation",
-    "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
-    "parentId": "4.1.3.2.1",
-    "children": [],
-    "section": "reco_fa_bf"
-  },
-  "4.1.3.3.1.cst": {
-    "type": "constat",
-    "label": "Déformation et affaissement de xxxx. Fermeture restant opérationnelle et sécurisée ; aucune autre déformation ou fissure, ni dysfonctionnement observé lors de la visite. Risque à terme d'une déformation plus importante pouvant engendrer un défaut de structure, de fermeture, un dysfonctionnement, ou autre, nécessitant sa réhabilitation.",
-    "parentId": "4.1.3.3.1",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.3.3.2.cst": {
-    "type": "constat",
-    "label": "Déformation et affaissement de xxxx entrainant son défaut de fonctionnement ; fermeture restant opérationnelle et sécurisée.",
-    "parentId": "4.1.3.3.2",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.3.3.2.reco": {
-    "type": "recommandation",
-    "label": "Réhabiliter l'élément déformé.",
-    "parentId": "4.1.3.3.2",
-    "children": [],
-    "section": "reco_fa_conformité"
-  },
-  "4.1.3.4.cst": {
-    "type": "constat",
-    "label": "Défaut d'usure de xxxx (réhausse déboîtée).",
-    "parentId": "4.1.3.4",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.3.4.reco": {
-    "type": "recommandation",
-    "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
-    "parentId": "4.1.3.4",
-    "children": [],
-    "section": "reco_fa_bf"
-  },
-  "4.1.3.2.2.cst": {
-    "type": "constat",
-    "label": "Défaut d'étanchéité de xxxx.",
-    "parentId": "4.1.3.2.2",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.3.2.2.reco": {
-    "type": "recommandation",
-    "label": "Rendre l'élément étanche ou le remplacer par un dispositif adapté.",
-    "parentId": "4.1.3.2.2",
-    "children": [],
-    "section": "reco_fa_conformité"
-  },
-  "4.1.3.1.1.cst": {
-    "type": "constat",
-    "label": "Mise en charge de xxxx entrainant un défaut d'écoulement (pas de contact possible avec les effluents). /!\\Le SPANC doit citer les désordres éventuels et conseils propres à l'élément concerné. /!\\",
-    "parentId": "4.1.3.1.1",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.3.2": {
-    "type": "critere",
-    "label": "Usure / Fragilisation d'un élément",
-    "parentId": "4.1.3",
-    "children": [
-      "4.1.3.2.1",
-      "4.1.3.2.2",
-      "4.1.3.2.3"
-    ]
-  },
-  "4.1.3.2.3.cst": {
-    "type": "constat",
-    "label": "Défaut de structure de xxxx (fortement corrodé/fissuré ...) entrainant un risque de contact avec les effluents et de chute dans l'élément.",
-    "parentId": "4.1.3.2.3",
-    "children": [],
-    "section": "fa_structurel",
-    "classement": "Danger pour la sécurité des personnes"
-  },
-  "4.1.3.1.2.reco": {
-    "type": "recommandation",
-    "label": "Rétablir l'écoulement correct à travers l'élément.",
-    "parentId": "4.1.3.1.2",
-    "children": [],
-    "section": "reco_fa_conformité"
-  },
-  "4.1.3.1.1.reco": {
-    "type": "recommandation",
-    "label": "Rétablir l'écoulement correct à travers l'élément.",
-    "parentId": "4.1.3.1.1",
-    "children": [],
-    "section": "reco_fa_conformité"
-  },
-  "4.1.4": {
-    "type": "critere",
-    "label": "Raccordement d'EP",
-    "parentId": "4.1",
-    "children": [
-      "4.1.4.cst",
-      "4.1.4.reco"
-    ]
-  },
-  "4.1.4.cst": {
-    "type": "constat",
-    "label": "Installation présentant un dysfonctionnement majeur de par le raccordement d'eaux pluviales sur l'installation d'assainissement non collectif. Risque d'une surcharge hydraulique et de dysfonctionnement des éléments.",
-    "parentId": "4.1.4",
-    "children": [],
-    "section": "fa_parasites",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.4.reco": {
-    "type": "recommandation",
-    "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
-    "parentId": "4.1.4",
-    "children": [],
-    "section": "reco_fa_conformité"
-  },
   "4.4": {
     "type": "critere",
     "label": "Totalité des éléments inaccessibles",
@@ -3539,14 +3280,14 @@
     "label": "Dégager, rendre accessible et affleurant en permanence l'installation puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité des éléments dégagés, leur état et leur fonctionnement.En cas d'impossibilité, mettre en place une installation réglementaire d'assainissement non collectif.",
     "parentId": "4.4.2",
     "children": [],
-    "section": "reco_acces_conformité"
+    "section": "reco_contexte_conformité"
   },
   "4.4.1.reco": {
     "type": "recommandation",
     "label": "Dégager, rendre accessible et affleurant en permanence l'installation puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité des éléments dégagés, leur état et leur fonctionnement.En cas d'impossibilité, mettre en place une installation réglementaire d'assainissement non collectif.",
     "parentId": "4.4.1",
     "children": [],
-    "section": "reco_acces_conformité"
+    "section": "reco_contexte_conformité"
   },
   "4.1.1": {
     "type": "header",
@@ -4056,7 +3797,6 @@
     "label": "diagnostic vente",
     "parentId": "1.1.5",
     "children": [],
-    "exclusionGroup": "1.1",
     "classement": "Simple constat",
     "section": "cadre_visite"
   },
@@ -4065,7 +3805,6 @@
     "label": "suite achat en 20.....",
     "parentId": "1.1.4",
     "children": [],
-    "exclusionGroup": "1.1",
     "classement": "Simple constat",
     "section": "cadre_visite"
   },
@@ -4239,8 +3978,7 @@
     "parentId": "1.8.3",
     "children": [],
     "section": "note_accessibilite",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.8"
+    "classement": "Simple constat"
   },
   "1.8.4.cst": {
     "type": "constat",
@@ -4248,8 +3986,7 @@
     "parentId": "1.8.4",
     "children": [],
     "section": "note_accessibilite",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.8"
+    "classement": "Simple constat"
   },
   "1.8.5.cst": {
     "type": "constat",
@@ -4257,8 +3994,7 @@
     "parentId": "1.8.5",
     "children": [],
     "section": "note_accessibilite",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.8"
+    "classement": "Simple constat"
   },
   "1.8.6.cst": {
     "type": "constat",
@@ -4306,8 +4042,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.1.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.2": {
     "type": "critere",
@@ -4315,8 +4050,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.2.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.3": {
     "type": "critere",
@@ -4324,8 +4058,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.3.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.4": {
     "type": "critere",
@@ -4333,8 +4066,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.4.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.5": {
     "type": "critere",
@@ -4342,8 +4074,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.5.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.6": {
     "type": "critere",
@@ -4351,8 +4082,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.6.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.7": {
     "type": "critere",
@@ -4360,8 +4090,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.7.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.8": {
     "type": "critere",
@@ -4369,8 +4098,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.8.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.9": {
     "type": "critere",
@@ -4378,8 +4106,7 @@
     "parentId": "1.7",
     "children": [
       "1.7.9.cst"
-    ],
-    "exclusionGroup": "1.7"
+    ]
   },
   "1.7.1.cst": {
     "type": "constat",
@@ -4387,8 +4114,7 @@
     "parentId": "1.7.1",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.2.cst": {
     "type": "constat",
@@ -4396,8 +4122,7 @@
     "parentId": "1.7.2",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.3.cst": {
     "type": "constat",
@@ -4405,8 +4130,7 @@
     "parentId": "1.7.3",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.4.cst": {
     "type": "constat",
@@ -4414,8 +4138,7 @@
     "parentId": "1.7.4",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.5.cst": {
     "type": "constat",
@@ -4423,8 +4146,7 @@
     "parentId": "1.7.5",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.6.cst": {
     "type": "constat",
@@ -4432,8 +4154,7 @@
     "parentId": "1.7.6",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.7.cst": {
     "type": "constat",
@@ -4441,8 +4162,7 @@
     "parentId": "1.7.7",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.8.cst": {
     "type": "constat",
@@ -4450,8 +4170,7 @@
     "parentId": "1.7.8",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.7.9.cst": {
     "type": "constat",
@@ -4459,8 +4178,7 @@
     "parentId": "1.7.9",
     "children": [],
     "section": "obstacle_acces",
-    "classement": "Simple constat",
-    "exclusionGroup": "1.7"
+    "classement": "Simple constat"
   },
   "1.3.5.3.cst": {
     "type": "constat",
@@ -4576,7 +4294,7 @@
     "label": "Supprimer ou désaffecter l'ensemble de l'installation en place et mettre en œuvre une nouvelle installation d'assainissement réglementaire en respectant la distance minimale de 35 m avec le puits. Pour information, depuis le 1er janvier 2009 tout puits dont il est fait un usage domestique doit être déclaré en mairie.",
     "parentId": "1.3.1.2",
     "children": [],
-    "section": "reco_zone_enjeu_conformité"
+    "section": "reco_contexte_conformité"
   },
   "1.3.1.1.cst": {
     "type": "constat",
@@ -4607,7 +4325,7 @@
     "label": "Il est recommandé d'équiper l'installation de manière à éviter tout dysfonctionnement et danger de sécurité sanitaire face au risque d'inondation.",
     "parentId": "1.3.6",
     "children": [],
-    "section": "reco_zone_enjeu_conformité"
+    "section": "reco_contexte_conformité"
   },
   "1.3.5.1.cst": {
     "type": "constat",
@@ -4683,14 +4401,14 @@
     "label": "Rechercher la cause des nuisances olfactives (ventilations, siphons, …) et procéder à leur élimination définitive.",
     "parentId": "1.3.5.3",
     "children": [],
-    "section": "reco_zone_enjeu_conformité"
+    "section": "reco_contexte_conformité"
   },
   "1.3.5.2.reco": {
     "type": "recommandation",
     "label": "Rechercher la cause des nuisances olfactives (ventilations, siphons, …) et procéder à leur élimination définitive.",
     "parentId": "1.3.5.2",
     "children": [],
-    "section": "reco_zone_enjeu_conformité"
+    "section": "reco_contexte_conformité"
   },
   "1.4.1": {
     "type": "saisie_valeur",
@@ -4786,7 +4504,6 @@
     "label": "principale",
     "parentId": "1.4.2",
     "children": [],
-    "exclusionGroup": "1.4",
     "classement": "Simple constat",
     "section": "habitation"
   },
@@ -4795,7 +4512,6 @@
     "label": "secondaire",
     "parentId": "1.4.3",
     "children": [],
-    "exclusionGroup": "1.4",
     "section": "habitation"
   },
   "1.4.5.cst": {
@@ -4803,7 +4519,6 @@
     "label": "déclarée inoccupée (bâtiment agricole)",
     "parentId": "1.4.5",
     "children": [],
-    "exclusionGroup": "1.4",
     "classement": "Simple constat",
     "section": "habitation"
   },
@@ -4812,7 +4527,6 @@
     "label": "déclarée inoccupée (en travaux)",
     "parentId": "1.4.6",
     "children": [],
-    "exclusionGroup": "1.4",
     "classement": "Simple constat",
     "section": "habitation"
   },
@@ -4821,7 +4535,6 @@
     "label": "déclarée inoccupée (non louée)",
     "parentId": "1.4.7",
     "children": [],
-    "exclusionGroup": "1.4",
     "classement": "Simple constat",
     "section": "habitation"
   },
@@ -4830,7 +4543,6 @@
     "label": "manifestement inoccupée",
     "parentId": "1.4.8",
     "children": [],
-    "exclusionGroup": "1.4",
     "classement": "Simple constat",
     "section": "habitation"
   },
@@ -4917,7 +4629,6 @@
     "label": "absence d'ANC",
     "parentId": "1.6.3",
     "children": [],
-    "exclusionGroup": "1.6",
     "classement": "Simple constat",
     "section": "obl_travaux"
   },
@@ -4926,7 +4637,6 @@
     "label": "suite constat de pollution, nuisance ou défaut de sécurité",
     "parentId": "1.6.2",
     "children": [],
-    "exclusionGroup": "1.6",
     "classement": "Simple constat",
     "section": "obl_travaux"
   },
@@ -4935,7 +4645,6 @@
     "label": "suite changement de propriétaire*",
     "parentId": "1.6.1",
     "children": [],
-    "exclusionGroup": "1.6",
     "classement": "Simple constat",
     "section": "obl_travaux"
   },
@@ -5001,7 +4710,6 @@
     "label": "avant 1990",
     "parentId": "1.5.1",
     "children": [],
-    "exclusionGroup": "1.5",
     "section": "Année_constr",
     "classement": "Simple constat"
   },
@@ -5010,7 +4718,6 @@
     "label": "1990 - 1999",
     "parentId": "1.5.2",
     "children": [],
-    "exclusionGroup": "1.5",
     "section": "Année_constr",
     "classement": "Simple constat"
   },
@@ -5019,7 +4726,6 @@
     "label": "2000 - 2009",
     "parentId": "1.5.3",
     "children": [],
-    "exclusionGroup": "1.5",
     "section": "Année_constr",
     "classement": "Simple constat"
   },
@@ -5028,7 +4734,6 @@
     "label": "2010 - 2019",
     "parentId": "1.5.4",
     "children": [],
-    "exclusionGroup": "1.5",
     "section": "Année_constr",
     "classement": "Simple constat"
   },
@@ -5037,7 +4742,6 @@
     "label": "après 2020",
     "parentId": "1.5.5",
     "children": [],
-    "exclusionGroup": "1.5",
     "section": "Année_constr",
     "classement": "Simple constat"
   },
@@ -5126,20 +4830,21 @@
   },
   "6.1.9": {
     "type": "critere",
-    "label": "Point de rejet inaccessible lors de la visite",
+    "label": "Point de rejet non trouvé",
     "parentId": "6.1",
     "children": [
       "6.1.9.cst",
       "6.1.9.reco"
-    ]
+    ],
+    "exclusionGroup": "6.1"
   },
   "6.1.9.cst": {
     "type": "constat",
-    "label": "Point de rejet non visible le jour de la visite (rejet au XX).",
+    "label": "Point de rejet non trouvé.",
     "parentId": "6.1.9",
     "children": [],
     "section": "rejet_pb",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "6.1.9.reco": {
     "type": "recommandation",
@@ -5369,7 +5074,7 @@
     "parentId": "5.1.6.3.3",
     "children": [],
     "section": "annexe_PR_entretien",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.1.6.3.3.reco": {
     "type": "recommandation",
@@ -5599,7 +5304,7 @@
     "parentId": "5.2.6.3.3",
     "children": [],
     "section": "annexe_CA_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.2.6.3.3.reco": {
     "type": "recommandation",
@@ -5746,7 +5451,7 @@
     "parentId": "5.3.3.3.3",
     "children": [],
     "section": "annexe_PE_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.3.3.3.3.reco": {
     "type": "recommandation",
@@ -5996,7 +5701,7 @@
     "parentId": "4.1.1.1.1.4.2.3",
     "children": [],
     "section": "fosse_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.1.1.1.4.2.3.reco": {
     "type": "recommandation",
@@ -6322,7 +6027,7 @@
       "4.1.1.1.1.2.1.cst",
       "4.1.1.1.1.2.1.reco"
     ],
-    "exclusionGroup": "4.1.1.1.1.9.3",
+    "exclusionGroup": "4.1.1.1.1.9.4",
     "legacy": {
       "exclusion": "oui"
     }
@@ -6335,7 +6040,7 @@
       "4.1.1.1.1.2.2.cst",
       "4.1.1.1.1.2.2.reco"
     ],
-    "exclusionGroup": "4.1.1.1.1.9.3"
+    "exclusionGroup": "4.1.1.1.1.9.4"
   },
   "4.1.1.1.1.2.3.cst": {
     "type": "constat",
@@ -6538,7 +6243,8 @@
     "children": [
       "4.1.1.1.1.9.1",
       "4.1.1.1.1.9.2",
-      "4.1.1.1.1.9.3"
+      "4.1.1.1.1.9.3",
+      "4.1.1.1.1.9.4"
     ]
   },
   "4.1.1.1.2.1": {
@@ -6609,7 +6315,7 @@
     "parentId": "4.1.1.1.2.1.2.1",
     "children": [],
     "section": "BàG_dimensions",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.1.1.2.1.2.1.reco": {
     "type": "recommandation",
@@ -6707,8 +6413,7 @@
     "parentId": "4.1.1.1.2.1.3.1.2.2",
     "children": [],
     "section": "BàG_structurel",
-    "classement": "Défaut d'entretien ou d'usure",
-    "exclusionGroup": "4.2.2.2.2.2.2"
+    "classement": "Défaut d'entretien ou d'usure"
   },
   "4.1.1.1.2.1.3.1.2.2.reco": {
     "type": "recommandation",
@@ -6978,7 +6683,7 @@
     "parentId": "4.1.1.1.2.1.3.5.3",
     "children": [],
     "section": "BàG_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.1.1.2.1.3.5.3.reco": {
     "type": "recommandation",
@@ -7365,7 +7070,7 @@
     "parentId": "4.1.1.1.1.6.1.4",
     "children": [],
     "section": "BàG_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.1.1.1.6.1.4.reco": {
     "type": "recommandation",
@@ -7609,7 +7314,7 @@
     "parentId": "4.1.2.1.5",
     "children": [],
     "section": "implantation",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.2.1.5.reco": {
     "type": "recommandation",
@@ -7660,7 +7365,7 @@
     "parentId": "4.1.2.1.4.2",
     "children": [],
     "section": "implantation",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.2.1.4.2.reco": {
     "type": "recommandation",
@@ -7861,7 +7566,7 @@
     "parentId": "4.1.2.1.2.1.1.3",
     "children": [],
     "section": "secondaire_regard_repartition",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.2.1.2.1.1.4.cst": {
     "type": "constat",
@@ -8522,52 +8227,36 @@
     "children": [],
     "section": "reco_secondaire_conformité"
   },
-  "6.1.8": {
+  "6.1.1": {
     "type": "critere",
     "label": "Dispersion souterraine (épandage) — pas de point de rejet",
     "parentId": "6.1",
     "children": [
-      "6.1.8.cst"
+      "6.1.1.cst"
     ],
     "exclusionGroup": "6.1"
   },
-  "6.1.8.cst": {
+  "6.1.1.cst": {
     "type": "constat",
     "label": "L'installation dispose d'un traitement par dispersion/infiltration souterraine des effluents traités (épandage). Il n'existe pas de point de rejet distinct.",
-    "parentId": "6.1.8",
+    "parentId": "6.1.1",
     "children": [],
     "section": "rejet_type",
     "classement": "Simple constat"
   },
-  "6.1.1": {
+  "6.1.2": {
     "type": "critere",
     "label": "dans une tranchée d'infiltration",
     "parentId": "6.1",
     "children": [
-      "6.1.1.cst",
-      "6.1.1.1"
-    ]
-  },
-  "6.1.2": {
-    "type": "critere",
-    "label": "dans un puit d'infiltration",
-    "parentId": "6.1",
-    "children": [
-      "6.1.2.cst"
+      "6.1.2.cst",
+      "6.1.2.1"
     ],
     "exclusionGroup": "6.1"
   },
-  "6.1.2.cst": {
-    "type": "constat",
-    "label": "dans un puit d'infiltration",
-    "parentId": "6.1.2",
-    "children": [],
-    "section": "rejet_type",
-    "classement": "Simple constat"
-  },
   "6.1.3": {
     "type": "critere",
-    "label": "dans zone d'irrigation",
+    "label": "dans un puit d'infiltration",
     "parentId": "6.1",
     "children": [
       "6.1.3.cst"
@@ -8576,143 +8265,160 @@
   },
   "6.1.3.cst": {
     "type": "constat",
-    "label": "dans zone d'irrigation",
+    "label": "dans un puit d'infiltration",
     "parentId": "6.1.3",
     "children": [],
-    "classement": "Simple constat",
-    "section": "rejet_type"
+    "section": "rejet_type",
+    "classement": "Simple constat"
   },
   "6.1.4": {
     "type": "critere",
-    "label": "au milieu hydraulique superficiel (cours d'eau)",
+    "label": "dans zone d'irrigation",
     "parentId": "6.1",
     "children": [
-      "6.1.4.1",
       "6.1.4.cst"
     ],
     "exclusionGroup": "6.1"
   },
   "6.1.4.cst": {
     "type": "constat",
-    "label": " au milieu hydraulique superficiel (dans un cours d'eau)",
+    "label": "dans zone d'irrigation",
     "parentId": "6.1.4",
-    "children": [],
-    "section": "rejet_type",
-    "classement": "Simple constat"
-  },
-  "6.1.1.1": {
-    "type": "critere",
-    "label": "Mise en charge de la zone d'infiltration",
-    "parentId": "6.1.1",
-    "children": [
-      "6.1.1.1.cst",
-      "6.1.1.1.reco"
-    ]
-  },
-  "6.1.1.1.cst": {
-    "type": "constat",
-    "label": "Dysfonctionnement majeur de la zone d'infiltration du fait de sa mise en charge (mise en charge d'environ xx cm, avec mise en charge du tuyau d'alimentation).",
-    "parentId": "6.1.1.1",
-    "children": [],
-    "section": "rejet_pb",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "6.1.1.1.reco": {
-    "type": "recommandation",
-    "label": "En cas de possibilité, effectuer un curage de l'ensemble des tuyaux, sans garantie de rétablissement d'un fonctionnement pérenne. Dans tous les cas, si le dysfonctionnement persiste, mettre en place un point de rejet réglementaire adapté.",
-    "parentId": "6.1.1.1",
-    "children": [],
-    "section": "reco_rejet_conformité"
-  },
-  "6.1.1.cst": {
-    "type": "constat",
-    "label": "dans une tranchée d'infiltration",
-    "parentId": "6.1.1",
-    "children": [],
-    "section": "rejet_type",
-    "classement": "Simple constat"
-  },
-  "6.1.5.1": {
-    "type": "critere",
-    "label": "mare ou étang n'ayant pas de trop plein",
-    "parentId": "6.1.5",
-    "children": [
-      "6.1.5.1.cst",
-      "6.1.5.1.reco"
-    ]
-  },
-  "6.1.5.1.cst": {
-    "type": "constat",
-    "label": "Rejet d'effluents traités ne respectant pas l'arrêté des prescriptions techniques (rejet de xxx dans une mare). Risque de dysfonctionnement du point de rejet.",
-    "parentId": "6.1.5.1",
-    "children": [],
-    "section": "rejet_pb",
-    "classement": "Recommandation de travaux"
-  },
-  "6.1.5": {
-    "type": "critere",
-    "label": "au milieu hydraulique superficiel (mare ou étang)",
-    "parentId": "6.1",
-    "children": [
-      "6.1.5.1",
-      "6.1.5.2",
-      "6.1.5.cst"
-    ],
-    "exclusionGroup": "6.1"
-  },
-  "6.1.5.1.reco": {
-    "type": "recommandation",
-    "label": "Mettre en place un rejet respectant cette réglementation.",
-    "parentId": "6.1.5.1",
-    "children": [],
-    "section": "reco_rejet_bf"
-  },
-  "6.1.5.cst": {
-    "type": "constat",
-    "label": "dans une mare ou étang",
-    "parentId": "6.1.5",
     "children": [],
     "classement": "Simple constat",
     "section": "rejet_type"
   },
-  "6.1.7": {
+  "6.1.5": {
+    "type": "critere",
+    "label": "au milieu hydraulique superficiel (cours d'eau)",
+    "parentId": "6.1",
+    "children": [
+      "6.1.5.1",
+      "6.1.5.cst"
+    ],
+    "exclusionGroup": "6.1"
+  },
+  "6.1.5.cst": {
+    "type": "constat",
+    "label": " au milieu hydraulique superficiel (dans un cours d'eau)",
+    "parentId": "6.1.5",
+    "children": [],
+    "section": "rejet_type",
+    "classement": "Simple constat"
+  },
+  "6.1.2.1": {
+    "type": "critere",
+    "label": "Mise en charge de la zone d'infiltration",
+    "parentId": "6.1.2",
+    "children": [
+      "6.1.2.1.cst",
+      "6.1.2.1.reco"
+    ]
+  },
+  "6.1.2.1.cst": {
+    "type": "constat",
+    "label": "Dysfonctionnement majeur de la zone d'infiltration du fait de sa mise en charge (mise en charge d'environ xx cm, avec mise en charge du tuyau d'alimentation).",
+    "parentId": "6.1.2.1",
+    "children": [],
+    "section": "rejet_pb",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "6.1.2.1.reco": {
+    "type": "recommandation",
+    "label": "En cas de possibilité, effectuer un curage de l'ensemble des tuyaux, sans garantie de rétablissement d'un fonctionnement pérenne. Dans tous les cas, si le dysfonctionnement persiste, mettre en place un point de rejet réglementaire adapté.",
+    "parentId": "6.1.2.1",
+    "children": [],
+    "section": "reco_rejet_conformité"
+  },
+  "6.1.2.cst": {
+    "type": "constat",
+    "label": "dans une tranchée d'infiltration",
+    "parentId": "6.1.2",
+    "children": [],
+    "section": "rejet_type",
+    "classement": "Simple constat"
+  },
+  "6.1.6.1": {
+    "type": "critere",
+    "label": "mare ou étang n'ayant pas de trop plein",
+    "parentId": "6.1.6",
+    "children": [
+      "6.1.6.1.cst",
+      "6.1.6.1.reco"
+    ]
+  },
+  "6.1.6.1.cst": {
+    "type": "constat",
+    "label": "Rejet d'effluents traités ne respectant pas l'arrêté des prescriptions techniques (rejet de xxx dans une mare). Risque de dysfonctionnement du point de rejet.",
+    "parentId": "6.1.6.1",
+    "children": [],
+    "section": "rejet_pb",
+    "classement": "Autre défaut"
+  },
+  "6.1.6": {
+    "type": "critere",
+    "label": "au milieu hydraulique superficiel (mare ou étang)",
+    "parentId": "6.1",
+    "children": [
+      "6.1.6.1",
+      "6.1.6.2",
+      "6.1.6.cst"
+    ],
+    "exclusionGroup": "6.1"
+  },
+  "6.1.6.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un rejet respectant cette réglementation.",
+    "parentId": "6.1.6.1",
+    "children": [],
+    "section": "reco_rejet_bf"
+  },
+  "6.1.6.cst": {
+    "type": "constat",
+    "label": "dans une mare ou étang",
+    "parentId": "6.1.6",
+    "children": [],
+    "classement": "Simple constat",
+    "section": "rejet_type"
+  },
+  "6.1.8": {
     "type": "critere",
     "label": "en surface de parcelle ou en puisard",
     "parentId": "6.1",
     "children": [
-      "6.1.7.cst",
-      "6.1.7.reco"
+      "6.1.8.cst",
+      "6.1.8.reco"
+    ],
+    "exclusionGroup": "6.1"
+  },
+  "6.1.8.cst": {
+    "type": "constat",
+    "label": "Rejet d'effluents traités ne respectant pas l'arrêté des prescriptions techniques (rejet en surface ou dans un puisard). Risque de dysfonctionnement du point de rejet.",
+    "parentId": "6.1.8",
+    "children": [],
+    "section": "rejet_pb",
+    "classement": "Autre défaut"
+  },
+  "6.1.8.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un rejet respectant cette réglementation.",
+    "parentId": "6.1.8",
+    "children": [],
+    "section": "reco_rejet_bf"
+  },
+  "6.1.7": {
+    "type": "critere",
+    "label": "dans le réseau d'eau pluviale",
+    "parentId": "6.1",
+    "children": [
+      "6.1.7.cst"
     ],
     "exclusionGroup": "6.1"
   },
   "6.1.7.cst": {
     "type": "constat",
-    "label": "Rejet d'effluents traités ne respectant pas l'arrêté des prescriptions techniques (rejet en surface ou dans un puisard). Risque de dysfonctionnement du point de rejet.",
-    "parentId": "6.1.7",
-    "children": [],
-    "section": "rejet_pb",
-    "classement": "Recommandation de travaux"
-  },
-  "6.1.7.reco": {
-    "type": "recommandation",
-    "label": "Mettre en place un rejet respectant cette réglementation.",
-    "parentId": "6.1.7",
-    "children": [],
-    "section": "reco_rejet_bf"
-  },
-  "6.1.6": {
-    "type": "critere",
     "label": "dans le réseau d'eau pluviale",
-    "parentId": "6.1",
-    "children": [
-      "6.1.6.cst"
-    ],
-    "exclusionGroup": "6.1"
-  },
-  "6.1.6.cst": {
-    "type": "constat",
-    "label": "dans le réseau d'eau pluviale",
-    "parentId": "6.1.6",
+    "parentId": "6.1.7",
     "children": [],
     "classement": "Simple constat",
     "section": "rejet_type"
@@ -8732,164 +8438,164 @@
     "children": [],
     "section": "reco_annexe_conformité"
   },
-  "4.1.1.1.1.9.3.cst": {
+  "4.1.1.1.1.9.4.cst": {
     "type": "constat",
     "label": "Ventilation d'extraction non visible lors de la visite ; risque de mauvaises odeurs et de dégradation prématurée de la fosse par la présence de gaz H2S.",
-    "parentId": "4.1.1.1.1.9.3",
+    "parentId": "4.1.1.1.1.9.4",
     "children": [],
     "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
-  "4.1.1.1.1.9.3": {
+  "4.1.1.1.1.9.4": {
     "type": "critere",
     "label": "Ventilation secondaire non visible",
     "parentId": "4.1.1.1.1.9",
     "children": [
-      "4.1.1.1.1.9.3.cst",
-      "4.1.1.1.1.9.3.reco"
+      "4.1.1.1.1.9.4.cst",
+      "4.1.1.1.1.9.4.reco"
     ],
     "exclusionGroup": "ventilation"
   },
-  "4.1.1.1.1.9.3.reco": {
+  "4.1.1.1.1.9.4.reco": {
     "type": "recommandation",
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.1.9.4",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.9.3": {
+    "type": "critere",
+    "label": "Ventilation secondaire visible",
+    "parentId": "4.1.1.1.1.9",
+    "children": [
+      "4.1.1.1.1.9.3.1",
+      "4.1.1.1.1.9.3.2",
+      "4.1.1.1.1.9.3.3",
+      "4.1.1.1.1.9.3.4"
+    ],
+    "exclusionGroup": "ventilation"
+  },
+  "4.1.1.1.1.9.3.1.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction sous le faitage le plus haut du bâtiment ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.1.9.3.1",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.1.9.3.2.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction acheminée dans un autre structure que le bâtiment produisant les effluents ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.1.9.3.2",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.1.9.3.3.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.1.9.3.3",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.1.9.3.4.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) et acheminée sous le faîtage le plus haut du bâtiment ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.1.9.3.4",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.1.9.3.1": {
+    "type": "critere",
+    "label": "Avec extracteur mais sous le faitage",
     "parentId": "4.1.1.1.1.9.3",
+    "children": [
+      "4.1.1.1.1.9.3.1.cst",
+      "4.1.1.1.1.9.3.1.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.1.9.3.2": {
+    "type": "critere",
+    "label": "Avec extracteur dans une autre structure que le bâtiment (arbre, poteau, cabanon …)",
+    "parentId": "4.1.1.1.1.9.3",
+    "children": [
+      "4.1.1.1.1.9.3.2.cst",
+      "4.1.1.1.1.9.3.2.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.1.9.3.3": {
+    "type": "critere",
+    "label": "Sans extracteur et au-dessus du faitage",
+    "parentId": "4.1.1.1.1.9.3",
+    "children": [
+      "4.1.1.1.1.9.3.3.cst",
+      "4.1.1.1.1.9.3.3.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.1.9.3.4": {
+    "type": "critere",
+    "label": "Sans extracteur et sous le faitage",
+    "parentId": "4.1.1.1.1.9.3",
+    "children": [
+      "4.1.1.1.1.9.3.4.cst",
+      "4.1.1.1.1.9.3.4.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.1.9.3.1.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.1.9.3.1",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.9.3.3.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.1.9.3.3",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.9.3.4.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.1.9.3.4",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.9.3.2.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.1.9.3.2",
     "children": [],
     "section": "reco_primaire_bf"
   },
   "4.1.1.1.1.9.2": {
     "type": "critere",
-    "label": "Ventilation secondaire visible",
-    "parentId": "4.1.1.1.1.9",
-    "children": [
-      "4.1.1.1.1.9.2.1",
-      "4.1.1.1.1.9.2.2",
-      "4.1.1.1.1.9.2.3",
-      "4.1.1.1.1.9.2.4"
-    ],
-    "exclusionGroup": "ventilation"
-  },
-  "4.1.1.1.1.9.2.1.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction sous le faitage le plus haut du bâtiment ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.1.9.2.1",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.1.9.2.2.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction acheminée dans un autre structure que le bâtiment produisant les effluents ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.1.9.2.2",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.1.9.2.3.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.1.9.2.3",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.1.9.2.4.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) et acheminée sous le faîtage le plus haut du bâtiment ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.1.9.2.4",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.1.9.2.1": {
-    "type": "critere",
-    "label": "Avec extracteur mais sous le faitage",
-    "parentId": "4.1.1.1.1.9.2",
-    "children": [
-      "4.1.1.1.1.9.2.1.cst",
-      "4.1.1.1.1.9.2.1.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.1.9.2.2": {
-    "type": "critere",
-    "label": "Avec extracteur dans une autre structure que le bâtiment (arbre, poteau, cabanon …)",
-    "parentId": "4.1.1.1.1.9.2",
-    "children": [
-      "4.1.1.1.1.9.2.2.cst",
-      "4.1.1.1.1.9.2.2.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.1.9.2.3": {
-    "type": "critere",
-    "label": "Sans extracteur et au-dessus du faitage",
-    "parentId": "4.1.1.1.1.9.2",
-    "children": [
-      "4.1.1.1.1.9.2.3.cst",
-      "4.1.1.1.1.9.2.3.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.1.9.2.4": {
-    "type": "critere",
-    "label": "Sans extracteur et sous le faitage",
-    "parentId": "4.1.1.1.1.9.2",
-    "children": [
-      "4.1.1.1.1.9.2.4.cst",
-      "4.1.1.1.1.9.2.4.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.1.9.2.1.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.1.9.2.1",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.1.9.2.3.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.1.9.2.3",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.1.9.2.4.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.1.9.2.4",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.1.9.2.2.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.1.9.2.2",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.1.9.1": {
-    "type": "critere",
     "label": "Ventilation primaire non visible",
     "parentId": "4.1.1.1.1.9",
     "children": [
-      "4.1.1.1.1.9.1.cst",
-      "4.1.1.1.1.9.1.reco"
+      "4.1.1.1.1.9.2.cst",
+      "4.1.1.1.1.9.2.reco"
     ]
   },
-  "4.1.1.1.1.9.1.cst": {
+  "4.1.1.1.1.9.2.cst": {
     "type": "constat",
     "label": "S'assurer de la présence d'une ventilation primaire (non vue lors de la visite). Respecter les normes en vigueur.",
-    "parentId": "4.1.1.1.1.9.1",
+    "parentId": "4.1.1.1.1.9.2",
     "children": [],
     "section": "fosse_ventilation",
     "classement": "Simple remarque"
   },
-  "4.1.1.1.1.9.1.reco": {
+  "4.1.1.1.1.9.2.reco": {
     "type": "recommandation",
     "label": "En cas d'absence de ventilation primaire (généralement installée sur la canalisation de chute des toilettes), installer une ventilation primaire sur la canalisation de collecte des eaux usées au pied du bâtiment.",
-    "parentId": "4.1.1.1.1.9.1",
+    "parentId": "4.1.1.1.1.9.2",
     "children": [],
     "section": "reco_primaire_bf"
   },
@@ -9062,7 +8768,7 @@
     "parentId": "2.2.2.4",
     "children": [],
     "section": "implantation",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "2.2.2.1": {
     "type": "critere",
@@ -10215,65 +9921,65 @@
     "children": [],
     "section": "reco_rejet_conformité"
   },
-  "6.1.4.1": {
+  "6.1.5.1": {
     "type": "critere",
     "label": "Canalisation de rejet sous le fil d'eau de l'exutoire",
-    "parentId": "6.1.4",
+    "parentId": "6.1.5",
     "children": [
-      "6.1.4.1.1",
-      "6.1.4.1.2"
+      "6.1.5.1.1",
+      "6.1.5.1.2"
     ]
   },
-  "6.1.4.1.1": {
+  "6.1.5.1.1": {
     "type": "critere",
     "label": "sans mise en charge du dispositif amont",
-    "parentId": "6.1.4.1",
+    "parentId": "6.1.5.1",
     "children": [
-      "6.1.4.1.1.cst",
-      "6.1.4.1.1.reco"
+      "6.1.5.1.1.cst",
+      "6.1.5.1.1.reco"
     ],
-    "exclusionGroup": "6.1.3"
+    "exclusionGroup": "6.1.4"
   },
-  "6.1.4.1.1.cst": {
+  "6.1.5.1.1.cst": {
     "type": "constat",
     "label": "Canalisation de rejet des effluents sous le fil d'eau de l'exutoire. Risque de mise en charge des éléments situés en amont et de dysfonctionnement.",
-    "parentId": "6.1.4.1.1",
+    "parentId": "6.1.5.1.1",
     "children": [],
     "section": "rejet_pb",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
-  "6.1.4.1.1.reco": {
+  "6.1.5.1.1.reco": {
     "type": "recommandation",
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
-    "parentId": "6.1.4.1.1",
+    "parentId": "6.1.5.1.1",
     "children": [],
     "section": "reco_rejet_bf"
   },
-  "6.1.4.1.2": {
+  "6.1.5.1.2": {
     "type": "critere",
     "label": "avec mise en charge du dispositif amont",
-    "parentId": "6.1.4.1",
+    "parentId": "6.1.5.1",
     "children": [
-      "6.1.4.1.2.cst",
-      "6.1.4.1.2.reco"
+      "6.1.5.1.2.cst",
+      "6.1.5.1.2.reco"
     ],
-    "exclusionGroup": "6.1.3",
+    "exclusionGroup": "6.1.4",
     "legacy": {
       "exclusion": "oui"
     }
   },
-  "6.1.4.1.2.cst": {
+  "6.1.5.1.2.cst": {
     "type": "constat",
     "label": "Canalisation de rejet des effluents sous le fil d'eau de l'exutoire. Risque de mise en charge des éléments situés en amont et de dysfonctionnement.",
-    "parentId": "6.1.4.1.2",
+    "parentId": "6.1.5.1.2",
     "children": [],
     "section": "rejet_pb",
     "classement": "Dysfonctionnement majeur"
   },
-  "6.1.4.1.2.reco": {
+  "6.1.5.1.2.reco": {
     "type": "recommandation",
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
-    "parentId": "6.1.4.1.2",
+    "parentId": "6.1.5.1.2",
     "children": [],
     "section": "reco_rejet_conformité"
   },
@@ -10345,7 +10051,7 @@
       "4.1.1.1.2.4.1.cst",
       "4.1.1.1.2.4.1.reco"
     ],
-    "exclusionGroup": "4.1.1.1.2.10.3",
+    "exclusionGroup": "4.1.1.1.2.10.4",
     "legacy": {
       "exclusion": "oui"
     }
@@ -10373,7 +10079,7 @@
       "4.1.1.1.2.4.2.cst",
       "4.1.1.1.2.4.2.reco"
     ],
-    "exclusionGroup": "4.1.1.1.2.10.3"
+    "exclusionGroup": "4.1.1.1.2.10.4"
   },
   "4.1.1.1.2.4.2.cst": {
     "type": "constat",
@@ -10692,7 +10398,7 @@
     "parentId": "4.1.1.1.2.6.2.3",
     "children": [],
     "section": "fosse_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.1.1.1.2.6.2.3.reco": {
     "type": "recommandation",
@@ -10784,31 +10490,6 @@
     "children": [],
     "section": "reco_primaire_bf"
   },
-  "4.1.1.1.2.9.6": {
-    "type": "critere",
-    "label": "Absence de dispositif",
-    "parentId": "4.1.1.1.2.9",
-    "children": [
-      "4.1.1.1.2.9.6.cst",
-      "4.1.1.1.2.9.6.reco"
-    ],
-    "exclusionGroup": "4.1.1.1.2.9.6"
-  },
-  "4.1.1.1.2.9.6.cst": {
-    "type": "constat",
-    "label": "Absence de dispositif de rétention des flottants en sortie de la fosse toutes eaux ; départ de matières en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
-    "parentId": "4.1.1.1.2.9.6",
-    "children": [],
-    "section": "fosse_structurel",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.1.1.2.9.6.reco": {
-    "type": "recommandation",
-    "label": "Installer un dispositif de rétention des flottants adapté, ou en cas d'impossibilité réhabiliter la fosse.",
-    "parentId": "4.1.1.1.2.9.6",
-    "children": [],
-    "section": "reco_primaire_conformité"
-  },
   "4.1.1.1.2.7": {
     "type": "critere",
     "label": "Raccordement d'EP",
@@ -10857,266 +10538,6 @@
     "children": [],
     "section": "reco_primaire_bf"
   },
-  "4.1.1.1.2.9": {
-    "type": "header",
-    "label": "Dispositif de rétention des flottants",
-    "parentId": "4.1.1.1.2",
-    "children": [
-      "4.1.1.1.2.9.1",
-      "4.1.1.1.2.9.2",
-      "4.1.1.1.2.9.3",
-      "4.1.1.1.2.9.4",
-      "4.1.1.1.2.9.5",
-      "4.1.1.1.2.9.6"
-    ]
-  },
-  "4.1.1.1.2.9.1": {
-    "type": "critere",
-    "label": "Préfiltre Pouzzolane",
-    "parentId": "4.1.1.1.2.9",
-    "children": [
-      "4.1.1.1.2.9.1.cst",
-      "4.1.1.1.2.9.1.1",
-      "4.1.1.1.2.9.1.2",
-      "4.1.1.1.2.9.1.3"
-    ]
-  },
-  "4.1.1.1.2.9.1.cst": {
-    "type": "constat",
-    "label": "panier à pouzzolane",
-    "parentId": "4.1.1.1.2.9.1",
-    "children": [],
-    "section": "prefiltre_type",
-    "classement": "Simple constat"
-  },
-  "4.1.1.1.2.9.1.1": {
-    "type": "critere",
-    "label": "absence de matériaux filtrants",
-    "parentId": "4.1.1.1.2.9.1",
-    "children": [
-      "4.1.1.1.2.9.1.1.cst",
-      "4.1.1.1.2.9.1.1.reco"
-    ],
-    "exclusionGroup": "4.3.8.3"
-  },
-  "4.1.1.1.2.9.1.1.cst": {
-    "type": "constat",
-    "label": "Absence de matériaux de filtration dans le préfiltre qui ne peut être efficace sans.",
-    "parentId": "4.1.1.1.2.9.1.1",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.1.1.2.9.1.1.reco": {
-    "type": "recommandation",
-    "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
-    "parentId": "4.1.1.1.2.9.1.1",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.9.1.2": {
-    "type": "critere",
-    "label": "pas assez de matériaux",
-    "parentId": "4.1.1.1.2.9.1",
-    "children": [
-      "4.1.1.1.2.9.1.2.cst",
-      "4.1.1.1.2.9.1.2.reco"
-    ],
-    "exclusionGroup": "4.3.8.3"
-  },
-  "4.1.1.1.2.9.1.2.cst": {
-    "type": "constat",
-    "label": "Quantité insuffisante de matériaux de filtration dans le préfiltre qui ne peut être efficace sans. Risque de colmatage des éléments situés en aval.",
-    "parentId": "4.1.1.1.2.9.1.2",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.1.1.2.9.1.2.reco": {
-    "type": "recommandation",
-    "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
-    "parentId": "4.1.1.1.2.9.1.2",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.9.1.3": {
-    "type": "critere",
-    "label": "trop de matériaux",
-    "parentId": "4.1.1.1.2.9.1",
-    "children": [
-      "4.1.1.1.2.9.1.3.cst",
-      "4.1.1.1.2.9.1.3.reco"
-    ],
-    "exclusionGroup": "4.3.8.3"
-  },
-  "4.1.1.1.2.9.1.3.cst": {
-    "type": "constat",
-    "label": "Quantité excessive de matériaux de filtration dans le préfiltre empêchant la vérification de l'état, du fonctionnement, et du bon écoulement au sein du préfiltre.",
-    "parentId": "4.1.1.1.2.9.1.3",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.1.1.2.9.1.3.reco": {
-    "type": "recommandation",
-    "label": "Ajuster le niveau de matériaux  sous le niveau de la canalisation de sortie du préfiltre.",
-    "parentId": "4.1.1.1.2.9.1.3",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.9.2": {
-    "type": "critere",
-    "label": "Préfiltre en plastique alvéolé",
-    "parentId": "4.1.1.1.2.9",
-    "children": [
-      "4.1.1.1.2.9.2.cst"
-    ]
-  },
-  "4.1.1.1.2.9.2.cst": {
-    "type": "constat",
-    "label": "en plastique alvéolé",
-    "parentId": "4.1.1.1.2.9.2",
-    "children": [],
-    "section": "prefiltre_type",
-    "classement": "Simple remarque"
-  },
-  "4.1.1.1.2.9.3": {
-    "type": "critere",
-    "label": "Préfiltre à lamelle (type PF17)",
-    "parentId": "4.1.1.1.2.9",
-    "children": [
-      "4.1.1.1.2.9.3.cst"
-    ]
-  },
-  "4.1.1.1.2.9.3.cst": {
-    "type": "constat",
-    "label": "à lamelle (type PF17)",
-    "parentId": "4.1.1.1.2.9.3",
-    "children": [],
-    "section": "prefiltre_type",
-    "classement": "Simple remarque"
-  },
-  "4.1.1.1.2.9.4": {
-    "type": "critere",
-    "label": "Dispositif détérioré",
-    "parentId": "4.1.1.1.2.9",
-    "children": [
-      "4.1.1.1.2.9.4.1",
-      "4.1.1.1.2.9.4.2"
-    ]
-  },
-  "4.1.1.1.2.9.4.1": {
-    "type": "critere",
-    "label": "avec surverse",
-    "parentId": "4.1.1.1.2.9.4",
-    "children": [
-      "4.1.1.1.2.9.4.1.cst",
-      "4.1.1.1.2.9.4.1.reco"
-    ],
-    "exclusionGroup": "4.3.8.3.1",
-    "legacy": {
-      "exclusion": "oui"
-    }
-  },
-  "4.1.1.1.2.9.4.1.cst": {
-    "type": "constat",
-    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
-    "parentId": "4.1.1.1.2.9.4.1",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.1.1.2.9.4.1.reco": {
-    "type": "recommandation",
-    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
-    "parentId": "4.1.1.1.2.9.4.1",
-    "children": [],
-    "section": "reco_primaire_conformité"
-  },
-  "4.1.1.1.2.9.4.2": {
-    "type": "critere",
-    "label": "sans surverse",
-    "parentId": "4.1.1.1.2.9.4",
-    "children": [
-      "4.1.1.1.2.9.4.2.cst",
-      "4.1.1.1.2.9.4.2.reco"
-    ],
-    "exclusionGroup": "4.3.8.3.1"
-  },
-  "4.1.1.1.2.9.4.2.cst": {
-    "type": "constat",
-    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
-    "parentId": "4.1.1.1.2.9.4.2",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.1.1.2.9.4.2.reco": {
-    "type": "recommandation",
-    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
-    "parentId": "4.1.1.1.2.9.4.2",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.9.5": {
-    "type": "critere",
-    "label": "Effondrement du préfiltre",
-    "parentId": "4.1.1.1.2.9",
-    "children": [
-      "4.1.1.1.2.9.5.1",
-      "4.1.1.1.2.9.5.2"
-    ]
-  },
-  "4.1.1.1.2.9.5.1": {
-    "type": "critere",
-    "label": "avec départs",
-    "parentId": "4.1.1.1.2.9.5",
-    "children": [
-      "4.1.1.1.2.9.5.1.cst",
-      "4.1.1.1.2.9.5.1.reco"
-    ],
-    "exclusionGroup": "4.3.8.3.6"
-  },
-  "4.1.1.1.2.9.5.1.cst": {
-    "type": "constat",
-    "label": "Effondrement du préfiltre au fond de la fosse toutes eaux. Départ avéré des flottants en aval de la fosse pouvant engendrer un colmatage des éléments situés en aval.",
-    "parentId": "4.1.1.1.2.9.5.1",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.1.1.2.9.5.1.reco": {
-    "type": "recommandation",
-    "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
-    "parentId": "4.1.1.1.2.9.5.1",
-    "children": [],
-    "section": "reco_primaire_conformité"
-  },
-  "4.1.1.1.2.9.5.2": {
-    "type": "critere",
-    "label": "sans départs",
-    "parentId": "4.1.1.1.2.9.5",
-    "children": [
-      "4.1.1.1.2.9.5.2.cst",
-      "4.1.1.1.2.9.5.2.reco"
-    ],
-    "exclusionGroup": "4.3.8.3.6"
-  },
-  "4.1.1.1.2.9.5.2.cst": {
-    "type": "constat",
-    "label": "Effondrement du préfiltre au fond de la fosse toutes eaux. Risque important de départ des flottants en aval de la fosse toutes eaux pouvant engendrer un colmatage des éléments situés en aval.",
-    "parentId": "4.1.1.1.2.9.5.2",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.1.1.2.9.5.2.reco": {
-    "type": "recommandation",
-    "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
-    "parentId": "4.1.1.1.2.9.5.2",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
   "4.1.1.1.2.10": {
     "type": "header",
     "label": "Ventilations",
@@ -11124,167 +10545,168 @@
     "children": [
       "4.1.1.1.2.10.1",
       "4.1.1.1.2.10.2",
-      "4.1.1.1.2.10.3"
+      "4.1.1.1.2.10.3",
+      "4.1.1.1.2.10.4"
     ]
   },
-  "4.1.1.1.2.10.1": {
+  "4.1.1.1.2.10.2": {
     "type": "critere",
     "label": "Ventilation primaire non visible",
     "parentId": "4.1.1.1.2.10",
     "children": [
-      "4.1.1.1.2.10.1.cst",
-      "4.1.1.1.2.10.1.reco"
+      "4.1.1.1.2.10.2.cst",
+      "4.1.1.1.2.10.2.reco"
     ]
   },
-  "4.1.1.1.2.10.1.cst": {
+  "4.1.1.1.2.10.2.cst": {
     "type": "constat",
     "label": "S'assurer de la présence d'une ventilation primaire (non vue lors de la visite). Respecter les normes en vigueur.",
-    "parentId": "4.1.1.1.2.10.1",
+    "parentId": "4.1.1.1.2.10.2",
     "children": [],
     "section": "fosse_ventilation",
     "classement": "Simple remarque"
   },
-  "4.1.1.1.2.10.1.reco": {
+  "4.1.1.1.2.10.2.reco": {
     "type": "recommandation",
     "label": "En cas d'absence de ventilation primaire (généralement installée sur la canalisation de chute des toilettes), installer une ventilation primaire sur la canalisation de collecte des eaux usées au pied du bâtiment.",
-    "parentId": "4.1.1.1.2.10.1",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.10.2": {
-    "type": "critere",
-    "label": "Ventilation secondaire visible",
-    "parentId": "4.1.1.1.2.10",
-    "children": [
-      "4.1.1.1.2.10.2.1",
-      "4.1.1.1.2.10.2.2",
-      "4.1.1.1.2.10.2.3",
-      "4.1.1.1.2.10.2.4"
-    ],
-    "exclusionGroup": "ventilation"
-  },
-  "4.1.1.1.2.10.2.1": {
-    "type": "critere",
-    "label": "Avec extracteur mais sous le faitage",
     "parentId": "4.1.1.1.2.10.2",
-    "children": [
-      "4.1.1.1.2.10.2.1.cst",
-      "4.1.1.1.2.10.2.1.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.2.10.2.1.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction sous le faitage le plus haut du bâtiment ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.2.10.2.1",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.2.10.2.1.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.2.10.2.1",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.10.2.2": {
-    "type": "critere",
-    "label": "Avec extracteur dans une autre structure que le bâtiment (arbre, poteau, cabanon …)",
-    "parentId": "4.1.1.1.2.10.2",
-    "children": [
-      "4.1.1.1.2.10.2.2.cst",
-      "4.1.1.1.2.10.2.2.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.2.10.2.2.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction acheminée dans un autre structure que le bâtiment produisant les effluents ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.2.10.2.2",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.2.10.2.2.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.2.10.2.2",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.10.2.3": {
-    "type": "critere",
-    "label": "Sans extracteur et au-dessus du faitage",
-    "parentId": "4.1.1.1.2.10.2",
-    "children": [
-      "4.1.1.1.2.10.2.3.cst",
-      "4.1.1.1.2.10.2.3.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.2.10.2.3.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.2.10.2.3",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.2.10.2.3.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.2.10.2.3",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.2.10.2.4": {
-    "type": "critere",
-    "label": "Sans extracteur et sous le faitage",
-    "parentId": "4.1.1.1.2.10.2",
-    "children": [
-      "4.1.1.1.2.10.2.4.cst",
-      "4.1.1.1.2.10.2.4.reco"
-    ],
-    "exclusionGroup": "4.3.6"
-  },
-  "4.1.1.1.2.10.2.4.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) et acheminée sous le faîtage le plus haut du bâtiment ; risque de mauvaises odeurs.",
-    "parentId": "4.1.1.1.2.10.2.4",
-    "children": [],
-    "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
-  },
-  "4.1.1.1.2.10.2.4.reco": {
-    "type": "recommandation",
-    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
-    "parentId": "4.1.1.1.2.10.2.4",
     "children": [],
     "section": "reco_primaire_bf"
   },
   "4.1.1.1.2.10.3": {
     "type": "critere",
-    "label": "Ventilation secondaire non visible",
+    "label": "Ventilation secondaire visible",
     "parentId": "4.1.1.1.2.10",
     "children": [
-      "4.1.1.1.2.10.3.cst",
-      "4.1.1.1.2.10.3.reco"
+      "4.1.1.1.2.10.3.1",
+      "4.1.1.1.2.10.3.2",
+      "4.1.1.1.2.10.3.3",
+      "4.1.1.1.2.10.3.4"
     ],
     "exclusionGroup": "ventilation"
   },
-  "4.1.1.1.2.10.3.cst": {
-    "type": "constat",
-    "label": "Ventilation d'extraction non visible lors de la visite ; risque de mauvaises odeurs et de dégradation prématurée de la fosse par la présence de gaz H2S.",
+  "4.1.1.1.2.10.3.1": {
+    "type": "critere",
+    "label": "Avec extracteur mais sous le faitage",
     "parentId": "4.1.1.1.2.10.3",
+    "children": [
+      "4.1.1.1.2.10.3.1.cst",
+      "4.1.1.1.2.10.3.1.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.2.10.3.1.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction sous le faitage le plus haut du bâtiment ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.2.10.3.1",
     "children": [],
     "section": "fosse_ventilation",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
-  "4.1.1.1.2.10.3.reco": {
+  "4.1.1.1.2.10.3.1.reco": {
     "type": "recommandation",
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.2.10.3.1",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.10.3.2": {
+    "type": "critere",
+    "label": "Avec extracteur dans une autre structure que le bâtiment (arbre, poteau, cabanon …)",
     "parentId": "4.1.1.1.2.10.3",
+    "children": [
+      "4.1.1.1.2.10.3.2.cst",
+      "4.1.1.1.2.10.3.2.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.2.10.3.2.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction acheminée dans un autre structure que le bâtiment produisant les effluents ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.2.10.3.2",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.2.10.3.2.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.2.10.3.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.10.3.3": {
+    "type": "critere",
+    "label": "Sans extracteur et au-dessus du faitage",
+    "parentId": "4.1.1.1.2.10.3",
+    "children": [
+      "4.1.1.1.2.10.3.3.cst",
+      "4.1.1.1.2.10.3.3.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.2.10.3.3.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.2.10.3.3",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.2.10.3.3.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.2.10.3.3",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.10.3.4": {
+    "type": "critere",
+    "label": "Sans extracteur et sous le faitage",
+    "parentId": "4.1.1.1.2.10.3",
+    "children": [
+      "4.1.1.1.2.10.3.4.cst",
+      "4.1.1.1.2.10.3.4.reco"
+    ],
+    "exclusionGroup": "4.3.6"
+  },
+  "4.1.1.1.2.10.3.4.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction sans extracteur à son extrémité (présence de xxxx) et acheminée sous le faîtage le plus haut du bâtiment ; risque de mauvaises odeurs.",
+    "parentId": "4.1.1.1.2.10.3.4",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.2.10.3.4.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.2.10.3.4",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.10.4": {
+    "type": "critere",
+    "label": "Ventilation secondaire non visible",
+    "parentId": "4.1.1.1.2.10",
+    "children": [
+      "4.1.1.1.2.10.4.cst",
+      "4.1.1.1.2.10.4.reco"
+    ],
+    "exclusionGroup": "ventilation"
+  },
+  "4.1.1.1.2.10.4.cst": {
+    "type": "constat",
+    "label": "Ventilation d'extraction non visible lors de la visite ; risque de mauvaises odeurs et de dégradation prématurée de la fosse par la présence de gaz H2S.",
+    "parentId": "4.1.1.1.2.10.4",
+    "children": [],
+    "section": "fosse_ventilation",
+    "classement": "Autre défaut"
+  },
+  "4.1.1.1.2.10.4.reco": {
+    "type": "recommandation",
+    "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
+    "parentId": "4.1.1.1.2.10.4",
     "children": [],
     "section": "reco_primaire_bf"
   },
@@ -11317,8 +10739,11 @@
       "4.1.1.1.1.8.1.cst",
       "4.1.1.1.1.8.1.1",
       "4.1.1.1.1.8.1.2",
-      "4.1.1.1.1.8.1.3"
-    ]
+      "4.1.1.1.1.8.1.3",
+      "4.1.1.1.1.8.1.4",
+      "4.1.1.1.1.8.1.5"
+    ],
+    "exclusionGroup": "préfiltreFTE"
   },
   "4.1.1.1.1.8.1.cst": {
     "type": "constat",
@@ -11408,8 +10833,10 @@
     "label": "Préfiltre en plastique alvéolé",
     "parentId": "4.1.1.1.1.8",
     "children": [
-      "4.1.1.1.1.8.2.cst"
-    ]
+      "4.1.1.1.1.8.2.cst",
+      "4.1.1.1.1.8.2.1"
+    ],
+    "exclusionGroup": "préfiltreFTE"
   },
   "4.1.1.1.1.8.2.cst": {
     "type": "constat",
@@ -11424,8 +10851,10 @@
     "label": "Préfiltre à lamelle (type PF17)",
     "parentId": "4.1.1.1.1.8",
     "children": [
-      "4.1.1.1.1.8.3.cst"
-    ]
+      "4.1.1.1.1.8.3.cst",
+      "4.1.1.1.1.8.3.1"
+    ],
+    "exclusionGroup": "préfiltreFTE"
   },
   "4.1.1.1.1.8.3.cst": {
     "type": "constat",
@@ -11435,124 +10864,62 @@
     "section": "prefiltre_type",
     "classement": "Simple remarque"
   },
-  "4.1.1.1.1.8.4": {
-    "type": "critere",
-    "label": "Dispositif détérioré",
-    "parentId": "4.1.1.1.1.8",
-    "children": [
-      "4.1.1.1.1.8.4.1",
-      "4.1.1.1.1.8.4.2"
-    ]
-  },
-  "4.1.1.1.1.8.4.1": {
-    "type": "critere",
-    "label": "avec surverse",
-    "parentId": "4.1.1.1.1.8.4",
-    "children": [
-      "4.1.1.1.1.8.4.1.cst",
-      "4.1.1.1.1.8.4.1.reco"
-    ],
-    "exclusionGroup": "4.3.8.3.1",
-    "legacy": {
-      "exclusion": "oui"
-    }
-  },
-  "4.1.1.1.1.8.4.1.cst": {
-    "type": "constat",
-    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
-    "parentId": "4.1.1.1.1.8.4.1",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Dysfonctionnement majeur"
-  },
-  "4.1.1.1.1.8.4.1.reco": {
-    "type": "recommandation",
-    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
-    "parentId": "4.1.1.1.1.8.4.1",
-    "children": [],
-    "section": "reco_primaire_conformité"
-  },
-  "4.1.1.1.1.8.4.2": {
-    "type": "critere",
-    "label": "sans surverse",
-    "parentId": "4.1.1.1.1.8.4",
-    "children": [
-      "4.1.1.1.1.8.4.2.cst",
-      "4.1.1.1.1.8.4.2.reco"
-    ],
-    "exclusionGroup": "4.3.8.3.1"
-  },
-  "4.1.1.1.1.8.4.2.cst": {
-    "type": "constat",
-    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
-    "parentId": "4.1.1.1.1.8.4.2",
-    "children": [],
-    "section": "prefiltre_entretien",
-    "classement": "Défaut d'entretien ou d'usure"
-  },
-  "4.1.1.1.1.8.4.2.reco": {
-    "type": "recommandation",
-    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
-    "parentId": "4.1.1.1.1.8.4.2",
-    "children": [],
-    "section": "reco_primaire_bf"
-  },
-  "4.1.1.1.1.8.5": {
+  "4.1.1.1.1.8.1.5": {
     "type": "critere",
     "label": "Effondrement du préfiltre",
-    "parentId": "4.1.1.1.1.8",
+    "parentId": "4.1.1.1.1.8.1",
     "children": [
-      "4.1.1.1.1.8.5.1",
-      "4.1.1.1.1.8.5.2"
+      "4.1.1.1.1.8.1.5.1",
+      "4.1.1.1.1.8.1.5.2"
     ]
   },
-  "4.1.1.1.1.8.5.1": {
+  "4.1.1.1.1.8.1.5.1": {
     "type": "critere",
     "label": "avec départs",
-    "parentId": "4.1.1.1.1.8.5",
+    "parentId": "4.1.1.1.1.8.1.5",
     "children": [
-      "4.1.1.1.1.8.5.1.cst",
-      "4.1.1.1.1.8.5.1.reco"
+      "4.1.1.1.1.8.1.5.1.cst",
+      "4.1.1.1.1.8.1.5.1.reco"
     ],
     "exclusionGroup": "4.3.8.3.6"
   },
-  "4.1.1.1.1.8.5.1.cst": {
+  "4.1.1.1.1.8.1.5.1.cst": {
     "type": "constat",
     "label": "Effondrement du préfiltre au fond de la fosse toutes eaux. Départ avéré des flottants en aval de la fosse pouvant engendrer un colmatage des éléments situés en aval.",
-    "parentId": "4.1.1.1.1.8.5.1",
+    "parentId": "4.1.1.1.1.8.1.5.1",
     "children": [],
     "section": "prefiltre_entretien",
     "classement": "Dysfonctionnement majeur"
   },
-  "4.1.1.1.1.8.5.1.reco": {
+  "4.1.1.1.1.8.1.5.1.reco": {
     "type": "recommandation",
     "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
-    "parentId": "4.1.1.1.1.8.5.1",
+    "parentId": "4.1.1.1.1.8.1.5.1",
     "children": [],
     "section": "reco_primaire_conformité"
   },
-  "4.1.1.1.1.8.5.2": {
+  "4.1.1.1.1.8.1.5.2": {
     "type": "critere",
     "label": "sans départs",
-    "parentId": "4.1.1.1.1.8.5",
+    "parentId": "4.1.1.1.1.8.1.5",
     "children": [
-      "4.1.1.1.1.8.5.2.cst",
-      "4.1.1.1.1.8.5.2.reco"
+      "4.1.1.1.1.8.1.5.2.cst",
+      "4.1.1.1.1.8.1.5.2.reco"
     ],
     "exclusionGroup": "4.3.8.3.6"
   },
-  "4.1.1.1.1.8.5.2.cst": {
+  "4.1.1.1.1.8.1.5.2.cst": {
     "type": "constat",
     "label": "Effondrement du préfiltre au fond de la fosse toutes eaux. Risque important de départ des flottants en aval de la fosse toutes eaux pouvant engendrer un colmatage des éléments situés en aval.",
-    "parentId": "4.1.1.1.1.8.5.2",
+    "parentId": "4.1.1.1.1.8.1.5.2",
     "children": [],
     "section": "prefiltre_entretien",
     "classement": "Défaut d'entretien ou d'usure"
   },
-  "4.1.1.1.1.8.5.2.reco": {
+  "4.1.1.1.1.8.1.5.2.reco": {
     "type": "recommandation",
     "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
-    "parentId": "4.1.1.1.1.8.5.2",
+    "parentId": "4.1.1.1.1.8.1.5.2",
     "children": [],
     "section": "reco_primaire_bf"
   },
@@ -11564,7 +10931,7 @@
       "4.1.1.1.1.8.6.cst",
       "4.1.1.1.1.8.6.reco"
     ],
-    "exclusionGroup": "4.1.1.1.1.8.6"
+    "exclusionGroup": "préfiltreFTE"
   },
   "4.1.1.1.1.8.6.cst": {
     "type": "constat",
@@ -11664,7 +11031,7 @@
     "parentId": "5.4.2.1",
     "children": [],
     "section": "BàG_dimensions",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.4.2.1.reco": {
     "type": "recommandation",
@@ -11799,8 +11166,7 @@
     "parentId": "5.4.3.1.2.2",
     "children": [],
     "section": "BàG_structurel",
-    "classement": "Défaut d'entretien ou d'usure",
-    "exclusionGroup": "4.2.2.2.2.2.2"
+    "classement": "Défaut d'entretien ou d'usure"
   },
   "5.4.3.1.2.2.reco": {
     "type": "recommandation",
@@ -12104,7 +11470,7 @@
     "parentId": "5.4.3.5.3",
     "children": [],
     "section": "BàG_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "5.4.3.5.3.reco": {
     "type": "recommandation",
@@ -12455,7 +11821,7 @@
     "parentId": "4.2.1.4.2.8.4",
     "children": [],
     "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.4.2.8.4.reco": {
     "type": "recommandation",
@@ -12685,7 +12051,7 @@
     "parentId": "4.2.1.4.1.7.4",
     "children": [],
     "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.4.1.7.4.reco": {
     "type": "recommandation",
@@ -12915,7 +12281,7 @@
     "parentId": "4.2.1.3.5.4",
     "children": [],
     "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.3.5.4.reco": {
     "type": "recommandation",
@@ -13145,7 +12511,7 @@
     "parentId": "4.2.1.2.7.4",
     "children": [],
     "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.2.7.4.reco": {
     "type": "recommandation",
@@ -13375,7 +12741,7 @@
     "parentId": "4.2.1.1.7.4",
     "children": [],
     "section": "fa_structurel",
-    "classement": "Recommandation de travaux"
+    "classement": "Autre défaut"
   },
   "4.2.1.1.7.4.reco": {
     "type": "recommandation",
@@ -13455,5 +12821,903 @@
     "parentId": "4.2.1.1.8",
     "children": [],
     "section": "reco_fa_conformité"
+  },
+  "4.1.1.1.1.8.1.4": {
+    "type": "critere",
+    "label": "Préfiltre détérioré",
+    "parentId": "4.1.1.1.1.8.1",
+    "children": [
+      "4.1.1.1.1.8.1.4.1",
+      "4.1.1.1.1.8.1.4.2"
+    ]
+  },
+  "4.1.1.1.1.8.1.4.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.1.8.1.4",
+    "children": [
+      "4.1.1.1.1.8.1.4.1.cst",
+      "4.1.1.1.1.8.1.4.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.1.8.1.4.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.1.4.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.1.8.1.4.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.1.4.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.1.8.1.4.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.1.8.1.4",
+    "children": [
+      "4.1.1.1.1.8.1.4.2.cst",
+      "4.1.1.1.1.8.1.4.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.1.8.1.4.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.1.4.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.1.8.1.4.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.1.4.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.8.2.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.1.8.2",
+    "children": [
+      "4.1.1.1.1.8.2.1.1",
+      "4.1.1.1.1.8.2.1.2"
+    ]
+  },
+  "4.1.1.1.1.8.2.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.1.8.2.1",
+    "children": [
+      "4.1.1.1.1.8.2.1.1.cst",
+      "4.1.1.1.1.8.2.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.1.8.2.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.2.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.1.8.2.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.2.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.1.8.2.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.1.8.2.1",
+    "children": [
+      "4.1.1.1.1.8.2.1.2.cst",
+      "4.1.1.1.1.8.2.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.1.8.2.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.2.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.1.8.2.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.2.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.8.3.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.1.8.3",
+    "children": [
+      "4.1.1.1.1.8.3.1.1",
+      "4.1.1.1.1.8.3.1.2"
+    ]
+  },
+  "4.1.1.1.1.8.3.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.1.8.3.1",
+    "children": [
+      "4.1.1.1.1.8.3.1.1.cst",
+      "4.1.1.1.1.8.3.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.1.8.3.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.3.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.1.8.3.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.3.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.1.8.3.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.1.8.3.1",
+    "children": [
+      "4.1.1.1.1.8.3.1.2.cst",
+      "4.1.1.1.1.8.3.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.1.8.3.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.3.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.1.8.3.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.3.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.8.4": {
+    "type": "critere",
+    "label": "Parois siphoïdes",
+    "parentId": "4.1.1.1.1.8",
+    "children": [
+      "4.1.1.1.1.8.4.1"
+    ],
+    "exclusionGroup": "préfiltreFTE"
+  },
+  "4.1.1.1.1.8.5": {
+    "type": "critere",
+    "label": "Coude plongeant",
+    "parentId": "4.1.1.1.1.8",
+    "children": [
+      "4.1.1.1.1.8.5.1"
+    ],
+    "exclusionGroup": "préfiltreFTE"
+  },
+  "4.1.1.1.1.8.4.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.1.8.4",
+    "children": [
+      "4.1.1.1.1.8.4.1.1",
+      "4.1.1.1.1.8.4.1.2"
+    ]
+  },
+  "4.1.1.1.1.8.4.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.1.8.4.1",
+    "children": [
+      "4.1.1.1.1.8.4.1.1.cst",
+      "4.1.1.1.1.8.4.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.1.8.4.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.4.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.1.8.4.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.4.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.1.8.4.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.1.8.4.1",
+    "children": [
+      "4.1.1.1.1.8.4.1.2.cst",
+      "4.1.1.1.1.8.4.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.1.8.4.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.4.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.1.8.4.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.4.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.1.8.5.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.1.8.5",
+    "children": [
+      "4.1.1.1.1.8.5.1.1",
+      "4.1.1.1.1.8.5.1.2"
+    ]
+  },
+  "4.1.1.1.1.8.5.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.1.8.5.1",
+    "children": [
+      "4.1.1.1.1.8.5.1.1.cst",
+      "4.1.1.1.1.8.5.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.1.8.5.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.5.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.1.8.5.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.5.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.1.8.5.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.1.8.5.1",
+    "children": [
+      "4.1.1.1.1.8.5.1.2.cst",
+      "4.1.1.1.1.8.5.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.1.8.5.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.1.8.5.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.1.8.5.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.1.8.5.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9": {
+    "type": "header",
+    "label": "Dispositif de rétention des flottants",
+    "parentId": "4.1.1.1.2",
+    "children": [
+      "4.1.1.1.2.9.1",
+      "4.1.1.1.2.9.2",
+      "4.1.1.1.2.9.3",
+      "4.1.1.1.2.9.4",
+      "4.1.1.1.2.9.5",
+      "4.1.1.1.2.9.6"
+    ]
+  },
+  "4.1.1.1.2.9.1": {
+    "type": "critere",
+    "label": "Préfiltre Pouzzolane",
+    "parentId": "4.1.1.1.2.9",
+    "children": [
+      "4.1.1.1.2.9.1.cst",
+      "4.1.1.1.2.9.1.1",
+      "4.1.1.1.2.9.1.2",
+      "4.1.1.1.2.9.1.3",
+      "4.1.1.1.2.9.1.4",
+      "4.1.1.1.2.9.1.5"
+    ],
+    "exclusionGroup": "préfiltreFS"
+  },
+  "4.1.1.1.2.9.1.cst": {
+    "type": "constat",
+    "label": "panier à pouzzolane",
+    "parentId": "4.1.1.1.2.9.1",
+    "children": [],
+    "section": "prefiltre_type",
+    "classement": "Simple constat"
+  },
+  "4.1.1.1.2.9.1.1": {
+    "type": "critere",
+    "label": "absence de matériaux filtrants",
+    "parentId": "4.1.1.1.2.9.1",
+    "children": [
+      "4.1.1.1.2.9.1.1.cst",
+      "4.1.1.1.2.9.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3"
+  },
+  "4.1.1.1.2.9.1.1.cst": {
+    "type": "constat",
+    "label": "Absence de matériaux de filtration dans le préfiltre qui ne peut être efficace sans.",
+    "parentId": "4.1.1.1.2.9.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
+    "parentId": "4.1.1.1.2.9.1.1",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.1.2": {
+    "type": "critere",
+    "label": "pas assez de matériaux",
+    "parentId": "4.1.1.1.2.9.1",
+    "children": [
+      "4.1.1.1.2.9.1.2.cst",
+      "4.1.1.1.2.9.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3"
+  },
+  "4.1.1.1.2.9.1.2.cst": {
+    "type": "constat",
+    "label": "Quantité insuffisante de matériaux de filtration dans le préfiltre qui ne peut être efficace sans. Risque de colmatage des éléments situés en aval.",
+    "parentId": "4.1.1.1.2.9.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.1.2.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
+    "parentId": "4.1.1.1.2.9.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.1.3": {
+    "type": "critere",
+    "label": "trop de matériaux",
+    "parentId": "4.1.1.1.2.9.1",
+    "children": [
+      "4.1.1.1.2.9.1.3.cst",
+      "4.1.1.1.2.9.1.3.reco"
+    ],
+    "exclusionGroup": "4.3.8.3"
+  },
+  "4.1.1.1.2.9.1.3.cst": {
+    "type": "constat",
+    "label": "Quantité excessive de matériaux de filtration dans le préfiltre empêchant la vérification de l'état, du fonctionnement, et du bon écoulement au sein du préfiltre.",
+    "parentId": "4.1.1.1.2.9.1.3",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.1.3.reco": {
+    "type": "recommandation",
+    "label": "Ajuster le niveau de matériaux  sous le niveau de la canalisation de sortie du préfiltre.",
+    "parentId": "4.1.1.1.2.9.1.3",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.1.4": {
+    "type": "critere",
+    "label": "Préfiltre détérioré",
+    "parentId": "4.1.1.1.2.9.1",
+    "children": [
+      "4.1.1.1.2.9.1.4.1",
+      "4.1.1.1.2.9.1.4.2"
+    ]
+  },
+  "4.1.1.1.2.9.1.4.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.2.9.1.4",
+    "children": [
+      "4.1.1.1.2.9.1.4.1.cst",
+      "4.1.1.1.2.9.1.4.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.2.9.1.4.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.1.4.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.2.9.1.4.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.1.4.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.2.9.1.4.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.2.9.1.4",
+    "children": [
+      "4.1.1.1.2.9.1.4.2.cst",
+      "4.1.1.1.2.9.1.4.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.2.9.1.4.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.1.4.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.1.4.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.1.4.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.1.5": {
+    "type": "critere",
+    "label": "Effondrement du préfiltre",
+    "parentId": "4.1.1.1.2.9.1",
+    "children": [
+      "4.1.1.1.2.9.1.5.1",
+      "4.1.1.1.2.9.1.5.2"
+    ]
+  },
+  "4.1.1.1.2.9.1.5.1": {
+    "type": "critere",
+    "label": "avec départs",
+    "parentId": "4.1.1.1.2.9.1.5",
+    "children": [
+      "4.1.1.1.2.9.1.5.1.cst",
+      "4.1.1.1.2.9.1.5.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.6"
+  },
+  "4.1.1.1.2.9.1.5.1.cst": {
+    "type": "constat",
+    "label": "Effondrement du préfiltre au fond de la fosse toutes eaux. Départ avéré des flottants en aval de la fosse pouvant engendrer un colmatage des éléments situés en aval.",
+    "parentId": "4.1.1.1.2.9.1.5.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.2.9.1.5.1.reco": {
+    "type": "recommandation",
+    "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
+    "parentId": "4.1.1.1.2.9.1.5.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.2.9.1.5.2": {
+    "type": "critere",
+    "label": "sans départs",
+    "parentId": "4.1.1.1.2.9.1.5",
+    "children": [
+      "4.1.1.1.2.9.1.5.2.cst",
+      "4.1.1.1.2.9.1.5.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.6"
+  },
+  "4.1.1.1.2.9.1.5.2.cst": {
+    "type": "constat",
+    "label": "Effondrement du préfiltre au fond de la fosse toutes eaux. Risque important de départ des flottants en aval de la fosse toutes eaux pouvant engendrer un colmatage des éléments situés en aval.",
+    "parentId": "4.1.1.1.2.9.1.5.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.1.5.2.reco": {
+    "type": "recommandation",
+    "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
+    "parentId": "4.1.1.1.2.9.1.5.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.2": {
+    "type": "critere",
+    "label": "Préfiltre en plastique alvéolé",
+    "parentId": "4.1.1.1.2.9",
+    "children": [
+      "4.1.1.1.2.9.2.cst",
+      "4.1.1.1.2.9.2.1"
+    ],
+    "exclusionGroup": "préfiltreFS"
+  },
+  "4.1.1.1.2.9.2.cst": {
+    "type": "constat",
+    "label": "en plastique alvéolé",
+    "parentId": "4.1.1.1.2.9.2",
+    "children": [],
+    "section": "prefiltre_type",
+    "classement": "Simple remarque"
+  },
+  "4.1.1.1.2.9.2.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.2.9.2",
+    "children": [
+      "4.1.1.1.2.9.2.1.1",
+      "4.1.1.1.2.9.2.1.2"
+    ]
+  },
+  "4.1.1.1.2.9.2.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.2.9.2.1",
+    "children": [
+      "4.1.1.1.2.9.2.1.1.cst",
+      "4.1.1.1.2.9.2.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.2.9.2.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.2.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.2.9.2.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.2.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.2.9.2.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.2.9.2.1",
+    "children": [
+      "4.1.1.1.2.9.2.1.2.cst",
+      "4.1.1.1.2.9.2.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.2.9.2.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.2.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.2.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.2.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.3": {
+    "type": "critere",
+    "label": "Préfiltre à lamelle (type PF17)",
+    "parentId": "4.1.1.1.2.9",
+    "children": [
+      "4.1.1.1.2.9.3.cst",
+      "4.1.1.1.2.9.3.1"
+    ],
+    "exclusionGroup": "préfiltreFS"
+  },
+  "4.1.1.1.2.9.3.cst": {
+    "type": "constat",
+    "label": "à lamelle (type PF17)",
+    "parentId": "4.1.1.1.2.9.3",
+    "children": [],
+    "section": "prefiltre_type",
+    "classement": "Simple remarque"
+  },
+  "4.1.1.1.2.9.3.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.2.9.3",
+    "children": [
+      "4.1.1.1.2.9.3.1.1",
+      "4.1.1.1.2.9.3.1.2"
+    ]
+  },
+  "4.1.1.1.2.9.3.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.2.9.3.1",
+    "children": [
+      "4.1.1.1.2.9.3.1.1.cst",
+      "4.1.1.1.2.9.3.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.2.9.3.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.3.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.2.9.3.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.3.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.2.9.3.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.2.9.3.1",
+    "children": [
+      "4.1.1.1.2.9.3.1.2.cst",
+      "4.1.1.1.2.9.3.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.2.9.3.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.3.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.3.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.3.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.4": {
+    "type": "critere",
+    "label": "Parois siphoïdes",
+    "parentId": "4.1.1.1.2.9",
+    "children": [
+      "4.1.1.1.2.9.4.1"
+    ],
+    "exclusionGroup": "préfiltreFS"
+  },
+  "4.1.1.1.2.9.4.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.2.9.4",
+    "children": [
+      "4.1.1.1.2.9.4.1.1",
+      "4.1.1.1.2.9.4.1.2"
+    ]
+  },
+  "4.1.1.1.2.9.4.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.2.9.4.1",
+    "children": [
+      "4.1.1.1.2.9.4.1.1.cst",
+      "4.1.1.1.2.9.4.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.2.9.4.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.4.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.2.9.4.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.4.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.2.9.4.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.2.9.4.1",
+    "children": [
+      "4.1.1.1.2.9.4.1.2.cst",
+      "4.1.1.1.2.9.4.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.2.9.4.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.4.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.4.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.4.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.5": {
+    "type": "critere",
+    "label": "Coude plongeant",
+    "parentId": "4.1.1.1.2.9",
+    "children": [
+      "4.1.1.1.2.9.5.1"
+    ],
+    "exclusionGroup": "préfiltreFS"
+  },
+  "4.1.1.1.2.9.5.1": {
+    "type": "critere",
+    "label": "Dispositif détérioré",
+    "parentId": "4.1.1.1.2.9.5",
+    "children": [
+      "4.1.1.1.2.9.5.1.1",
+      "4.1.1.1.2.9.5.1.2"
+    ]
+  },
+  "4.1.1.1.2.9.5.1.1": {
+    "type": "critere",
+    "label": "avec surverse",
+    "parentId": "4.1.1.1.2.9.5.1",
+    "children": [
+      "4.1.1.1.2.9.5.1.1.cst",
+      "4.1.1.1.2.9.5.1.1.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1",
+    "legacy": {
+      "exclusion": "oui"
+    }
+  },
+  "4.1.1.1.2.9.5.1.1.cst": {
+    "type": "constat",
+    "label": "Préfiltre non fonctionnel. Défaut de rétention des matières et départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.5.1.1",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.2.9.5.1.1.reco": {
+    "type": "recommandation",
+    "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.5.1.1",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.2.9.5.1.2": {
+    "type": "critere",
+    "label": "sans surverse",
+    "parentId": "4.1.1.1.2.9.5.1",
+    "children": [
+      "4.1.1.1.2.9.5.1.2.cst",
+      "4.1.1.1.2.9.5.1.2.reco"
+    ],
+    "exclusionGroup": "4.3.8.3.1"
+  },
+  "4.1.1.1.2.9.5.1.2.cst": {
+    "type": "constat",
+    "label": "Usure du préfiltre. Risque d'un défaut de rétention des matières et d'un départ en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.5.1.2",
+    "children": [],
+    "section": "prefiltre_entretien",
+    "classement": "Défaut d'entretien ou d'usure"
+  },
+  "4.1.1.1.2.9.5.1.2.reco": {
+    "type": "recommandation",
+    "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.5.1.2",
+    "children": [],
+    "section": "reco_primaire_bf"
+  },
+  "4.1.1.1.2.9.6": {
+    "type": "critere",
+    "label": "Absence de dispositif",
+    "parentId": "4.1.1.1.2.9",
+    "children": [
+      "4.1.1.1.2.9.6.cst",
+      "4.1.1.1.2.9.6.reco"
+    ],
+    "exclusionGroup": "préfiltreFS"
+  },
+  "4.1.1.1.2.9.6.cst": {
+    "type": "constat",
+    "label": "Absence de dispositif de rétention des flottants en sortie de la fosse toutes eaux ; départ de matières en aval pouvant colmater les éléments suivants de l'installation d'assainissement.",
+    "parentId": "4.1.1.1.2.9.6",
+    "children": [],
+    "section": "fosse_structurel",
+    "classement": "Dysfonctionnement majeur"
+  },
+  "4.1.1.1.2.9.6.reco": {
+    "type": "recommandation",
+    "label": "Installer un dispositif de rétention des flottants adapté, ou en cas d'impossibilité réhabiliter la fosse.",
+    "parentId": "4.1.1.1.2.9.6",
+    "children": [],
+    "section": "reco_primaire_conformité"
+  },
+  "4.1.1.1.2.10.1": {
+    "type": "critere",
+    "label": "Ventilation primaire en toiture",
+    "parentId": "4.1.1.1.2.10",
+    "children": []
+  },
+  "4.1.1.1.1.9.1": {
+    "type": "critere",
+    "label": "Ventilation primaire en toiture",
+    "parentId": "4.1.1.1.1.9",
+    "children": []
   }
 }
