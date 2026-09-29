@@ -10,7 +10,6 @@ const EMPTY_FORM = {
   nom_occupant:              '',
   telephone:                 '',
   email:                     '',
-  type_filiere:              'traditionnelle',
   date_visite:               TODAY,
   zone_enjeu_sanitaire:      false,
   zone_enjeu_environnemental: false,
@@ -33,7 +32,10 @@ export default function AdminScreen({ tree, sessionId, nav }) {
     (async () => {
       const existing = await getSession(sessionId);
       if (!cancelled) {
-        if (existing) setForm({ ...EMPTY_FORM, ...existing.admin });
+        if (existing) {
+          const { type_filiere: _obsoleteTypeFiliere, ...admin } = existing.admin;
+          setForm({ ...EMPTY_FORM, ...admin });
+        }
         setLoading(false);
       }
     })();
@@ -214,34 +216,6 @@ export default function AdminScreen({ tree, sessionId, nav }) {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Type de filière */}
-        <div className="card card-body">
-          <p className="card-title">Type de filière</p>
-          <p className="text-muted" style={{ fontSize: '.85rem', marginBottom: 12 }}>
-            Information indicative pour le dossier ; le choix réel se fait dans
-            l'arbre, section Traitement.
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {[
-              { value: 'traditionnelle', label: 'Filière traditionnelle', sub: 'Fosse, épandage, filtre à sable…' },
-              { value: 'agréée',         label: 'Filière agréée',         sub: 'Microstation, filtre compact, filtre planté…' },
-              { value: 'les_deux',       label: 'Les deux',               sub: 'Présence des deux types sur la parcelle' },
-            ].map(opt => (
-              <div
-                key={opt.value}
-                className={`option-card ${form.type_filiere === opt.value ? 'selected' : ''}`}
-                onClick={() => set('type_filiere', opt.value)}
-              >
-                <div className="check" />
-                <div>
-                  <div className="option-label" style={{ fontWeight: 600 }}>{opt.label}</div>
-                  <div className="text-muted" style={{ fontSize: '.82rem' }}>{opt.sub}</div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 

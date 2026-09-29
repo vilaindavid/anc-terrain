@@ -322,22 +322,22 @@ function _hasContent(map, balises) {
  */
 function buildAffichageFlags(map) {
   const groups = {
-    canaEU: ['canaEU_acces', 'canaEU_parasites', 'canaEU_entretien', 'canaEU_structurel', 'conclusions_canaEU', 'reco_canaEU_conformité', 'reco_canaEU_bf'],
+    canaEU: ['canaEU_acces', 'canaEU_parasites', 'canaEU_entretien', 'canaEU_structurel', 'conclusions_canaEU', 'reco_canaEU'],
     bag: ['BàG_acces', 'BàG_dimensions', 'BàG_parasites', 'BàG_entretien', 'BàG_structurel'],
     fosse: ['fosse_acces', 'fosse_dimensions', 'fosse_parasites', 'fosse_entretien', 'fosse_structurel', 'fosse_ventilation'],
     prefiltre: ['prefiltre_type', 'prefiltre_entretien'],
     secondaire: [
       'secondaire_type', 'secondaire_acces', 'secondaire_dimensions', 'secondaire_parasites',
       'secondaire_regard_repartition', 'secondaire_regard_bouclage', 'secondaire_regard_collecte',
-      'conclusions_secondaire', 'reco_secondaire_conformité', 'reco_secondaire_bf',
+      'conclusions_secondaire', 'reco_secondaire',
     ],
-    fa: ['fa_type', 'fa_dimensions', 'fa_agrement', 'fa_parasites', 'fa_entretien', 'fa_structurel', 'conclusions_fa', 'reco_fa_conformité', 'reco_fa_bf'],
+    fa: ['fa_type', 'fa_dimensions', 'fa_agrement', 'fa_parasites', 'fa_entretien', 'fa_structurel', 'conclusions_fa', 'reco_fa'],
     pr: ['annexe_PR_acces', 'annexe_PR_dimensions', 'annexe_PR_parasites', 'annexe_PR_entretien', 'annexe_PR_structurel'],
     ca: ['annexe_CA_acces', 'annexe_CA_dimensions', 'annexe_CA_parasites', 'annexe_CA_entretien', 'annexe_CA_structurel'],
     pe: ['annexe_PE_acces', 'annexe_PE_dimensions', 'annexe_PE_parasites', 'annexe_PE_entretien', 'annexe_PE_structurel'],
-    rejet: ['rejet_type', 'rejet_pb', 'conclusions_rejet', 'reco_rejet_conformité', 'reco_rejet_bf'],
-    primaireOwn: ['conclusions_primaire', 'reco_primaire_conformité', 'reco_primaire_bf'],
-    annexesOwn:  ['conclusions_annexes', 'reco_annexe_conformité', 'reco_annexe_bf'],
+    rejet: ['rejet_type', 'rejet_pb', 'conclusions_rejet', 'reco_rejet'],
+    primaireOwn: ['conclusions_primaire', 'reco_primaire'],
+    annexesOwn:  ['conclusions_annexes', 'reco_annexe'],
   };
 
   const has = (key) => _hasContent(map, groups[key]);

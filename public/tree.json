@@ -297,7 +297,7 @@
     "label": "Supprimer le risque d'electrocution sur le poste de refoulement.",
     "parentId": "5.1.3.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.1.1.1.cst": {
     "type": "constat",
@@ -312,14 +312,14 @@
     "label": "Il est conseillé de le mettre en place afin d'optimiser le fonctionnement de l'installation d'assainissement.",
     "parentId": "5.1.1.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.1.2.reco": {
     "type": "recommandation",
     "label": "Afin d'éviter tout dysfonctionnement de l'installation d'assainissement lors de la période d'inoccupation du bâtiment, il est conseillé de laisser sous tension le poste de relevage.",
     "parentId": "5.1.1.2",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.2.1.cst": {
     "type": "constat",
@@ -334,7 +334,7 @@
     "label": "Il est recommandé de suivre les prescriptions des règles de l'art et du fabricant.",
     "parentId": "5.1.2.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.2.2.cst": {
     "type": "constat",
@@ -349,7 +349,7 @@
     "label": "Il est conseillé d'installer une alarme sur le poste de relevage afin d'être averti en cas de dysfonctionnement de la pompe.",
     "parentId": "5.1.2.2",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.2.3.cst": {
     "type": "constat",
@@ -364,7 +364,7 @@
     "label": "S'assurer de l'existence du clapet antiretour sur le poste de relevage, à défaut en installer un afin de protéger la pompe de tout retour d'effluents.",
     "parentId": "5.1.2.3",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.2.4.cst": {
     "type": "constat",
@@ -379,14 +379,14 @@
     "label": "Il est conseillé d'installer un brise-jet à l'extrémité de la canalisation de refoulement du poste de relevage.",
     "parentId": "5.1.2.4",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.3.1.reco": {
     "type": "recommandation",
     "label": "Afin de sécuriser le fonctionnement du poste de relevage, il est conseillé de le raccorder directement au tableau électrique du bâtiment.",
     "parentId": "5.1.3.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.4.1.cst": {
     "type": "constat",
@@ -401,14 +401,14 @@
     "label": "Rétablir le fonctionnement du poste de refoulement.",
     "parentId": "5.1.4.1",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.1.4.2.reco": {
     "type": "recommandation",
     "label": "Diminuer la hauteur de déclenchement de la pompe située dans le poste de relevage afin de permettre un libre écoulement des effluents issus du dispositif situé en amont. Risque d'une mise en charge du dispositif amont pouvant altérer sa pérennité.",
     "parentId": "5.1.4.2",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.5.2.cst": {
     "type": "constat",
@@ -423,7 +423,7 @@
     "label": "Réparer le poste de relevage.",
     "parentId": "5.1.5.2",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.4.3.cst": {
     "type": "constat",
@@ -438,7 +438,7 @@
     "label": "S'assurer du bon fonctionnement du poste de relevage.",
     "parentId": "5.1.4.3",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.4.4.cst": {
     "type": "constat",
@@ -534,14 +534,14 @@
     "label": "Réaliser l'entretien du poste de relevage dès à présent, puis à intervalle régulier adapté selon l'usage du poste.",
     "parentId": "5.1.4.4",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.5.1.reco": {
     "type": "recommandation",
     "label": "Réaliser l'entretien du poste de relevage dès à présent, puis à intervalle régulier adapté selon l'usage du poste.",
     "parentId": "5.1.5.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.3": {
     "type": "critere",
@@ -655,28 +655,28 @@
     "label": "Nettoyer et remplacer si nécessaire les matériaux filtrants du préfiltre et rétablir le fonctionnement correct du préfiltre. Un entretien régulier de ce dernier est ensuite à réaliser (nettoyage tous les 6 mois fortement recommandé, remplacement de la pouzzolane à intervalle régulier).",
     "parentId": "5.3.2.1",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.3.2.2.reco": {
     "type": "recommandation",
     "label": "Nettoyer et remplacer si nécessaire les matériaux filtrants du préfiltre et rétablir le fonctionnement correct du préfiltre. Un entretien régulier de ce dernier est ensuite à réaliser (nettoyage tous les 6 mois fortement recommandé, remplacement de la pouzzolane à intervalle régulier).",
     "parentId": "5.3.2.2",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.3.1.1.reco": {
     "type": "recommandation",
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes adaptées afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter ou supprimer le préfiltre externe.",
     "parentId": "5.3.1.1",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.3.1.2.reco": {
     "type": "recommandation",
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes adaptées afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter ou supprimer le préfiltre externe.",
     "parentId": "5.3.1.2",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.2": {
     "type": "critere",
@@ -841,56 +841,56 @@
     "label": "Un curage de l'ensemble des canalisations connectées à la chasse automatique est également conseillé.",
     "parentId": "5.2.5",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.2.1.1.reco": {
     "type": "recommandation",
     "label": "Mettre en place l'élément déclencheur de la chasse automatique en respectant les prescriptions adaptées du fabricant.",
     "parentId": "5.2.1.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.2.1.2.reco": {
     "type": "recommandation",
     "label": "Mettre en place l'élément déclencheur de la chasse automatique en respectant les prescriptions adaptées du fabricant.",
     "parentId": "5.2.1.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.4.reco": {
     "type": "recommandation",
     "label": "Réaliser l'entretien  de la chasse automatique en respectant les prescriptions adaptées du fabricant.",
     "parentId": "5.2.4",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.2.2.1.reco": {
     "type": "recommandation",
     "label": "Rétablir son fonctionnement en respectant les prescriptions adaptées du fabricant.",
     "parentId": "5.2.2.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.2.2.2.reco": {
     "type": "recommandation",
     "label": "Rétablir son fonctionnement en respectant les prescriptions adaptées du fabricant.",
     "parentId": "5.2.2.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.3.reco": {
     "type": "recommandation",
     "label": "Rétablir le fonctionnement de la chasse automatique en respectant les prescriptions adaptées du fabricant.",
     "parentId": "5.2.3",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "3.1.reco": {
     "type": "recommandation",
     "label": "Il est recommandé de mettre en place un té ou regard de visite sur l'ensemble des canalisations de collecte des effluents usés issues de votre bâtiment afin de pouvoir vérifier le bon écoulement de ceux-ci, et éventuellement de pouvoir procéder à un curage en cas de mauvais écoulement, colmatage ou bouchon.",
     "parentId": "3.1",
     "children": [],
-    "section": "reco_canaEU_bf"
+    "section": "reco_canaEU"
   },
   "3.1": {
     "type": "critere",
@@ -942,7 +942,7 @@
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
     "parentId": "6.1.6.2.2",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.1.6.2.1": {
     "type": "critere",
@@ -959,7 +959,7 @@
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
     "parentId": "6.1.6.2.1",
     "children": [],
-    "section": "reco_rejet_bf"
+    "section": "reco_rejet"
   },
   "6.1.6.2": {
     "type": "critere",
@@ -1000,7 +1000,7 @@
     "label": "Assurer en permanence le libre écoulement des effluents à l'exutoire.",
     "parentId": "6.2.3",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "4.1": {
     "type": "critere",
@@ -1383,7 +1383,7 @@
     "label": "Fournir les éléments prouvant son identification au SPANC. A défaut mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.1.1.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.2.cst": {
     "type": "constat",
@@ -1398,7 +1398,7 @@
     "label": "Mettre en place un dispositif réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.1.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.3.cst": {
     "type": "constat",
@@ -1413,7 +1413,7 @@
     "label": "Mettre en place un dispositif de ventilation réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.1.1.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.4.cst": {
     "type": "constat",
@@ -1436,7 +1436,7 @@
     "label": "Mettre en place un compresseur réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.1.1.5",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.7.cst": {
     "type": "constat",
@@ -1451,7 +1451,7 @@
     "label": "Mettre en place le compresseur en respectant la réglementation adaptée (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.1.1.7",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.8.cst": {
     "type": "constat",
@@ -1466,7 +1466,7 @@
     "label": "Retirer le relevage et mettre en oeuvre un relevage indépendant réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.1.1.8",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.2.1.cst": {
     "type": "constat",
@@ -1481,7 +1481,7 @@
     "label": "Se rapprocher du fabricant afin d'assurer le bon fonctionnement de la microstation.",
     "parentId": "4.2.1.1.2.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.2.2.cst": {
     "type": "constat",
@@ -1512,7 +1512,7 @@
     "label": "Se rapprocher du fabricant afin d'obtenir la démarche à suivre pour rétablir la bonne programmation de l'automate.",
     "parentId": "4.2.1.1.2.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.3.1.cst": {
     "type": "constat",
@@ -1535,7 +1535,7 @@
     "label": "Respecter les prescriptions d'entretien adaptées du fabricant.",
     "parentId": "4.2.1.1.3.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.3.3.cst": {
     "type": "constat",
@@ -1550,7 +1550,7 @@
     "label": "Procéder à son remplacement si nécessaire.",
     "parentId": "4.2.1.1.3.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.4.1.cst": {
     "type": "constat",
@@ -1621,7 +1621,7 @@
     "label": "Il est conseillé d'effectuer une opération d'entretien adaptée en cas de départ de boues.",
     "parentId": "4.2.1.1.5.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.5.4.cst": {
     "type": "constat",
@@ -1636,7 +1636,7 @@
     "label": "Se rapprocher du fabricant afin d'obtenir la démarche à suivre pour rétablir le bon fonctionnement de la microstation, puis procéder à un nouveau contrôle du SPANC.",
     "parentId": "4.2.1.1.5.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.6.cst": {
     "type": "constat",
@@ -1660,7 +1660,7 @@
     "label": "Afin de sécuriser le fonctionnement du dispositif de traitement agréé, il est conseillé de le raccorder directement au tableau électrique du bâtiment en se référant au guide du fabricant.",
     "parentId": "4.2.1.1.2.5",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.5.5.cst": {
     "type": "constat",
@@ -1675,91 +1675,91 @@
     "label": "Réaliser l'entretien de la microstation au plus vite (pour rappel, le volume des boues ne doit pas dépasser 30% du xxxx).",
     "parentId": "4.2.1.1.5.1.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.5.1.2.reco": {
     "type": "recommandation",
     "label": "Réaliser son entretien au plus vite (pour rappel, le volume des boues ne doit pas dépasser 30% du xxxx).",
     "parentId": "4.2.1.1.5.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.4.1.reco": {
     "type": "recommandation",
     "label": "Mettre en place un support réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.1.4.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.4.2.reco": {
     "type": "recommandation",
     "label": "Mettre en place un support réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.1.4.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.2.2.reco": {
     "type": "recommandation",
     "label": "Se rapprocher du fabricant afin d'assurer son bon fonctionnement et son déclenchement en cas de nécessité.",
     "parentId": "4.2.1.1.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.2.3.reco": {
     "type": "recommandation",
     "label": "Se rapprocher du fabricant afin d'assurer son bon fonctionnement et son déclenchement en cas de nécessité.",
     "parentId": "4.2.1.1.2.3",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.4.reco": {
     "type": "recommandation",
     "label": "Respecter les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.1.1.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.1.6.reco": {
     "type": "recommandation",
     "label": "Respecter les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.1.1.6",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.3.1.reco": {
     "type": "recommandation",
     "label": "Respecter les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.1.3.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.4.3.reco": {
     "type": "recommandation",
     "label": "Se rapprocher du fabricant afin d'obtenir la démarche à suivre pour rétablir le bon fonctionnement de la microstation.",
     "parentId": "4.2.1.1.4.3",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.5.2.reco": {
     "type": "recommandation",
     "label": "Se rapprocher du fabricant afin d'obtenir la démarche à suivre pour rétablir le bon fonctionnement de la microstation.",
     "parentId": "4.2.1.1.5.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.5.3.1.reco": {
     "type": "recommandation",
     "label": "Se rapprocher du fabricant afin d'obtenir la démarche à suivre pour rétablir le bon fonctionnement de la microstation.",
     "parentId": "4.2.1.1.5.3.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.5.5.reco": {
     "type": "recommandation",
     "label": "Se rapprocher du fabricant afin d'obtenir la démarche à suivre pour rétablir le bon fonctionnement de la microstation.",
     "parentId": "4.2.1.1.5.5",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.cst": {
     "type": "constat",
@@ -2130,7 +2130,7 @@
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes / d'un déflecteur adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse (se référer aux cas génériques de la fosse toutes eaux en amont).",
     "parentId": "4.2.1.2.1.2.2.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.3.2.cst": {
     "type": "constat",
@@ -2193,7 +2193,7 @@
     "label": "Nettoyer et remplacer si nécessaire, les matériaux filtrants du préfiltre. Un entretien régulier de ce dernier est ensuite à réaliser (un nettoyage tous les 6 mois fortement recommandé et un remplacement de la pouzzolane à intervalle régulier).",
     "parentId": "4.2.1.2.2.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.2.2.cst": {
     "type": "constat",
@@ -2208,7 +2208,7 @@
     "label": "Nettoyer, voire remplacer si nécessaire, les matériaux filtrants du préfiltre. Un entretien régulier de ce dernier est ensuite à réaliser (un nettoyage tous les 6 mois fortement recommandé et un remplacement de la pouzzolane à intervalle régulier).",
     "parentId": "4.2.1.2.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.3.2.cst": {
     "type": "constat",
@@ -2271,98 +2271,98 @@
     "label": "Rétablir le fonctionnement du dispositif en respectant l'avis d'agrément et les prescriptions du fabricant adaptées.",
     "parentId": "4.2.1.2.5.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.1.1.1.reco": {
     "type": "recommandation",
     "label": "Réaliser l'entretien de la fosse (pour rappel, le volume des boues ne doit pas dépasser 50 % du volume utile de la fosse). Un entretien des dispositifs situés en aval est conseillé.",
     "parentId": "4.2.1.2.1.1.1.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.3.2.reco": {
     "type": "recommandation",
     "label": "Au besoin réaliser son remplacement en respectant les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.2.3.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.4.2.reco": {
     "type": "recommandation",
     "label": "Au besoin réaliser son remplacement en respectant les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.2.4.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.3.4.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif d'alimentation réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.2.3.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.4.4.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif d'alimentation réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.2.4.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.4.3.reco": {
     "type": "recommandation",
     "label": "Réaliser son entretien en respectant les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.2.4.3",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.4.1.reco": {
     "type": "recommandation",
     "label": "Rétablir le fonctionnement du dispositif (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.2.4.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.2.2.1.reco": {
     "type": "recommandation",
     "label": "Installer un dispositif de rétention des flottants adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.2.1.2.1.2.2.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.2.1.2.reco": {
     "type": "recommandation",
     "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
     "parentId": "4.2.1.2.1.2.1.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.3.1.reco": {
     "type": "recommandation",
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes adaptées afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.2.1.2.1.3.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.2.1.1.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.2.1.2.1.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.3.2.reco": {
     "type": "recommandation",
     "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
     "parentId": "4.2.1.2.1.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.1.1.2.reco": {
     "type": "recommandation",
     "label": "Réaliser rapidement l'entretien de la fosse (pour rappel, le volume des boues ne doit pas dépasser 50 % du volume utile de la fosse).",
     "parentId": "4.2.1.2.1.1.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.cst": {
     "type": "constat",
@@ -2395,7 +2395,7 @@
     "label": "Réaliser son entretien en respectant les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.2.3.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.3.3": {
     "type": "critere",
@@ -2420,7 +2420,7 @@
     "label": "Rétablir le fonctionnement du dispositif (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.2.3.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.5.3": {
     "type": "critere",
@@ -2444,7 +2444,7 @@
     "label": "Mettre en place un média filtrant réglementaire et adapté (se référer également aux prescriptions adaptées du fabricant).",
     "parentId": "4.2.1.2.5.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.5.2": {
     "type": "critere",
@@ -2468,7 +2468,7 @@
     "label": "Réaliser son entretien en respectant les prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.2.5.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.5.1": {
     "type": "critere",
@@ -2492,7 +2492,7 @@
     "label": "Veuillez vous rapprocher du fabricant.",
     "parentId": "4.2.1.2.5.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3": {
     "type": "critere",
@@ -2716,7 +2716,7 @@
     "label": "Procéder à son entretien en se référant aux prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.3.2.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3.2.2.cst": {
     "type": "constat",
@@ -2747,7 +2747,7 @@
     "label": "Assurer le fonctionnement du dispositif en se référant aux prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.3.2.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3.3.1.cst": {
     "type": "constat",
@@ -2786,70 +2786,70 @@
     "label": "Mettre en place les grilles de protection conformément à la réglementation adaptée.",
     "parentId": "4.2.1.3.3.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.3.4.reco": {
     "type": "recommandation",
     "label": "Mettre en place les grilles de protection conformément à la réglementation adaptée.",
     "parentId": "4.2.1.3.3.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.1.1.2.reco": {
     "type": "recommandation",
     "label": "Rétablir le fonctionnement en se référant aux prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.3.1.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.1.1.1.reco": {
     "type": "recommandation",
     "label": "Rétablir le fonctionnement en se référant aux prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.3.1.1.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.1.2.2.reco": {
     "type": "recommandation",
     "label": "Réaliser l'entretien des filtres en se référant aux prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.3.1.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.1.2.1.reco": {
     "type": "recommandation",
     "label": "Réaliser l'entretien des filtres en se référant aux prescriptions adaptées du fabricant.",
     "parentId": "4.2.1.3.1.2.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.2.2.reco": {
     "type": "recommandation",
     "label": "Procéder à son entretien en respectant l'avis d'agrément et les prescriptions du fabricant adaptés.",
     "parentId": "4.2.1.3.2.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3.2.3.reco": {
     "type": "recommandation",
     "label": "Procéder à son entretien en respectant l'avis d'agrément et les prescriptions du fabricant adaptés.",
     "parentId": "4.2.1.3.2.3",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3.3.1.reco": {
     "type": "recommandation",
     "label": "Mettre en place la clôture périphérique conformément à la réglementation adaptée.",
     "parentId": "4.2.1.3.3.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.3.2.reco": {
     "type": "recommandation",
     "label": "Mettre en place la clôture périphérique conformément à la réglementation adaptée.",
     "parentId": "4.2.1.3.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.cst": {
     "type": "constat",
@@ -2942,7 +2942,7 @@
     "label": "Dans ce cas, une réhabilitation complète de l'installation d'assainissement est à conseiller.",
     "parentId": "4.2.1.4.1.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.2.cst": {
     "type": "constat",
@@ -2985,28 +2985,28 @@
     "label": "Supprimer le trop-plein. Attention, ceci engendrera une forte augmentation des fréquences de vidange.",
     "parentId": "4.2.1.4.1.5",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.4.reco": {
     "type": "recommandation",
     "label": "La rendre étanche ou raccorder directement les effluents en amont d'une installation d'assainissement réglementaire adaptée.",
     "parentId": "4.2.1.4.1.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.2.reco": {
     "type": "recommandation",
     "label": "S'assurer de son étanchéité. A défaut la rendre étanche ou raccorder directement les effluents en amont d'une installation d'assainissement réglementaire adaptée.",
     "parentId": "4.2.1.4.1.2",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.3.reco": {
     "type": "recommandation",
     "label": "S'assurer de son étanchéité. A défaut la rendre étanche ou raccorder directement les effluents en amont d'une installation d'assainissement réglementaire adaptée.",
     "parentId": "4.2.1.4.1.3",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.cst": {
     "type": "constat",
@@ -3112,7 +3112,7 @@
     "label": "Retirer les effluents ménagers et les raccorder directement en amont d'une installation d'assainissement adaptée.",
     "parentId": "4.2.1.4.2.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.1.2.cst": {
     "type": "constat",
@@ -3135,7 +3135,7 @@
     "label": "Respecter les conditions d'utilisation réglementaires du dispositif.",
     "parentId": "4.2.1.4.2.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.5.cst": {
     "type": "constat",
@@ -3150,7 +3150,7 @@
     "label": "Supprimer le trop-plein. Attention, ceci engendrera une forte augmentation des fréquences de maintenance élevées et contraignantes.",
     "parentId": "4.2.1.4.2.5",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.1": {
     "type": "critere",
@@ -3181,21 +3181,21 @@
     "label": "Raccorder l'ensemble des effluents bruts en amont d'un dispositif de traitement primaire réglementaire.",
     "parentId": "4.2.1.4.2.1.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.6.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.4.2.6",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.1.2.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.4.2.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.cst": {
     "type": "constat",
@@ -3227,7 +3227,7 @@
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.4.2.7",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.4": {
     "type": "critere",
@@ -3280,14 +3280,14 @@
     "label": "Dégager, rendre accessible et affleurant en permanence l'installation puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité des éléments dégagés, leur état et leur fonctionnement.En cas d'impossibilité, mettre en place une installation réglementaire d'assainissement non collectif.",
     "parentId": "4.4.2",
     "children": [],
-    "section": "reco_contexte_conformité"
+    "section": "reco_contexte"
   },
   "4.4.1.reco": {
     "type": "recommandation",
     "label": "Dégager, rendre accessible et affleurant en permanence l'installation puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité des éléments dégagés, leur état et leur fonctionnement.En cas d'impossibilité, mettre en place une installation réglementaire d'assainissement non collectif.",
     "parentId": "4.4.1",
     "children": [],
-    "section": "reco_contexte_conformité"
+    "section": "reco_contexte"
   },
   "4.1.1": {
     "type": "header",
@@ -3342,7 +3342,7 @@
     "label": "Dégager, rendre accessible et affleurant en permanence la fosse puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité, son état et son fonctionnement.",
     "parentId": "4.1.1.2.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.2.2.cst": {
     "type": "constat",
@@ -3367,7 +3367,7 @@
     "label": "Dégager, rendre accessible et affleurant en permanence la fosse puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité, son état et son fonctionnement.",
     "parentId": "4.1.1.2.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.2": {
     "type": "header",
@@ -3469,7 +3469,7 @@
     "label": "Dégager, rendre accessible et apparent en permanence le dispositif, puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité des éléments dégagés, leur état et leur fonctionnement. En cas d'impossibilité, mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.1.1.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.1.1.1.cst": {
     "type": "constat",
@@ -3484,7 +3484,7 @@
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.1.1.1",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.1.3.1": {
     "type": "critere",
@@ -3508,7 +3508,7 @@
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.1.2.1",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.1.2.1": {
     "type": "critere",
@@ -3532,7 +3532,7 @@
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.1.3.1",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.1": {
     "type": "header",
@@ -3630,14 +3630,14 @@
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.1.6.1",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.1.6.2.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.1.6.2",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.1.6.cst": {
     "type": "constat",
@@ -3680,7 +3680,7 @@
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.1.5.1",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.1.5.cst": {
     "type": "constat",
@@ -3783,14 +3783,14 @@
     "label": "Dégager, rendre accessible et affleurant en permanence le dispositif puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité, son état et son fonctionnement.",
     "parentId": "4.1.2.2.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.2.1.reco": {
     "type": "recommandation",
     "label": "Dégager, rendre accessible et affleurant en permanence le dispositif puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité, son état et son fonctionnement.",
     "parentId": "4.1.2.2.1",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "1.1.5.cst": {
     "type": "constat",
@@ -4294,7 +4294,7 @@
     "label": "Supprimer ou désaffecter l'ensemble de l'installation en place et mettre en œuvre une nouvelle installation d'assainissement réglementaire en respectant la distance minimale de 35 m avec le puits. Pour information, depuis le 1er janvier 2009 tout puits dont il est fait un usage domestique doit être déclaré en mairie.",
     "parentId": "1.3.1.2",
     "children": [],
-    "section": "reco_contexte_conformité"
+    "section": "reco_contexte"
   },
   "1.3.1.1.cst": {
     "type": "constat",
@@ -4325,7 +4325,7 @@
     "label": "Il est recommandé d'équiper l'installation de manière à éviter tout dysfonctionnement et danger de sécurité sanitaire face au risque d'inondation.",
     "parentId": "1.3.6",
     "children": [],
-    "section": "reco_contexte_conformité"
+    "section": "reco_contexte"
   },
   "1.3.5.1.cst": {
     "type": "constat",
@@ -4401,14 +4401,14 @@
     "label": "Rechercher la cause des nuisances olfactives (ventilations, siphons, …) et procéder à leur élimination définitive.",
     "parentId": "1.3.5.3",
     "children": [],
-    "section": "reco_contexte_conformité"
+    "section": "reco_contexte"
   },
   "1.3.5.2.reco": {
     "type": "recommandation",
     "label": "Rechercher la cause des nuisances olfactives (ventilations, siphons, …) et procéder à leur élimination définitive.",
     "parentId": "1.3.5.2",
     "children": [],
-    "section": "reco_contexte_conformité"
+    "section": "reco_contexte"
   },
   "1.4.1": {
     "type": "saisie_valeur",
@@ -4576,7 +4576,7 @@
     "label": "Conformément au règlement de service du SPANC, l’installation étant commune à plusieurs logements, le règlement d’utilisation des installations d’assainissement devra être fourni au SPANC. Il reprendra toutes les servitudes d’entretien (y compris la réhabilitation) et d’usage liées à l’installation commune.",
     "parentId": "1.4.4.1",
     "children": [],
-    "section": "reco_contexte_conformité",
+    "section": "reco_contexte",
     "classement": "Simple remarque"
   },
   "1.4.4.2.cst": {
@@ -4775,7 +4775,7 @@
     "label": "S'assurer de la capacité suffisante de la canalisation de rejet, ou déconnecter les eaux pluviales de l'installation selon le point de raccordement constaté.",
     "parentId": "6.2.2.2",
     "children": [],
-    "section": "reco_rejet_bf"
+    "section": "reco_rejet"
   },
   "6.2.2.2": {
     "type": "critere",
@@ -4800,7 +4800,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "6.2.2.1",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.2.1": {
     "type": "critere",
@@ -4851,7 +4851,7 @@
     "label": "Dégager le point de rejet et s'assurer en permanence du libre écoulement des effluents à l'exutoire.",
     "parentId": "6.1.9",
     "children": [],
-    "section": "reco_rejet_bf"
+    "section": "reco_rejet"
   },
   "5.1.6": {
     "type": "critere",
@@ -4895,7 +4895,7 @@
     "label": "Réparer le poste de relevage et rétablir l'écoulement correct à travers celui-ci.",
     "parentId": "5.1.6.1.1",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.1.6.1.2": {
     "type": "critere",
@@ -4920,7 +4920,7 @@
     "label": "Réparer le poste de relevage et rétablir l'écoulement correct à travers celui-ci.",
     "parentId": "5.1.6.1.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.1.6.2": {
     "type": "critere",
@@ -4955,7 +4955,7 @@
     "label": "Prévoir le remplacement à terme du poste de relevage afin d'éviter tout désordre.",
     "parentId": "5.1.6.2.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.1.6.2.2": {
     "type": "critere",
@@ -4980,7 +4980,7 @@
     "label": "Rendre le poste de relevage étanche ou le remplacer par un dispositif adapté.",
     "parentId": "5.1.6.2.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.1.6.2.3": {
     "type": "critere",
@@ -5005,7 +5005,7 @@
     "label": "Sécuriser le poste de relevage en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "5.1.6.2.3",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.1.6.3": {
     "type": "critere",
@@ -5057,7 +5057,7 @@
     "label": "Réparer le poste de relevage étanche ou le remplacer par un dispositif adapté.",
     "parentId": "5.1.6.3.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.1.6.3.3": {
     "type": "critere",
@@ -5081,7 +5081,7 @@
     "label": "Prévoir la remise en état de la réhausse du poste de relevage afin d'éviter tout désordre.",
     "parentId": "5.1.6.3.3",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.2.6": {
     "type": "critere",
@@ -5125,7 +5125,7 @@
     "label": "Rétablir l'écoulement correct à travers la chasse automatique.",
     "parentId": "5.2.6.1.1",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.6.1.2": {
     "type": "critere",
@@ -5150,7 +5150,7 @@
     "label": "Rétablir l'écoulement correct à travers la chasse automatique.",
     "parentId": "5.2.6.1.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.6.2": {
     "type": "critere",
@@ -5185,7 +5185,7 @@
     "label": "Prévoir de remplacement à terme de  la chasse automatique afin d'éviter tout désordre.",
     "parentId": "5.2.6.2.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.2.6.2.2": {
     "type": "critere",
@@ -5210,7 +5210,7 @@
     "label": "Rendre  la chasse automatique étanche ou la remplacer par un dispositif adapté.",
     "parentId": "5.2.6.2.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.6.2.3": {
     "type": "critere",
@@ -5235,7 +5235,7 @@
     "label": "Sécuriser  la chasse automatique en la réparant ou la remplaçant par un dispositif adapté et étanche.",
     "parentId": "5.2.6.2.3",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.6.3": {
     "type": "critere",
@@ -5287,7 +5287,7 @@
     "label": "Réhabiliter  la chasse automatique.",
     "parentId": "5.2.6.3.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.6.3.3": {
     "type": "critere",
@@ -5311,7 +5311,7 @@
     "label": "Prévoir la remise en état de la réhausse de  la chasse automatique afin d'éviter tout désordre.",
     "parentId": "5.2.6.3.3",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.3.3.1": {
     "type": "critere",
@@ -5405,7 +5405,7 @@
     "label": "Sécuriser le préfiltre exteren en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "5.3.3.2.3",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.3.3.2.1.cst": {
     "type": "constat",
@@ -5420,7 +5420,7 @@
     "label": "Prévoir le remplacement à terme du préfiltre afin d'éviter tout désordre.",
     "parentId": "5.3.3.2.1",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.3.3.3.1.cst": {
     "type": "constat",
@@ -5443,7 +5443,7 @@
     "label": "Réhabiliter le préfiltre externe.",
     "parentId": "5.3.3.3.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.3.3.3.3.cst": {
     "type": "constat",
@@ -5458,7 +5458,7 @@
     "label": "Prévoir la remise en état de la réhausse du préfiltre externe afin d'éviter tout désordre.",
     "parentId": "5.3.3.3.3",
     "children": [],
-    "section": "reco_annexe_bf"
+    "section": "reco_annexe"
   },
   "5.3.3.2.2.cst": {
     "type": "constat",
@@ -5473,7 +5473,7 @@
     "label": "Rendre le contenant du préfiltre externe étanche ou le remplacer par un dispositif adapté.",
     "parentId": "5.3.3.2.2",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.3.3.2": {
     "type": "critere",
@@ -5515,7 +5515,7 @@
     "label": "Déconnecter les eaux pluviales du poste de relevage.",
     "parentId": "5.1.7",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.2.7": {
     "type": "critere",
@@ -5539,7 +5539,7 @@
     "label": "Déconnecter les eaux pluviales de  la chasse automatique.",
     "parentId": "5.2.7",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "5.3.4": {
     "type": "critere",
@@ -5563,21 +5563,21 @@
     "label": "Déconnecter les eaux pluviales du préfiltre externe.",
     "parentId": "5.3.4",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "1.4.8.reco": {
     "type": "recommandation",
     "label": "Le bâtiment étant inoccupé depuis xxx ans, le bon fonctionnement de l'installation n'est pas vérifiable dans sa totalité et n'est pas garanti après la remise en service.",
     "parentId": "1.4.8",
     "children": [],
-    "section": "reco_contexte_conformité"
+    "section": "reco_contexte"
   },
   "1.4.7.reco": {
     "type": "recommandation",
     "label": "Le bâtiment étant inoccupé depuis xxx ans, le bon fonctionnement de l'installation n'est pas vérifiable dans sa totalité et n'est pas garanti après la remise en service.",
     "parentId": "1.4.7",
     "children": [],
-    "section": "reco_contexte_conformité",
+    "section": "reco_contexte",
     "classement": "Simple remarque"
   },
   "1.4.6.reco": {
@@ -5585,7 +5585,7 @@
     "label": "Le bâtiment étant inoccupé depuis xxx ans, le bon fonctionnement de l'installation n'est pas vérifiable dans sa totalité et n'est pas garanti après la remise en service.",
     "parentId": "1.4.6",
     "children": [],
-    "section": "reco_contexte_conformité",
+    "section": "reco_contexte",
     "classement": "Simple remarque"
   },
   "1.4.5.reco": {
@@ -5593,7 +5593,7 @@
     "label": "Le bâtiment étant inoccupé depuis xxx ans, le bon fonctionnement de l'installation n'est pas vérifiable dans sa totalité et n'est pas garanti après la remise en service.",
     "parentId": "1.4.5",
     "children": [],
-    "section": "reco_contexte_conformité",
+    "section": "reco_contexte",
     "classement": "Simple remarque"
   },
   "4.1.1.1.1": {
@@ -5693,7 +5693,7 @@
     "label": "Réhabiliter la fosse déformée.",
     "parentId": "4.1.1.1.1.4.2.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.2.3.cst": {
     "type": "constat",
@@ -5708,7 +5708,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.4.2.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.3": {
     "type": "critere",
@@ -5760,14 +5760,14 @@
     "label": "Rétablir l'écoulement correct à travers la fosse",
     "parentId": "4.1.1.1.1.4.3.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.3.1.reco": {
     "type": "recommandation",
     "label": "Rétablir l'écoulement correct à travers la fosse",
     "parentId": "4.1.1.1.1.4.3.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.1.3": {
     "type": "critere",
@@ -5804,7 +5804,7 @@
     "label": "Sécuriser la fosse en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.1.1.1.1.4.1.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.1.1.cst": {
     "type": "constat",
@@ -5819,7 +5819,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.4.1.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.1.2.cst": {
     "type": "constat",
@@ -5834,7 +5834,7 @@
     "label": "Rendrela fosse étanche ou la remplacer par un dispositif adapté.",
     "parentId": "4.1.1.1.1.4.1.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.1": {
     "type": "critere",
@@ -5876,7 +5876,7 @@
     "label": "Supprimer le sanibroyeur et le remplacer par des WC \"classiques\" (sans broyeur et avec une canalisation d'évacuation en diamètre 100 mm). En effet, les sanibroyeurs diminuent les capacités de décantation et de flottaison des matières, engendrant ainsi des risques de colmatage du préfiltre situé dans la fosse toutes eaux et du dispositif de traitement situé en aval.",
     "parentId": "4.1.1.1.1.7",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.1": {
     "type": "saisie_valeur",
@@ -5984,21 +5984,21 @@
     "label": "Réaliser l'entretien de la fosse (pour rappel, le volume des boues ne doit pas dépasser 50 % du volume utile de la fosse).",
     "parentId": "4.1.1.1.1.3.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.3.2.reco": {
     "type": "recommandation",
     "label": "Réaliser rapidement l'entretien de la fosse (pour rappel, le volume des boues ne doit pas dépasser 50 % du volume utile de la fosse).",
     "parentId": "4.1.1.1.1.3.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.3.1.1.reco": {
     "type": "recommandation",
     "label": "Installer un déflecteur adapté (ex : coude plongeant, …), ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.3.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.2.3": {
     "type": "critere",
@@ -6071,21 +6071,21 @@
     "label": "Adapter les fréquences d'entretien à l'utilisation, ou mettre en place un traitement primaire de dimensionnement suffisant.",
     "parentId": "4.1.1.1.1.2.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.2.3.reco": {
     "type": "recommandation",
     "label": "Mettre en place un traitement primaire réglementaire adapté.",
     "parentId": "4.1.1.1.1.2.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.2.2.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif de traitement primaire réglementaire adapté.",
     "parentId": "4.1.1.1.1.2.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.5": {
     "type": "critere",
@@ -6109,7 +6109,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "4.1.1.1.1.5",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.4": {
     "type": "critere",
@@ -6133,7 +6133,7 @@
     "label": "Installer un déflecteur adapté (ex : coude plongeant, …), ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.4.4",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.5": {
     "type": "critere",
@@ -6202,14 +6202,14 @@
     "label": "Mettre en place de nouvelles parois siphoïdes adaptées, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.4.5.2.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.5.2.2.reco": {
     "type": "recommandation",
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes adaptées afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.4.5.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.4.5.1.cst": {
     "type": "constat",
@@ -6234,7 +6234,7 @@
     "label": "Installer un dispositif de rétention des flottants adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.4.5.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.9": {
     "type": "header",
@@ -6307,7 +6307,7 @@
     "label": "Mettre en place un traitement primaire réglementaire de l'ensemble des effluents ménagers du bâtiment.",
     "parentId": "4.1.1.1.2.1.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.2.1.cst": {
     "type": "constat",
@@ -6322,7 +6322,7 @@
     "label": "Adapter les fréquences d'entretien à l'utilisation, ou mettre en place un unique bac dégraisseur de dimensionnement suffisant.",
     "parentId": "4.1.1.1.2.1.2.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.1.1": {
     "type": "critere",
@@ -6420,7 +6420,7 @@
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes adaptées, ou en cas d'impossibilité remplacer le bac dégraisseur.",
     "parentId": "4.1.1.1.2.1.3.1.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.1.1.cst": {
     "type": "constat",
@@ -6497,35 +6497,35 @@
     "label": "Mettre en place de nouvelles parois siphoïdes adaptées, ou en cas d'impossibilité remplacer le bac dégraisseur.",
     "parentId": "4.1.1.1.2.1.3.1.2.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.1.1.reco": {
     "type": "recommandation",
     "label": "Mettre en place de nouvelles parois siphoïdes adaptées, ou en cas d'impossibilité remplacer le bac dégraisseur.",
     "parentId": "4.1.1.1.2.1.3.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.2.2.reco": {
     "type": "recommandation",
     "label": "Réaliser rapidement l'entretien du bac dégraisseur (pour rappel, l'entretien est à réaliser minimum 2 fois par an).",
     "parentId": "4.1.1.1.2.1.3.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.2.1.reco": {
     "type": "recommandation",
     "label": "Réaliser rapidement l'entretien du bac dégraisseur (pour rappel, l'entretien est à réaliser minimum 2 fois par an).",
     "parentId": "4.1.1.1.2.1.3.2.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.1.3.reco": {
     "type": "recommandation",
     "label": "Réaliser rapidement l'entretien du bac dégraisseur (pour rappel, l'entretien est à réaliser minimum 2 fois par an).",
     "parentId": "4.1.1.1.2.1.3.1.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.3": {
     "type": "critere",
@@ -6637,7 +6637,7 @@
     "label": "Sécuriser le bac à graisse en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.1.1.1.2.1.3.4.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.4.1.cst": {
     "type": "constat",
@@ -6652,7 +6652,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.1.1.1.2.1.3.4.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.5.1.cst": {
     "type": "constat",
@@ -6675,7 +6675,7 @@
     "label": "Réhabiliter le bac à graisse déformé.",
     "parentId": "4.1.1.1.2.1.3.5.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.5.3.cst": {
     "type": "constat",
@@ -6690,7 +6690,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.1.1.1.2.1.3.5.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.4.2.cst": {
     "type": "constat",
@@ -6705,7 +6705,7 @@
     "label": "Rendre le bac à graisse étanche ou le remplacer par un dispositif adapté.",
     "parentId": "4.1.1.1.2.1.3.4.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.3.1.cst": {
     "type": "constat",
@@ -6738,14 +6738,14 @@
     "label": "Rétablir l'écoulement correct à travers le bac à graisse",
     "parentId": "4.1.1.1.2.1.3.3.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.3.3.1.reco": {
     "type": "recommandation",
     "label": "Rétablir l'écoulement correct à travers le bac à graisse",
     "parentId": "4.1.1.1.2.1.3.3.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.1.1": {
     "type": "critere",
@@ -6769,7 +6769,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "4.1.1.1.2.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.1": {
     "type": "critere",
@@ -6880,7 +6880,7 @@
     "label": "Sécuriser le bac à graisse en le réparant ou supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.2.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.2": {
     "type": "critere",
@@ -6924,7 +6924,7 @@
     "label": "Adapter les fréquences d'entretien à l'utilisation, ou le supprimer afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.2.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.2.2.cst": {
     "type": "constat",
@@ -6996,7 +6996,7 @@
     "label": "Mettre en place de nouvelles parois siphoïdes adaptées, ou supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.5.2.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.5.2.2.cst": {
     "type": "constat",
@@ -7011,7 +7011,7 @@
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes adaptées, ou supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.5.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1": {
     "type": "critere",
@@ -7039,7 +7039,7 @@
     "label": "Supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.2.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.3.1.cst": {
     "type": "constat",
@@ -7062,7 +7062,7 @@
     "label": "Supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.3.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.4.cst": {
     "type": "constat",
@@ -7077,7 +7077,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.4",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.2.2.cst": {
     "type": "constat",
@@ -7092,7 +7092,7 @@
     "label": "Rendre le bac à graisse étanche ou supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.2.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.1.1.cst": {
     "type": "constat",
@@ -7135,21 +7135,21 @@
     "label": "Rétablir l'écoulement correct à travers le bac à graisse ou supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.1.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.1.1.reco": {
     "type": "recommandation",
     "label": "Rétablir l'écoulement correct à travers le bac à graisse ou supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.2.2.reco": {
     "type": "recommandation",
     "label": "Il est conseillé de supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.6.1.cst": {
     "type": "constat",
@@ -7174,7 +7174,7 @@
     "label": "Il est conseillé de supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.6.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.6.2": {
     "type": "critere",
@@ -7199,7 +7199,7 @@
     "label": "Réaliser rapidement l'entretien du bac dégraisseur (pour rappel, l'entretien est à réaliser minimum 2 fois par an) ou le supprimer afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.6.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.5.1": {
     "type": "critere",
@@ -7224,7 +7224,7 @@
     "label": "Il est conseillé de supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.5.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.6.1.5.3": {
     "type": "critere",
@@ -7249,7 +7249,7 @@
     "label": "Il est conseillé de supprimer le bac dégraisseur afin de faciliter l'entretien de l'installation d'assainissement et d'éviter tout désordre.",
     "parentId": "4.1.1.1.1.6.1.5.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.3": {
     "type": "critere",
@@ -7297,7 +7297,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "4.1.2.1.6",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.5": {
     "type": "critere",
@@ -7321,7 +7321,7 @@
     "label": "Il est conseillé de retirer la couche imperméabilisante dans le respect de la norme AFNOR DTU 64.1. Attention à ne pas causer d'affaissement au niveau du dispositif de traitement secondaire.",
     "parentId": "4.1.2.1.5",
     "children": [],
-    "section": "reco_implantation_bf"
+    "section": "reco_implantation"
   },
   "4.1.2.1.4": {
     "type": "critere",
@@ -7372,7 +7372,7 @@
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire et adapté.",
     "parentId": "4.1.2.1.4.2",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.3": {
     "type": "critere",
@@ -7419,7 +7419,7 @@
     "label": "Dans ce cas, mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.3.1",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.3.2.cst": {
     "type": "constat",
@@ -7434,7 +7434,7 @@
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.3.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2": {
     "type": "header",
@@ -7581,7 +7581,7 @@
     "label": "Il est conseillé d'assurer une alimentation indépendante de chacun des tuyaux d'épandage.",
     "parentId": "4.1.2.1.2.1.1.4",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.3.1.cst": {
     "type": "constat",
@@ -7596,7 +7596,7 @@
     "label": "Un curage de la canalisation alimentant ce regard et des canalisations qui en aval est également conseillé sans garantie de rétablissement d'un fonctionnement pérenne.",
     "parentId": "4.1.2.1.2.1.3.1",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.3.2.cst": {
     "type": "constat",
@@ -7611,21 +7611,21 @@
     "label": "Reprendre le regard pour garantir une répartition homogène des effluents.",
     "parentId": "4.1.2.1.2.1.1.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.1.3.reco": {
     "type": "recommandation",
     "label": "Reprendre le regard pour garantir une répartition homogène des effluents.",
     "parentId": "4.1.2.1.2.1.1.3",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.3.2.reco": {
     "type": "recommandation",
     "label": "S'assurer du bon fonctionnement des tuyaux d'épandage.",
     "parentId": "4.1.2.1.2.1.3.2",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.3": {
     "type": "critere",
@@ -7659,7 +7659,7 @@
     "label": "Dégager, rendre accessible et affleurant en permanence le regard de répartition puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité, son état et son fonctionnement.",
     "parentId": "4.1.2.1.2.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.3": {
     "type": "critere",
@@ -7813,7 +7813,7 @@
     "label": "Il est conseillé d'assurer un accès indépendant à chacun des tuyaux d'épandage.",
     "parentId": "4.1.2.1.2.3.1.3",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.3.1.4.cst": {
     "type": "constat",
@@ -7852,7 +7852,7 @@
     "label": "Oter les matières présentes au fond du regard de bouclage sans les diriger vers les tuyaux. Un curage des canalisations alimentant ce regard est également conseillé sans garantie de rétablissement d'un fonctionnement pérenne. Vérifier le bon état de fonctionnement des éléments situés en amont du dispositif de traitement.",
     "parentId": "4.1.2.1.2.3.2.1",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.3.2.2.cst": {
     "type": "constat",
@@ -7867,35 +7867,35 @@
     "label": "S'assurer du bon fonctionnement des tuyaux d'épandage.",
     "parentId": "4.1.2.1.2.3.2.2",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.3.3.1.reco": {
     "type": "recommandation",
     "label": "En cas de nouvel engorgement, mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.2.3.3.1",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.3.3.2.reco": {
     "type": "recommandation",
     "label": "En cas de nouvel engorgement, mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.2.3.3.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.3.1.1.reco": {
     "type": "recommandation",
     "label": " Supprimer le trop-plein du regard de bouclage Attention, en cas de dispositif de traitement secondaire inadapté au sol en place, ceci peut conduire à un dysfonctionnement. Dans ce cas, mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.1.2.1.2.3.1.1",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.3.1.2.reco": {
     "type": "recommandation",
     "label": "Supprimer ce trop-plein du regard de bouclage. Attention, en cas de dispositif de traitement secondaire inadapté au sol en place, ceci peut conduire à un dysfonctionnement.Dans ce cas, mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.1.2.1.2.3.1.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.4": {
     "type": "critere",
@@ -7920,7 +7920,7 @@
     "label": "Dégager, rendre accessible et affleurant en permanence le regard de bouclage puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité, son état et son fonctionnement.",
     "parentId": "4.1.2.1.2.4",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.5.4.1": {
     "type": "critere",
@@ -8038,7 +8038,7 @@
     "label": "Reprendre le regard pour garantir une bonne évacuation des effluents.",
     "parentId": "4.1.2.1.2.5.4.3",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.5.1.1.cst": {
     "type": "constat",
@@ -8069,7 +8069,7 @@
     "label": "S'assurer du bon fonctionnement du dispositif.",
     "parentId": "4.1.2.1.2.5.2",
     "children": [],
-    "section": "reco_secondaire_bf"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.5.3.cst": {
     "type": "constat",
@@ -8084,21 +8084,21 @@
     "label": "Vérifier l'élément situé en aval du regard de collecte et rétablir la bonne évacuation des effluents.",
     "parentId": "4.1.2.1.2.5.1.1",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.5.1.2.reco": {
     "type": "recommandation",
     "label": "Vérifier l'élément situé en aval du regard de collecte et rétablir la bonne évacuation des effluents.",
     "parentId": "4.1.2.1.2.5.1.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.5.3.reco": {
     "type": "recommandation",
     "label": "Mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.2.5.3",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.5.4": {
     "type": "critere",
@@ -8123,7 +8123,7 @@
     "label": "Dégager, rendre accessible et affleurant en permanence le regard de collecte puis procéder à un nouveau contrôle du SPANC pour vérifier l'absence de non-conformité, son état et son fonctionnement.",
     "parentId": "4.1.2.1.2.6",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.6": {
     "type": "critere",
@@ -8148,7 +8148,7 @@
     "label": "Raccorder l'ensemble des effluents en amont du dispositif réglementaire de traitement primaire des effluents (Fosse septique ou Fosse toutes eaux  pour les eaux vannes, Bac à graisses ou Fosse toutes eaux pour les eaux ménagères), ou en cas d'impossibilité en mettre un en place en amont du traitement secondaire.",
     "parentId": "4.1.2.1.2.1.4",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.4": {
     "type": "critere",
@@ -8172,7 +8172,7 @@
     "label": "Il est possible d'effectuer un curage de l'ensemble des tuyaux de répartition et d'épandage du dispositif, sans garantie de rétablissement d'un fonctionnement pérenne. En cas de nouvel engorgement, mettre en place un dispositif de traitement secondaire réglementaire adapté.",
     "parentId": "4.1.2.1.2.1.2",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.1.5": {
     "type": "critere",
@@ -8200,7 +8200,7 @@
     "label": "Supprimer le trop-plein du regard de répartition. Attention, en cas de dispositif de traitement secondaire inadapté au sol en place, ceci peut conduire à un dysfonctionnement. Dans ce cas, mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.1.2.1.2.1.1.5",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "4.1.2.1.2.1.1.6": {
     "type": "critere",
@@ -8225,7 +8225,7 @@
     "label": "Supprimer le trop-plein du regard de répartition. Attention, en cas de dispositif de traitement secondaire inadapté au sol en place, ceci peut conduire à un dysfonctionnement. Dans ce cas, mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.1.2.1.2.1.1.6",
     "children": [],
-    "section": "reco_secondaire_conformité"
+    "section": "reco_secondaire"
   },
   "6.1.1": {
     "type": "critere",
@@ -8328,7 +8328,7 @@
     "label": "En cas de possibilité, effectuer un curage de l'ensemble des tuyaux, sans garantie de rétablissement d'un fonctionnement pérenne. Dans tous les cas, si le dysfonctionnement persiste, mettre en place un point de rejet réglementaire adapté.",
     "parentId": "6.1.2.1",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.1.2.cst": {
     "type": "constat",
@@ -8371,7 +8371,7 @@
     "label": "Mettre en place un rejet respectant cette réglementation.",
     "parentId": "6.1.6.1",
     "children": [],
-    "section": "reco_rejet_bf"
+    "section": "reco_rejet"
   },
   "6.1.6.cst": {
     "type": "constat",
@@ -8404,7 +8404,7 @@
     "label": "Mettre en place un rejet respectant cette réglementation.",
     "parentId": "6.1.8",
     "children": [],
-    "section": "reco_rejet_bf"
+    "section": "reco_rejet"
   },
   "6.1.7": {
     "type": "critere",
@@ -8436,7 +8436,7 @@
     "label": "Nettoyer et remplacer si nécessaire les matériaux filtrants du préfiltre et rétablir le fonctionnement correct du préfiltre. Un entretien régulier de ce dernier est ensuite à réaliser (nettoyage tous les 6 mois fortement recommandé, remplacement de la pouzzolane à intervalle régulier).",
     "parentId": "5.3.3.1",
     "children": [],
-    "section": "reco_annexe_conformité"
+    "section": "reco_annexe"
   },
   "4.1.1.1.1.9.4.cst": {
     "type": "constat",
@@ -8461,7 +8461,7 @@
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.1.9.4",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.9.3": {
     "type": "critere",
@@ -8552,28 +8552,28 @@
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.1.9.3.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.9.3.3.reco": {
     "type": "recommandation",
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.1.9.3.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.9.3.4.reco": {
     "type": "recommandation",
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.1.9.3.4",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.9.3.2.reco": {
     "type": "recommandation",
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.1.9.3.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.9.2": {
     "type": "critere",
@@ -8597,7 +8597,7 @@
     "label": "En cas d'absence de ventilation primaire (généralement installée sur la canalisation de chute des toilettes), installer une ventilation primaire sur la canalisation de collecte des eaux usées au pied du bâtiment.",
     "parentId": "4.1.1.1.1.9.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "2.1": {
     "type": "critere",
@@ -8667,7 +8667,7 @@
     "label": "Il est conseillé de retirer les arbres trop proches de l'installation sans les dessoucher (risque d'endommager l'installation d'assainissement). Une distance minimale de 3 m avec les arbres et haies est préconisée.",
     "parentId": "2.2.1.1",
     "children": [],
-    "section": "reco_implantation_bf"
+    "section": "reco_implantation"
   },
   "2.2.1.2.cst": {
     "type": "constat",
@@ -8760,7 +8760,7 @@
     "label": "Retirer définitivement toute charge inadaptée de la zone d'implantation de l'installation.",
     "parentId": "2.2.2.3",
     "children": [],
-    "section": "reco_implantation_bf"
+    "section": "reco_implantation"
   },
   "2.2.2.4.cst": {
     "type": "constat",
@@ -8792,21 +8792,21 @@
     "label": "Toute circulation ou stationnement de véhicules est à proscrire sur son emprise, sauf pose adaptée (se rapprocher du fabricant de chaque élément pour connaître la surface à préserver des véhicules ou les conditions de pose adaptées). De plus, il est fortement recommandé de délimiter physiquement l'emplacement où les véhicules sont à proscrire.",
     "parentId": "2.2.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "2.2.2.1.reco": {
     "type": "recommandation",
     "label": "Toute circulation ou stationnement de véhicules est à proscrire sur l'emprise du dispositif de traitement par épandage. Il est fortement recommandé de délimiter physiquement l'emplacement où les véhicules sont à proscrire.",
     "parentId": "2.2.2.1",
     "children": [],
-    "section": "reco_implantation_bf"
+    "section": "reco_implantation"
   },
   "2.2.2.4.reco": {
     "type": "recommandation",
     "label": "Exclure toute présence permanente d'animaux de la surface de l'ensemble de l'installation d'assainissement. ",
     "parentId": "2.2.2.4",
     "children": [],
-    "section": "reco_implantation_bf"
+    "section": "reco_implantation"
   },
   "2.1.cst": {
     "type": "constat",
@@ -8902,7 +8902,7 @@
     "label": "Remplacer le tampon d'accès par un tampon adapté et sécurisé.",
     "parentId": "3.2.1.1.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.1.1": {
     "type": "critere",
@@ -8927,14 +8927,14 @@
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.1.1.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.1.1.3.reco": {
     "type": "recommandation",
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.1.1.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.1.2.2": {
     "type": "critere",
@@ -9003,7 +9003,7 @@
     "label": "La remise en fonctionnement des canalisations (curage ou reprise des canalisations si nécessaire) permettra de prévenir des désordres liés aux débordements des effluents pouvant intervenir éventuellement sur le terrain et/ou dans les bâtiments.",
     "parentId": "3.2.1.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.1.2": {
     "type": "critere",
@@ -9019,14 +9019,14 @@
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.1.2.2.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.1.2.2.1.reco": {
     "type": "recommandation",
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.1.2.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.1.3": {
     "type": "critere",
@@ -9050,7 +9050,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "3.2.1.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.2": {
     "type": "critere",
@@ -9096,7 +9096,7 @@
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.2.1.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.2.1.2": {
     "type": "critere",
@@ -9121,7 +9121,7 @@
     "label": "Remplacer le tampon d'accès par un tampon adapté et sécurisé.",
     "parentId": "3.2.2.1.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.2.1.3": {
     "type": "critere",
@@ -9146,7 +9146,7 @@
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.2.1.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.2.2": {
     "type": "critere",
@@ -9179,7 +9179,7 @@
     "label": "La remise en fonctionnement des canalisations (curage ou reprise des canalisations si nécessaire) permettra de prévenir des désordres liés aux débordements des effluents pouvant intervenir éventuellement sur le terrain et/ou dans les bâtiments.",
     "parentId": "3.2.2.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.2.2.2": {
     "type": "critere",
@@ -9213,7 +9213,7 @@
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.2.2.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.2.2.2.2": {
     "type": "critere",
@@ -9238,7 +9238,7 @@
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.2.2.2.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.2.3": {
     "type": "critere",
@@ -9262,7 +9262,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "3.2.2.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.3": {
     "type": "critere",
@@ -9308,7 +9308,7 @@
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.3.1.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.3.1.2": {
     "type": "critere",
@@ -9333,7 +9333,7 @@
     "label": "Remplacer le tampon d'accès par un tampon adapté et sécurisé.",
     "parentId": "3.2.3.1.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.3.1.3": {
     "type": "critere",
@@ -9358,7 +9358,7 @@
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.3.1.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.3.2": {
     "type": "critere",
@@ -9391,7 +9391,7 @@
     "label": "La remise en fonctionnement des canalisations (curage ou reprise des canalisations si nécessaire) permettra de prévenir des désordres liés aux débordements des effluents pouvant intervenir éventuellement sur le terrain et/ou dans les bâtiments.",
     "parentId": "3.2.3.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.3.2.2": {
     "type": "critere",
@@ -9425,7 +9425,7 @@
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.3.2.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.3.2.2.2": {
     "type": "critere",
@@ -9450,7 +9450,7 @@
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.3.2.2.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.3.3": {
     "type": "critere",
@@ -9474,7 +9474,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "3.2.3.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.4": {
     "type": "critere",
@@ -9520,7 +9520,7 @@
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.4.1.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.4.1.2": {
     "type": "critere",
@@ -9545,7 +9545,7 @@
     "label": "Remplacer le tampon d'accès par un tampon adapté et sécurisé.",
     "parentId": "3.2.4.1.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.4.1.3": {
     "type": "critere",
@@ -9570,7 +9570,7 @@
     "label": "Mettre en place un tampon adapté et sécurisé.",
     "parentId": "3.2.4.1.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.4.2": {
     "type": "critere",
@@ -9603,7 +9603,7 @@
     "label": "La remise en fonctionnement des canalisations (curage ou reprise des canalisations si nécessaire) permettra de prévenir des désordres liés aux débordements des effluents pouvant intervenir éventuellement sur le terrain et/ou dans les bâtiments.",
     "parentId": "3.2.4.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.4.2.2": {
     "type": "critere",
@@ -9637,7 +9637,7 @@
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.4.2.2.1",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.4.2.2.2": {
     "type": "critere",
@@ -9662,7 +9662,7 @@
     "label": "Réhabiliter la canalisation et la rendre parfaitement étanche.",
     "parentId": "3.2.4.2.2.2",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.2.4.3": {
     "type": "critere",
@@ -9686,7 +9686,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "3.2.4.3",
     "children": [],
-    "section": "reco_canaEU_conformité"
+    "section": "reco_canaEU"
   },
   "3.1.1.cst": {
     "type": "constat",
@@ -9794,7 +9794,7 @@
     "label": "Mettre en place une installation de traitement complète pour l’ensemble des eaux usées.",
     "parentId": "6.2.1.1.1",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.2.1.1.2": {
     "type": "critere",
@@ -9819,7 +9819,7 @@
     "label": "Supprimer le risque de contact et mettre en place une installation de traitement complète pour l’ensemble des eaux usées.",
     "parentId": "6.2.1.1.2",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.2.1.2.1": {
     "type": "critere",
@@ -9844,7 +9844,7 @@
     "label": "Mettre en place une installation de traitement complète pour l’ensemble des eaux usées.",
     "parentId": "6.2.1.2.1",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.2.1.3.1": {
     "type": "critere",
@@ -9869,7 +9869,7 @@
     "label": "Mettre en place une installation de traitement complète pour l’ensemble des eaux usées.",
     "parentId": "6.2.1.3.1",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.2.1.2.2": {
     "type": "critere",
@@ -9894,7 +9894,7 @@
     "label": "Supprimer le risque de contact et respecter les obligations de travaux mentionnées au rapport.",
     "parentId": "6.2.1.2.2",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.2.1.3.2": {
     "type": "critere",
@@ -9919,7 +9919,7 @@
     "label": "Supprimer le risque de contact et respecter les obligations de travaux mentionnées au rapport.",
     "parentId": "6.2.1.3.2",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "6.1.5.1": {
     "type": "critere",
@@ -9953,7 +9953,7 @@
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
     "parentId": "6.1.5.1.1",
     "children": [],
-    "section": "reco_rejet_bf"
+    "section": "reco_rejet"
   },
   "6.1.5.1.2": {
     "type": "critere",
@@ -9981,7 +9981,7 @@
     "label": "Il est conseillé de mettre en place un rejet situé 10 à 15 cm au-dessus des plus hautes eaux de l'exutoire afin d'assurer le libre écoulement des effluents en permanence.",
     "parentId": "6.1.5.1.2",
     "children": [],
-    "section": "reco_rejet_conformité"
+    "section": "reco_rejet"
   },
   "3.1.cst": {
     "type": "constat",
@@ -10069,7 +10069,7 @@
     "label": "Adapter les fréquences d'entretien à l'utilisation, ou mettre en place un traitement primaire de dimensionnement suffisant.",
     "parentId": "4.1.1.1.2.4.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.4.2": {
     "type": "critere",
@@ -10094,7 +10094,7 @@
     "label": "Mettre en place un dispositif de traitement primaire réglementaire adapté.",
     "parentId": "4.1.1.1.2.4.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.4.3": {
     "type": "critere",
@@ -10118,7 +10118,7 @@
     "label": "Mettre en place un traitement primaire réglementaire adapté.",
     "parentId": "4.1.1.1.2.4.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.5": {
     "type": "critere",
@@ -10166,7 +10166,7 @@
     "label": "Installer un déflecteur adapté (ex : coude plongeant, …), ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.5.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.5.1.2": {
     "type": "critere",
@@ -10191,7 +10191,7 @@
     "label": "Réaliser l'entretien de la fosse (pour rappel, le volume des boues ne doit pas dépasser 50 % du volume utile de la fosse).",
     "parentId": "4.1.1.1.2.5.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.5.2": {
     "type": "critere",
@@ -10216,7 +10216,7 @@
     "label": "Réaliser rapidement l'entretien de la fosse (pour rappel, le volume des boues ne doit pas dépasser 50 % du volume utile de la fosse).",
     "parentId": "4.1.1.1.2.5.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.5.3": {
     "type": "critere",
@@ -10279,7 +10279,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.1.1.1.2.6.1.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.6.1.2": {
     "type": "critere",
@@ -10304,7 +10304,7 @@
     "label": "Rendrela fosse étanche ou la remplacer par un dispositif adapté.",
     "parentId": "4.1.1.1.2.6.1.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.6.1.3": {
     "type": "critere",
@@ -10329,7 +10329,7 @@
     "label": "Sécuriser la fosse en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.1.1.1.2.6.1.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.6.2": {
     "type": "critere",
@@ -10381,7 +10381,7 @@
     "label": "Réhabiliter la fosse déformée.",
     "parentId": "4.1.1.1.2.6.2.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.6.2.3": {
     "type": "critere",
@@ -10405,7 +10405,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.1.1.1.2.6.2.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.6.3": {
     "type": "critere",
@@ -10439,7 +10439,7 @@
     "label": "Rétablir l'écoulement correct à travers la fosse",
     "parentId": "4.1.1.1.2.6.3.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.6.3.2": {
     "type": "critere",
@@ -10464,7 +10464,7 @@
     "label": "Rétablir l'écoulement correct à travers la fosse",
     "parentId": "4.1.1.1.2.6.3.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.6.4": {
     "type": "critere",
@@ -10488,7 +10488,7 @@
     "label": "Installer un déflecteur adapté (ex : coude plongeant, …), ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.6.4",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.7": {
     "type": "critere",
@@ -10512,7 +10512,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "4.1.1.1.2.7",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.8": {
     "type": "critere",
@@ -10536,7 +10536,7 @@
     "label": "Supprimer le sanibroyeur et le remplacer par des WC \"classiques\" (sans broyeur et avec une canalisation d'évacuation en diamètre 100 mm). En effet, les sanibroyeurs diminuent les capacités de décantation et de flottaison des matières, engendrant ainsi des risques de colmatage du préfiltre situé dans la fosse toutes eaux et du dispositif de traitement situé en aval.",
     "parentId": "4.1.1.1.2.8",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.10": {
     "type": "header",
@@ -10571,7 +10571,7 @@
     "label": "En cas d'absence de ventilation primaire (généralement installée sur la canalisation de chute des toilettes), installer une ventilation primaire sur la canalisation de collecte des eaux usées au pied du bâtiment.",
     "parentId": "4.1.1.1.2.10.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.10.3": {
     "type": "critere",
@@ -10608,7 +10608,7 @@
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.2.10.3.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.10.3.2": {
     "type": "critere",
@@ -10633,7 +10633,7 @@
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.2.10.3.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.10.3.3": {
     "type": "critere",
@@ -10658,7 +10658,7 @@
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.2.10.3.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.10.3.4": {
     "type": "critere",
@@ -10683,7 +10683,7 @@
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.2.10.3.4",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.10.4": {
     "type": "critere",
@@ -10708,7 +10708,7 @@
     "label": "Pour la ventilation secondaire (dite d'extraction), il est recommandé de suivre les prescriptions des règles de l'art (norme AFNOR DTU 64.1) qui précise que cette ventilation en diamètre 100 mm doit être remontée 40 cm minimum au-dessus du faitage du bâtiment à 1 m de tout ouvrant ou autre dispositif de ventilation du bâtiment et munie à son extrémité d'un extracteur (statique ou éolien).",
     "parentId": "4.1.1.1.2.10.4",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.2": {
     "type": "critere",
@@ -10776,7 +10776,7 @@
     "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
     "parentId": "4.1.1.1.1.8.1.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.1.2": {
     "type": "critere",
@@ -10801,7 +10801,7 @@
     "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
     "parentId": "4.1.1.1.1.8.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.1.3": {
     "type": "critere",
@@ -10826,7 +10826,7 @@
     "label": "Ajuster le niveau de matériaux  sous le niveau de la canalisation de sortie du préfiltre.",
     "parentId": "4.1.1.1.1.8.1.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.2": {
     "type": "critere",
@@ -10896,7 +10896,7 @@
     "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
     "parentId": "4.1.1.1.1.8.1.5.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.1.5.2": {
     "type": "critere",
@@ -10921,7 +10921,7 @@
     "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
     "parentId": "4.1.1.1.1.8.1.5.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.6": {
     "type": "critere",
@@ -10946,7 +10946,7 @@
     "label": "Installer un dispositif de rétention des flottants adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.6",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.2.cst": {
     "type": "constat",
@@ -11004,7 +11004,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "5.4.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.2": {
     "type": "critere",
@@ -11038,7 +11038,7 @@
     "label": "Adapter les fréquences d'entretien à l'utilisation, ou mettre en place un unique bac dégraisseur de dimensionnement suffisant.",
     "parentId": "5.4.2.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "5.4.2.2": {
     "type": "critere",
@@ -11063,7 +11063,7 @@
     "label": "Mettre en place un traitement primaire réglementaire de l'ensemble des effluents ménagers du bâtiment.",
     "parentId": "5.4.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "5.4.3": {
     "type": "critere",
@@ -11110,7 +11110,7 @@
     "label": "Mettre en place de nouvelles parois siphoïdes adaptées, ou en cas d'impossibilité remplacer le bac dégraisseur.",
     "parentId": "5.4.3.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.1.2": {
     "type": "critere",
@@ -11145,7 +11145,7 @@
     "label": "Mettre en place de nouvelles parois siphoïdes adaptées, ou en cas d'impossibilité remplacer le bac dégraisseur.",
     "parentId": "5.4.3.1.2.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.1.2.2": {
     "type": "critere",
@@ -11173,7 +11173,7 @@
     "label": "Prévoir à terme la mise en place de nouvelles parois siphoïdes adaptées, ou en cas d'impossibilité remplacer le bac dégraisseur.",
     "parentId": "5.4.3.1.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "5.4.3.1.3": {
     "type": "critere",
@@ -11198,7 +11198,7 @@
     "label": "Réaliser rapidement l'entretien du bac dégraisseur (pour rappel, l'entretien est à réaliser minimum 2 fois par an).",
     "parentId": "5.4.3.1.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.2": {
     "type": "critere",
@@ -11232,7 +11232,7 @@
     "label": "Réaliser rapidement l'entretien du bac dégraisseur (pour rappel, l'entretien est à réaliser minimum 2 fois par an).",
     "parentId": "5.4.3.2.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.2.2": {
     "type": "critere",
@@ -11257,7 +11257,7 @@
     "label": "Réaliser rapidement l'entretien du bac dégraisseur (pour rappel, l'entretien est à réaliser minimum 2 fois par an).",
     "parentId": "5.4.3.2.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "5.4.3.3": {
     "type": "critere",
@@ -11291,7 +11291,7 @@
     "label": "Rétablir l'écoulement correct à travers le bac à graisse",
     "parentId": "5.4.3.3.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.3.2": {
     "type": "critere",
@@ -11316,7 +11316,7 @@
     "label": "Rétablir l'écoulement correct à travers le bac à graisse",
     "parentId": "5.4.3.3.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.4": {
     "type": "critere",
@@ -11351,7 +11351,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "5.4.3.4.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "5.4.3.4.2": {
     "type": "critere",
@@ -11376,7 +11376,7 @@
     "label": "Rendre le bac à graisse étanche ou le remplacer par un dispositif adapté.",
     "parentId": "5.4.3.4.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.4.3": {
     "type": "critere",
@@ -11401,7 +11401,7 @@
     "label": "Sécuriser le bac à graisse en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "5.4.3.4.3",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.5": {
     "type": "critere",
@@ -11453,7 +11453,7 @@
     "label": "Réhabiliter le bac à graisse déformé.",
     "parentId": "5.4.3.5.2",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "5.4.3.5.3": {
     "type": "critere",
@@ -11477,7 +11477,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "5.4.3.5.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "5.4.4": {
     "type": "saisie_valeur",
@@ -11526,7 +11526,7 @@
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.1.6",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.6": {
     "type": "critere",
@@ -11550,7 +11550,7 @@
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.2.6",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.4": {
     "type": "critere",
@@ -11574,7 +11574,7 @@
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.3.4",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.6": {
     "type": "critere",
@@ -11598,7 +11598,7 @@
     "label": "Mettre en place un dispositif réglementaire adapté.",
     "parentId": "4.2.1.4.1.6",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.8": {
     "type": "critere",
@@ -11643,7 +11643,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.4.2.8.1.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.8.1.2": {
     "type": "critere",
@@ -11668,7 +11668,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.4.2.8.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.8.2": {
     "type": "critere",
@@ -11703,7 +11703,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.2.1.4.2.8.2.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.8.2.2": {
     "type": "critere",
@@ -11728,7 +11728,7 @@
     "label": "Rendre l'élément étanche ou le remplacer par un dispositif adapté.",
     "parentId": "4.2.1.4.2.8.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.8.2.3": {
     "type": "critere",
@@ -11753,7 +11753,7 @@
     "label": "Sécuriser l'élément en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.2.1.4.2.8.2.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.8.3": {
     "type": "critere",
@@ -11804,7 +11804,7 @@
     "label": "Réhabiliter l'élément déformé.",
     "parentId": "4.2.1.4.2.8.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.2.8.4": {
     "type": "critere",
@@ -11828,7 +11828,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.2.1.4.2.8.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.7": {
     "type": "critere",
@@ -11873,7 +11873,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.4.1.7.1.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.7.1.2": {
     "type": "critere",
@@ -11898,7 +11898,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.4.1.7.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.7.2": {
     "type": "critere",
@@ -11933,7 +11933,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.2.1.4.1.7.2.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.7.2.2": {
     "type": "critere",
@@ -11958,7 +11958,7 @@
     "label": "Rendre l'élément étanche ou le remplacer par un dispositif adapté.",
     "parentId": "4.2.1.4.1.7.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.7.2.3": {
     "type": "critere",
@@ -11983,7 +11983,7 @@
     "label": "Sécuriser l'élément en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.2.1.4.1.7.2.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.7.3": {
     "type": "critere",
@@ -12034,7 +12034,7 @@
     "label": "Réhabiliter l'élément déformé.",
     "parentId": "4.2.1.4.1.7.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.4.1.7.4": {
     "type": "critere",
@@ -12058,7 +12058,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.2.1.4.1.7.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3.5": {
     "type": "critere",
@@ -12103,7 +12103,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.3.5.1.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.5.1.2": {
     "type": "critere",
@@ -12128,7 +12128,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.3.5.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.5.2": {
     "type": "critere",
@@ -12163,7 +12163,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.2.1.3.5.2.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3.5.2.2": {
     "type": "critere",
@@ -12188,7 +12188,7 @@
     "label": "Rendre l'élément étanche ou le remplacer par un dispositif adapté.",
     "parentId": "4.2.1.3.5.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.5.2.3": {
     "type": "critere",
@@ -12213,7 +12213,7 @@
     "label": "Sécuriser l'élément en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.2.1.3.5.2.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.5.3": {
     "type": "critere",
@@ -12264,7 +12264,7 @@
     "label": "Réhabiliter l'élément déformé.",
     "parentId": "4.2.1.3.5.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.3.5.4": {
     "type": "critere",
@@ -12288,7 +12288,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.2.1.3.5.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.7": {
     "type": "critere",
@@ -12333,7 +12333,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.2.7.1.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.7.1.2": {
     "type": "critere",
@@ -12358,7 +12358,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.2.7.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.7.2": {
     "type": "critere",
@@ -12393,7 +12393,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.2.1.2.7.2.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.2.7.2.2": {
     "type": "critere",
@@ -12418,7 +12418,7 @@
     "label": "Rendre l'élément étanche ou le remplacer par un dispositif adapté.",
     "parentId": "4.2.1.2.7.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.7.2.3": {
     "type": "critere",
@@ -12443,7 +12443,7 @@
     "label": "Sécuriser l'élément en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.2.1.2.7.2.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.7.3": {
     "type": "critere",
@@ -12494,7 +12494,7 @@
     "label": "Réhabiliter l'élément déformé.",
     "parentId": "4.2.1.2.7.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.7.4": {
     "type": "critere",
@@ -12518,7 +12518,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.2.1.2.7.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.7": {
     "type": "critere",
@@ -12563,7 +12563,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.1.7.1.1",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.7.1.2": {
     "type": "critere",
@@ -12588,7 +12588,7 @@
     "label": "Rétablir l'écoulement correct à travers l'élément.",
     "parentId": "4.2.1.1.7.1.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.7.2": {
     "type": "critere",
@@ -12623,7 +12623,7 @@
     "label": "Prévoir son remplacement à terme afin d'éviter tout désordre.",
     "parentId": "4.2.1.1.7.2.1",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.1.7.2.2": {
     "type": "critere",
@@ -12648,7 +12648,7 @@
     "label": "Rendre l'élément étanche ou le remplacer par un dispositif adapté.",
     "parentId": "4.2.1.1.7.2.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.7.2.3": {
     "type": "critere",
@@ -12673,7 +12673,7 @@
     "label": "Sécuriser l'élément en le réparant ou le remplaçant par un dispositif adapté et étanche.",
     "parentId": "4.2.1.1.7.2.3",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.7.3": {
     "type": "critere",
@@ -12724,7 +12724,7 @@
     "label": "Réhabiliter l'élément déformé.",
     "parentId": "4.2.1.1.7.3.2",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.7.4": {
     "type": "critere",
@@ -12748,7 +12748,7 @@
     "label": "Prévoir la remise en état de la réhausse afin d'éviter tout désordre.",
     "parentId": "4.2.1.1.7.4",
     "children": [],
-    "section": "reco_fa_bf"
+    "section": "reco_fa"
   },
   "4.2.1.3.6": {
     "type": "critere",
@@ -12772,7 +12772,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "4.2.1.3.6",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.2.8": {
     "type": "critere",
@@ -12796,7 +12796,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "4.2.1.2.8",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.2.1.1.8": {
     "type": "critere",
@@ -12820,7 +12820,7 @@
     "label": "Déconnecter les eaux pluviales de l'ensemble de l'installation d'assainissement.",
     "parentId": "4.2.1.1.8",
     "children": [],
-    "section": "reco_fa_conformité"
+    "section": "reco_fa"
   },
   "4.1.1.1.1.8.1.4": {
     "type": "critere",
@@ -12857,7 +12857,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.1.4.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.1.4.2": {
     "type": "critere",
@@ -12882,7 +12882,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.1.4.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.2.1": {
     "type": "critere",
@@ -12919,7 +12919,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.2.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.2.1.2": {
     "type": "critere",
@@ -12944,7 +12944,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.2.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.3.1": {
     "type": "critere",
@@ -12981,7 +12981,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.3.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.3.1.2": {
     "type": "critere",
@@ -13006,7 +13006,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.3.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.4": {
     "type": "critere",
@@ -13061,7 +13061,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.4.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.4.1.2": {
     "type": "critere",
@@ -13086,7 +13086,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.4.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.5.1": {
     "type": "critere",
@@ -13123,7 +13123,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.5.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.1.8.5.1.2": {
     "type": "critere",
@@ -13148,7 +13148,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.1.8.5.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9": {
     "type": "header",
@@ -13208,7 +13208,7 @@
     "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
     "parentId": "4.1.1.1.2.9.1.1",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.1.2": {
     "type": "critere",
@@ -13233,7 +13233,7 @@
     "label": "Mettre en place les matériaux adaptés au préfiltre présent et en quantité suffisante.",
     "parentId": "4.1.1.1.2.9.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.1.3": {
     "type": "critere",
@@ -13258,7 +13258,7 @@
     "label": "Ajuster le niveau de matériaux  sous le niveau de la canalisation de sortie du préfiltre.",
     "parentId": "4.1.1.1.2.9.1.3",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.1.4": {
     "type": "critere",
@@ -13295,7 +13295,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.1.4.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.1.4.2": {
     "type": "critere",
@@ -13320,7 +13320,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.1.4.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.1.5": {
     "type": "critere",
@@ -13354,7 +13354,7 @@
     "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
     "parentId": "4.1.1.1.2.9.1.5.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.1.5.2": {
     "type": "critere",
@@ -13379,7 +13379,7 @@
     "label": "Retirer le préfiltre de la fosse toutes eaux, le remettre en place. Dans l'impossibilité mettre en place un dispositif adapté.",
     "parentId": "4.1.1.1.2.9.1.5.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.2": {
     "type": "critere",
@@ -13434,7 +13434,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.2.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.2.1.2": {
     "type": "critere",
@@ -13459,7 +13459,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.2.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.3": {
     "type": "critere",
@@ -13514,7 +13514,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.3.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.3.1.2": {
     "type": "critere",
@@ -13539,7 +13539,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.3.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.4": {
     "type": "critere",
@@ -13585,7 +13585,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.4.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.4.1.2": {
     "type": "critere",
@@ -13610,7 +13610,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.4.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.5": {
     "type": "critere",
@@ -13656,7 +13656,7 @@
     "label": "Mettre en place un nouveau préfiltre adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.5.1.1",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.5.1.2": {
     "type": "critere",
@@ -13681,7 +13681,7 @@
     "label": "Prévoir à terme la mise en place d'un nouveau préfiltre adapté afin d'éviter tout désordre, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.5.1.2",
     "children": [],
-    "section": "reco_primaire_bf"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.9.6": {
     "type": "critere",
@@ -13706,7 +13706,7 @@
     "label": "Installer un dispositif de rétention des flottants adapté, ou en cas d'impossibilité réhabiliter la fosse.",
     "parentId": "4.1.1.1.2.9.6",
     "children": [],
-    "section": "reco_primaire_conformité"
+    "section": "reco_primaire"
   },
   "4.1.1.1.2.10.1": {
     "type": "critere",

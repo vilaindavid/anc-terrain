@@ -45,7 +45,7 @@ export async function openDatabase() {
 /**
  * Create a new session.
  * @param {object} admin  { id_dossier, adresse, nom_proprietaire, nom_occupant,
- *                          telephone, email, type_filiere, date_visite }
+ *                          telephone, email, date_visite }
  * @returns {string} session id (id_dossier)
  */
 export async function createSession(admin) {
@@ -139,6 +139,9 @@ export async function updateSessionAdmin(id, admin) {
   const session = await getSession(id);
   if (!session) throw new Error(`Session ${id} not found`);
   session.admin = { ...session.admin, ...admin };
+  // Champ issu de l'ancienne architecture : ne plus le conserver lors d'une
+  // modification de dossier.
+  delete session.admin.type_filiere;
   await saveSession(session);
   return session.id;
 }

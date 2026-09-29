@@ -68,7 +68,7 @@ export default function ExportScreen({ tree, sessionId, nav }) {
       setStatus('done');
     } catch (err) {
       console.error(err);
-      setErrorMsg(err.message);
+      setErrorMsg(formatExportError(err));
       setStatus('error');
     }
   };
@@ -183,7 +183,9 @@ export default function ExportScreen({ tree, sessionId, nav }) {
         {status === 'error' && (
           <div className="card card-body" style={{ background: '#FEE2E2' }}>
             <p style={{ fontWeight: 700, color: 'var(--c-danger)', marginBottom: 6 }}>Erreur lors de l'export</p>
-            <p className="text-muted" style={{ fontSize: '.85rem' }}>{errorMsg}</p>
+            <p className="text-muted" style={{ fontSize: '.85rem', whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
+              {errorMsg}
+            </p>
             <button className="btn btn-danger btn-full" style={{ marginTop: 12 }} onClick={handleExport}>
               Réessayer
             </button>
@@ -210,4 +212,26 @@ function _topConstats(constats, n) {
   return [...constats]
     .sort((a, b) => compareSeverity(a.classement, b.classement))
     .slice(0, n);
+}
+
+/**
+ * Docxtemplater regroupe les problèmes de modèle sous le message générique
+ * "Multi error". Les erreurs individuelles sont conservées dans
+ * error.properties.errors : on les restitue afin que la balise en cause soit
+ * directement identifiable sur le terrain.
+ */
+function formatExportError(error) {
+  const subErrors = error?.properties?.errors || error?.errors;
+  if (!Array.isArray(subErrors) || subErrors.length === 0) {
+    return error?.message || 'Une erreur inconnue est survenue lors de l’export.';
+  }
+
+  return subErrors.map((subError, index) => {
+    const properties = subError?.properties || {};
+    const tag = properties.xtag || properties.tag || properties.placeholder;
+    const explanation = properties.explanation || subError?.message || 'Erreur de modèle DOCX.';
+    const location = Number.isInteger(properties.offset) ? ` (position ${properties.offset})` : '';
+    const prefix = tag ? `Balise « ${tag} » : ` : `Erreur ${index + 1} : `;
+    return `• ${prefix}${explanation}${location}`;
+  }).join('\n');
 }
