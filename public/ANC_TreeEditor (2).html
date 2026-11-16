@@ -65,6 +65,10 @@ body{font-family:system-ui,-apple-system,sans-serif;font-size:13px;background:va
 .cat-tab{padding:5px 10px;cursor:pointer;white-space:nowrap;font-size:11px;font-weight:600;color:var(--sidebar-muted);border:none;background:transparent;border-right:1px solid #0a1520;flex-shrink:0;transition:background .15s}
 .cat-tab:hover{background:var(--sidebar3);color:var(--sidebar-text)}
 .cat-tab.active{background:var(--sidebar);color:#7ec8e3;border-bottom:2px solid #7ec8e3}
+.cat-tab.tab-drag-valid{background:rgba(46,204,113,.25);color:#2ecc71;outline:2px solid #2ecc71;outline-offset:-2px}
+.cat-tab.tab-drag-invalid{background:rgba(231,76,60,.15);outline:2px solid var(--danger);outline-offset:-2px}
+.cat-tab.cat-add{color:#7ec8e3;font-size:16px;font-weight:700;padding:0 14px;border-left:1px solid #0a1520}
+.cat-add:hover{background:var(--sidebar3)!important;color:#fff!important}
 
 /* Tree nodes */
 #tree-container{flex:1;overflow-y:auto}
@@ -828,8 +832,82 @@ function buildCategoryTabs(){
     btn.textContent=(node.label||'').match(/\d+/)?.[0]||id.slice(0,4);
     btn.title=node.label||id;
     btn.onclick=()=>switchCategory(id);
+    // ── Onglet comme cible de glisser-déposer (cross-catégorie) ──
+    btn.addEventListener('dragover',e=>{
+      if(!dragSourceId)return;
+      e.preventDefault();
+      const isCopy=e.ctrlKey||e.metaKey;
+      const check=canDropOnRoot(dragSourceId,id,isCopy);
+      e.dataTransfer.dropEffect=check.ok?(isCopy?'copy':'move'):'none';
+      // Nettoyer les autres onglets
+      document.querySelectorAll('.cat-tab').forEach(t=>{if(t!==btn){t.classList.remove('tab-drag-valid','tab-drag-invalid');}});
+      btn.classList.toggle('tab-drag-valid',check.ok);
+      btn.classList.toggle('tab-drag-invalid',!check.ok);
+    });
+    btn.addEventListener('dragleave',()=>btn.classList.remove('tab-drag-valid','tab-drag-invalid'));
+    btn.addEventListener('drop',e=>{
+      e.preventDefault();
+      btn.classList.remove('tab-drag-valid','tab-drag-invalid');
+      const srcId=dragSourceId;dragSourceId=null;
+      const isCopy=e.ctrlKey||e.metaKey;
+      const check=canDropOnRoot(srcId,id,isCopy);
+      if(!check.ok){showFeedback('✗ '+check.reason);return;}
+      if(isCopy)performDragCopy(srcId,id);
+      else performDragMove(srcId,id);
+      switchCategory(id);
+    });
     tabs.appendChild(btn);
   });
+  // ── Bouton "+" : ajouter une catégorie racine ──
+  const addBtn=document.createElement('button');
+  addBtn.className='cat-tab cat-add';
+  addBtn.title='Ajouter une nouvelle catégorie racine';
+  addBtn.textContent='+';
+  addBtn.onclick=promptAddRoot;
+  tabs.appendChild(addBtn);
+}
+// ── Peut-on déposer sourceId sur la racine catId ? ──
+function canDropOnRoot(sourceId,catId,isCopy){
+  const src=tree[sourceId],tgt=tree[catId];
+  if(!src||!tgt)return{ok:false,reason:'Nœud introuvable'};
+  if(sourceId===catId)return{ok:false,reason:'Nœud = catégorie cible'};
+  if(tgt.type!=='categorie')return{ok:false,reason:'Cible non catégorie'};
+  if(!isCopy){
+    if(src.parentId===null)return{ok:false,reason:'Un nœud racine ne peut pas changer de racine (Ctrl+glisser pour le copier)'};
+    if(src.type==='constat'||src.type==='recommandation')return{ok:false,reason:'Un constat/recommandation ne se déplace pas seul (Ctrl+glisser pour le copier)'};
+    if(src.parentId===catId)return{ok:false,reason:'Déjà enfant direct de cette catégorie'};
+    if(getAllDescendants(sourceId).includes(catId))return{ok:false,reason:'La cible est un descendant'};
+  }
+  return{ok:true};
+}
+// ── Créer une nouvelle catégorie racine ──
+function promptAddRoot(){
+  if(!tree){alert("Ouvrez d'abord un fichier tree.json.");return;}
+  const roots=getSortedRoots();
+  const nextNum=roots.length+1;
+  const suggested=`${nextNum}. Nouvelle section`;
+  const label=prompt('Libellé de la nouvelle catégorie \n(ex\u00a0: "7. Nom de la section")',suggested);
+  if(label===null)return;
+  const trimmed=label.trim();
+  if(!trimmed){alert('Le libellé ne peut pas être vide.');return;}
+  pushHistory('Ajout catégorie racine');
+  // ID temporaire — autoRenumberTree() assignera l'ID définitif
+  const tmpId='__newroot_'+Date.now()+'__';
+  tree[tmpId]={type:'categorie',label:trimmed,parentId:null,children:[]};
+  const[newId]=autoRenumberTree([tmpId]);
+  buildCategoryTabs();updateStats();switchCategory(newId);
+  showFeedback(`✓ Catégorie "${trimmed}" créée (ID\u00a0: ${newId})`);
+}
+// ── Déplacer / copier le nœud sélectionné vers une autre catégorie (éditeur) ──
+function moveToCat(nodeId,isCopy){
+  const sel=document.getElementById('move-cat-select');
+  if(!sel||!sel.value){alert('Sélectionnez une catégorie cible.');return;}
+  const catId=sel.value;
+  const check=canDropOnRoot(nodeId,catId,isCopy);
+  if(!check.ok){alert('Impossible\u00a0: '+check.reason);return;}
+  if(isCopy)performDragCopy(nodeId,catId);
+  else performDragMove(nodeId,catId);
+  switchCategory(catId);
 }
 function switchCategory(catId){
   activeCatId=catId;expandedIds.clear();
@@ -1180,6 +1258,23 @@ function renderEditorForm(nodeId,node){
       </div>
       <div style="font-size:11px;color:var(--text-muted);margin-top:4px">↕ Glisser ce nœud dans l'arbre pour le déplacer · Ctrl+glisser pour le copier</div>
     </div>`);
+    // ── Déplacer / copier vers une autre catégorie ──
+    const currentCat=findRoot(nodeId);
+    const otherCats=getSortedRoots().filter(r=>r.id!==currentCat);
+    if(otherCats.length){
+      const catOpts=otherCats.map(r=>`<option value="${esc(r.id)}">${esc(r.node.label||r.id)}</option>`).join('');
+      parts.push(`<div class="fg subpanel subpanel-blue" style="margin-top:-2px">
+        <label class="flbl">Changer de catégorie</label>
+        <div style="display:flex;gap:6px;align-items:center;margin-top:4px">
+          <select id="move-cat-select" style="flex:1;font-size:11px;padding:4px 6px;border:1px solid var(--border);border-radius:var(--radius);background:#fff">
+            <option value="">— sélectionner —</option>${catOpts}
+          </select>
+          <button class="btn btn-xs btn-outline" onclick="moveToCat('${esc(nodeId)}',false)" title="Déplacer ce nœud (et ses descendants) dans la catégorie choisie">↦ Déplacer</button>
+          <button class="btn btn-xs btn-success" onclick="moveToCat('${esc(nodeId)}',true)" title="Copier ce nœud (et ses descendants) dans la catégorie choisie">⧉ Copier</button>
+        </div>
+        <span class="field-hint">Déplace/copie ce nœud et tous ses descendants dans la catégorie choisie (glisser l'onglet = même action).</span>
+      </div>`);
+    }
   } else {
     parts.push(`<div class="fg"><label class="flbl">Nœud parent</label>
       <div style="font-size:11px;color:var(--text-muted);padding:5px 0;font-style:italic">Nœud racine — sans parent</div>
