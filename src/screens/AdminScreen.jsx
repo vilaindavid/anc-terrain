@@ -8,6 +8,7 @@ const EMPTY_FORM = {
   adresse:                   '',
   nom_proprietaire:          '',
   nom_occupant:              '',
+  copro:                     '',
   telephone:                 '',
   email:                     '',
   date_visite:               TODAY,
@@ -67,13 +68,18 @@ export default function AdminScreen({ tree, sessionId, nav }) {
         // Édition d'un dossier existant : on met à jour seulement les
         // infos admin. On ne recrée JAMAIS la session ici — sinon
         // db.put écraserait answers/constats/saisies déjà enregistrés.
-        await updateSessionAdmin(sessionId, form);
-        nav.goRevision(sessionId);
+        const id = await updateSessionAdmin(sessionId, form);
+        nav.goRevision(id);
       } else {
         const id = await createSession(form);
         nav.goWizard(id);
       }
     } catch (err) {
+      if (err?.code === 'DUPLICATE_SESSION_ID') {
+        setErrors(e => ({ ...e, id_dossier: err.message }));
+        setSaving(false);
+        return;
+      }
       alert('Erreur lors de l\'enregistrement : ' + err.message);
       setSaving(false);
     }
@@ -112,14 +118,7 @@ export default function AdminScreen({ tree, sessionId, nav }) {
                 onChange={e => set('id_dossier', e.target.value)}
                 placeholder="ex : 2025-0138"
                 autoCapitalize="none"
-                disabled={isEditing}
-                title={isEditing ? 'Le n° de dossier ne peut pas être modifié ici (clé du dossier).' : undefined}
               />
-              {isEditing && (
-                <span className="text-muted" style={{ fontSize: '.78rem' }}>
-                  Le n° de dossier ne peut pas être changé depuis cet écran.
-                </span>
-              )}
             </Field>
             <Field label="Date de visite *" error={errors.date_visite}>
               <input
@@ -146,6 +145,13 @@ export default function AdminScreen({ tree, sessionId, nav }) {
               <input
                 value={form.nom_occupant}
                 onChange={e => set('nom_occupant', e.target.value)}
+                placeholder="optionnel"
+              />
+            </Field>
+            <Field label="Nom de la copropriété">
+              <input
+                value={form.copro}
+                onChange={e => set('copro', e.target.value)}
                 placeholder="optionnel"
               />
             </Field>

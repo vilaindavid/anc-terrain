@@ -74,9 +74,6 @@ const CAS_C = new Set([
  * @param {object} [admin={}]  Données admin de la session (optionnel).
  *   `admin.zone_enjeu_sanitaire`       {boolean}
  *   `admin.zone_enjeu_environnemental` {boolean}
- *   `admin.rejet_superficiel`          {boolean}  — réglage manuel, non déductible
- *                                                    des constats (coché depuis
- *                                                    RevisionScreen)
  *
  * @returns {{
  *   maxClassement: string|null,
@@ -88,7 +85,6 @@ const CAS_C = new Set([
  *     conforme_reco:        boolean,
  *     non_conforme:         boolean,
  *     sans_risque:          boolean,
- *     rejet_superficiel:    boolean,
  *     risque_sanitaire:     boolean,
  *     absence_installation: boolean,
  *   },
@@ -167,7 +163,6 @@ function _buildVerdict(maxClassement, admin) {
     conforme_reco:        conforme && hasRecoOnly,
     non_conforme:         !conforme,
     sans_risque:          isSansRisque,
-    rejet_superficiel:    !!admin?.rejet_superficiel, // réglage manuel, coché depuis RevisionScreen
     risque_sanitaire:     isRisque,
     absence_installation: isAbsence,
   };

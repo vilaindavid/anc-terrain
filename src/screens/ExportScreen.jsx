@@ -12,6 +12,7 @@ export default function ExportScreen({ tree, sessionId, nav }) {
   // ci-dessous : jamais purgés automatiquement.
   const [orphanedCount, setOrphanedCount] = useState(0);
   const [skippedPhotos, setSkippedPhotos] = useState(0);
+  const [excludedPhotos, setExcludedPhotos] = useState(0);
   const [progress,   setProgress]   = useState(0);
   const [status,     setStatus]     = useState('idle'); // idle | generating | done | error
   const [errorMsg,   setErrorMsg]   = useState('');
@@ -19,6 +20,7 @@ export default function ExportScreen({ tree, sessionId, nav }) {
   useEffect(() => {
     (async () => {
       const s = await getSession(sessionId);
+      let activeConstatNodeIds = new Set();
       if (s) {
         // Vue d'affichage / export uniquement — voir WizardScreen.jsx et
         // RevisionScreen.jsx : on ne sauvegarde plus automatiquement la
@@ -28,15 +30,18 @@ export default function ExportScreen({ tree, sessionId, nav }) {
         const { session: repaired, removedCount } = repairOrphanedData(s, tree);
         setSession(repaired);
         setOrphanedCount(removedCount);
+        activeConstatNodeIds = new Set(
+          (repaired.constats || []).map(constat => constat.nodeId).filter(Boolean),
+        );
       }
       const photos = await getPhotosForSession(sessionId);
-      setPhotoCount(photos.length);
+      setPhotoCount(photos.filter(photo => activeConstatNodeIds.has(photo.nodeId)).length);
     })();
   }, [sessionId, tree]);
 
   const handlePurgeOrphaned = async () => {
     if (!window.confirm(
-      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) qui portent sur des critères absents de l'arbre actuel ?\n\nCette action est irréversible.`
+      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) liés à des critères absents ou décochés ?\n\nCette action est irréversible.`
     )) return;
     const fresh = await getSession(sessionId);
     if (!fresh) return;
@@ -56,10 +61,22 @@ export default function ExportScreen({ tree, sessionId, nav }) {
     setProgress(0);
     setErrorMsg('');
     try {
-      const { blob, docxName, skippedPhotos: skipped } = await buildExportZip(session, pct => setProgress(pct));
+      const {
+        blob,
+        docxName,
+        skippedPhotos: skipped,
+        excludedPhotos: excluded,
+      } = await buildExportZip(session, pct => setProgress(pct));
       setSkippedPhotos(skipped || 0);
+      setExcludedPhotos(excluded || 0);
       const zipName = docxName.replace('.docx', '.zip');
-      await downloadBlob(blob, zipName);
+      const saved = await downloadBlob(blob, zipName);
+      if (!saved) {
+        // L'utilisateur a annulé la boîte de sauvegarde : le ZIP n'a pas été
+        // produit sur son appareil et le dossier reste donc à exporter.
+        setStatus('idle');
+        return;
+      }
 
       // Mark session as exported
       const updated = { ...session, status: 'exported' };
@@ -84,8 +101,8 @@ export default function ExportScreen({ tree, sessionId, nav }) {
         <div style={{ background: '#FEF3C7', color: '#92400E', padding: '10px 16px',
                        fontSize: '.8rem', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
           <span style={{ flex: 1 }}>
-            ⚠️ {orphanedCount} élément{orphanedCount > 1 ? 's' : ''} du dossier {orphanedCount > 1 ? 'portent' : 'porte'} sur des critères absents
-            de l'arbre actuel : {orphanedCount > 1 ? 'ils ne seront pas inclus' : 'il ne sera pas inclus'} dans cet export, mais {orphanedCount > 1 ? 'restent conservés' : 'reste conservé'} dans le dossier.
+            ⚠️ {orphanedCount} élément{orphanedCount > 1 ? 's' : ''} du dossier {orphanedCount > 1 ? 'sont liés' : 'est lié'} à des critères absents ou décochés :
+            {orphanedCount > 1 ? ' ils ne seront pas inclus' : ' il ne sera pas inclus'} dans cet export, mais {orphanedCount > 1 ? 'restent conservés' : 'reste conservé'} dans le dossier.
           </span>
           <button
             style={{ background: '#fff', color: '#92400E', border: 'none', borderRadius: 6,
@@ -172,6 +189,11 @@ export default function ExportScreen({ tree, sessionId, nav }) {
               <p style={{ marginTop: 8, fontSize: '.82rem', color: '#92400E', fontWeight: 600 }}>
                 ⚠️ {skippedPhotos} photo{skippedPhotos > 1 ? 's' : ''} n'{skippedPhotos > 1 ? 'ont' : 'a'} pas pu être incluse{skippedPhotos > 1 ? 's' : ''}
                 (fichier manquant ou corrompu) — vérifiez sur l'appareil d'origine.
+              </p>
+            )}
+            {excludedPhotos > 0 && (
+              <p style={{ marginTop: 8, fontSize: '.82rem', color: '#92400E', fontWeight: 600 }}>
+                ⚠️ {excludedPhotos} photo{excludedPhotos > 1 ? 's' : ''} liée{excludedPhotos > 1 ? 's' : ''} à un constat retiré n'{excludedPhotos > 1 ? 'ont' : 'a'} pas été incluse{excludedPhotos > 1 ? 's' : ''}.
               </p>
             )}
             <button className="btn btn-ghost btn-full" style={{ marginTop: 16 }} onClick={nav.goHome}>

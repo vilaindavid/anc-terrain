@@ -45,14 +45,26 @@ export async function openDatabase() {
 /**
  * Create a new session.
  * @param {object} admin  { id_dossier, adresse, nom_proprietaire, nom_occupant,
- *                          telephone, email, date_visite }
+ *                          copro, telephone, email, date_visite }
  * @returns {string} session id (id_dossier)
  */
 export async function createSession(admin) {
   const db = await openDatabase();
+  const id = String(admin?.id_dossier || '').trim();
+  if (!id) throw new Error('Le numéro de dossier est requis.');
+
+  // `put` remplace silencieusement une session ayant la même clé. Un numéro
+  // de dossier est l'identifiant métier du dossier : le réemployer ne doit
+  // jamais effacer ses réponses, constats ou photos déjà enregistrés.
+  if (await db.get('sessions', id)) {
+    const error = new Error(`Le dossier « ${id} » existe déjà.`);
+    error.code = 'DUPLICATE_SESSION_ID';
+    throw error;
+  }
+
   const session = {
-    id:          admin.id_dossier,
-    admin,
+    id,
+    admin:       { ...admin, id_dossier: id },
     // answers: Map<nodeId → answer> — stored as plain object for serialisation
     answers:     {},
     // constats: Array<{nodeId, classement, balise_constat, balise_reco, note_libre}>
@@ -66,7 +78,17 @@ export async function createSession(admin) {
     createdAt:    new Date().toISOString(),
     updatedAt:    new Date().toISOString(),
   };
-  await db.put('sessions', session);
+  try {
+    // `add` maintient la protection si deux créations arrivent en même temps.
+    await db.add('sessions', session);
+  } catch (cause) {
+    if (cause?.name === 'ConstraintError') {
+      const error = new Error(`Le dossier « ${id} » existe déjà.`);
+      error.code = 'DUPLICATE_SESSION_ID';
+      throw error;
+    }
+    throw cause;
+  }
   return session.id;
 }
 
@@ -76,6 +98,14 @@ export async function getSession(id) {
   if (session) {
     _backfillSaisieAnswers(session);
     _migrateClassementLabels(session);
+    const uncheckedConstatNodeIds = _removeUncheckedConstats(session);
+    if (uncheckedConstatNodeIds.length) {
+      // Les critères explicitement décochés sont une décision de
+      // l'inspecteur : les constats et photos associés ne doivent pas rester
+      // actifs dans les anciens dossiers.
+      await db.put('sessions', session);
+      await _deletePhotosForNodes(session.id, uncheckedConstatNodeIds);
+    }
   }
   return session;
 }
@@ -108,6 +138,21 @@ function _migrateClassementLabels(session) {
   }
 }
 
+/** Retire les constats des critères explicitement décochés. */
+function _removeUncheckedConstats(session) {
+  const answers = session.answers || {};
+  const nodeIds = [...new Set(
+    (session.constats || [])
+      .filter(constat => answers[constat.nodeId]?.checked === false)
+      .map(constat => constat.nodeId),
+  )];
+  if (nodeIds.length) {
+    const idSet = new Set(nodeIds);
+    session.constats = session.constats.filter(constat => !idSet.has(constat.nodeId));
+  }
+  return nodeIds;
+}
+
 export async function listSessions() {
   const db = await openDatabase();
   const all = await db.getAll('sessions');
@@ -122,28 +167,60 @@ export async function saveSession(session) {
 }
 
 /**
- * Met à jour uniquement les informations administratives (identité du
- * dossier, propriétaire, adresse, zones à enjeu…) d'une session EXISTANTE,
- * sans jamais toucher à answers/constats/saisies/status.
- *
- * ⚠️ À utiliser pour l'écran « Infos / Modifier ». Ne JAMAIS reconstruire
- * un objet session de toutes pièces (comme le fait createSession) pour un
- * dossier déjà existant : cela écraserait silencieusement, via db.put,
- * toutes les réponses et constats déjà enregistrés sous le même id.
+ * Met à jour les informations administratives d'une session EXISTANTE. Un
+ * changement de numéro de dossier migre aussi la session et toutes ses photos
+ * vers la nouvelle clé, sans toucher aux réponses, constats ou saisies.
  *
  * @param {string} id      id_dossier de la session à modifier
  * @param {object} admin   nouvelles valeurs du formulaire admin
- * @returns {string} l'id de la session (inchangé)
+ * @returns {string} l'id de la session après modification
  */
 export async function updateSessionAdmin(id, admin) {
   const session = await getSession(id);
   if (!session) throw new Error(`Session ${id} not found`);
-  session.admin = { ...session.admin, ...admin };
+
+  const nextId = String(admin?.id_dossier || '').trim();
+  if (!nextId) throw new Error('Le numéro de dossier est requis.');
+
+  session.admin = { ...session.admin, ...admin, id_dossier: nextId };
   // Champ issu de l'ancienne architecture : ne plus le conserver lors d'une
   // modification de dossier.
   delete session.admin.type_filiere;
-  await saveSession(session);
-  return session.id;
+
+  if (nextId === id) {
+    await saveSession(session);
+    return session.id;
+  }
+
+  const db = await openDatabase();
+  const tx = db.transaction(['sessions', 'photos'], 'readwrite');
+  const sessionStore = tx.objectStore('sessions');
+  const photoIndex = tx.objectStore('photos').index('by_session');
+
+  session.id = nextId;
+  session.updatedAt = new Date().toISOString();
+
+  try {
+    // add protège aussi contre une création concurrente du même numéro.
+    await sessionStore.add(session);
+    await sessionStore.delete(id);
+
+    let cursor = await photoIndex.openCursor(IDBKeyRange.only(id));
+    while (cursor) {
+      await cursor.update({ ...cursor.value, sessionId: nextId });
+      cursor = await cursor.continue();
+    }
+    await tx.done;
+  } catch (cause) {
+    if (cause?.name === 'ConstraintError') {
+      const error = new Error(`Le dossier « ${nextId} » existe déjà.`);
+      error.code = 'DUPLICATE_SESSION_ID';
+      throw error;
+    }
+    throw cause;
+  }
+
+  return nextId;
 }
 
 export async function deleteSession(id) {
@@ -196,6 +273,13 @@ export async function recordAnswer(sessionId, nodeId, answer, records = []) {
   }
 
   await saveSession(session);
+
+  // Une photo est prise depuis la fiche d'un constat et porte le nodeId du
+  // critère correspondant. Dès que ce critère est décoché, elle ne fait plus
+  // partie du dossier actif et doit suivre le constat supprimé.
+  if (answer?.checked === false) {
+    await _deletePhotosForNodes(sessionId, [nodeId]);
+  }
 }
 
 function _findKey(node) {
@@ -248,8 +332,8 @@ export async function setAnnotation(sessionId, nodeId, note) {
 }
 
 /**
- * Efface les réponses (answers), constats et saisies rattachés aux nodeId
- * donnés. Utilisé par le nettoyage en cascade : décocher un critère qui a
+ * Efface les réponses (answers), constats, saisies et photos rattachés aux
+ * nodeId donnés. Utilisé par le nettoyage en cascade : décocher un critère qui a
  * des réponses plus profondes, ou remplacer la sélection active d'un
  * groupe radio, doit effacer tout ce qui était enregistré sous la branche
  * abandonnée — sinon ces données restent invisibles à l'écran mais actives
@@ -264,6 +348,7 @@ export async function clearDescendantAnswers(sessionId, nodeIds) {
   session.constats = session.constats.filter(c => !idSet.has(c.nodeId));
   session.saisies = session.saisies.filter(s => !idSet.has(s.nodeId));
   await saveSession(session);
+  await _deletePhotosForNodes(sessionId, idSet);
 }
 
 /**
@@ -303,6 +388,25 @@ export async function getPhotosForSession(sessionId) {
 export async function getPhotosForNode(sessionId, nodeId) {
   const db = await openDatabase();
   return db.getAllFromIndex('photos', 'by_node', [sessionId, nodeId]);
+}
+
+/** Supprime les photos liées aux critères retirés d'un dossier. */
+async function _deletePhotosForNodes(sessionId, nodeIds) {
+  const ids = [...new Set(nodeIds)].filter(Boolean);
+  if (!ids.length) return;
+
+  const db = await openDatabase();
+  const tx = db.transaction('photos', 'readwrite');
+  const index = tx.objectStore('photos').index('by_node');
+
+  for (const nodeId of ids) {
+    let cursor = await index.openCursor(IDBKeyRange.only([sessionId, nodeId]));
+    while (cursor) {
+      await cursor.delete();
+      cursor = await cursor.continue();
+    }
+  }
+  await tx.done;
 }
 
 export async function deletePhoto(photoId) {

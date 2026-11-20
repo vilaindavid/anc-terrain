@@ -7,7 +7,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { getSession, saveSession, setAnnotation as saveAnnotation, deleteSession } from '../data/db.js';
+import { getSession, saveSession, setAnnotation as saveAnnotation } from '../data/db.js';
 import { getSections, repairOrphanedData } from '../engine/navigator.js';
 import { compareSeverity, SEVERITY_COLOR, severityTextColor } from '../engine/severity.js';
 import { computeVerdict } from '../engine/verdict.js';
@@ -37,7 +37,7 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
 
   const handlePurgeOrphaned = async () => {
     if (!window.confirm(
-      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) qui portent sur des critères absents de l'arbre actuel ?\n\nCette action est irréversible.`
+      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) liés à des critères absents ou décochés ?\n\nCette action est irréversible.`
     )) return;
     const fresh = await getSession(sessionId);
     if (!fresh) return;
@@ -45,23 +45,6 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
     await saveSession(cleaned);
     setOrphanedCount(0);
     setSession(cleaned);
-  };
-
-  const toggleRejetSuperficiel = async () => {
-    // On repart d'une lecture fraîche de la base (et non de `session`, qui
-    // peut être la vue filtrée pour l'affichage) pour ne jamais persister
-    // par effet de bord une session "réparée" en modifiant ce simple
-    // réglage manuel.
-    const fresh = await getSession(sessionId);
-    if (!fresh) return;
-    const updated = {
-      ...fresh,
-      admin: { ...fresh.admin, rejet_superficiel: !fresh.admin?.rejet_superficiel },
-    };
-    await saveSession(updated);
-    const { session: repaired, removedCount } = repairOrphanedData(updated, tree);
-    setSession(repaired);
-    setOrphanedCount(removedCount);
   };
 
   useEffect(() => { load(); }, [sessionId]);
@@ -117,6 +100,13 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
         <button className="topbar-back" onClick={nav.goHome}>←</button>
         <span className="topbar-title">Révision — {admin.id_dossier}</span>
         <button
+          onClick={() => nav.goAdmin(sessionId)}
+          style={{ background: 'rgba(255,255,255,.2)', border: 'none', color: '#fff',
+                   borderRadius: 6, padding: '4px 10px', fontSize: '.82rem', cursor: 'pointer' }}
+        >
+          Modifier le dossier
+        </button>
+        <button
           onClick={() => nav.goWizard(sessionId)}
           style={{ background: 'rgba(255,255,255,.2)', border: 'none', color: '#fff',
                    borderRadius: 6, padding: '4px 10px', fontSize: '.82rem', cursor: 'pointer' }}
@@ -130,7 +120,7 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
                        fontSize: '.8rem', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
           <span style={{ flex: 1 }}>
             ⚠️ {orphanedCount} élément{orphanedCount > 1 ? 's' : ''} (réponse{orphanedCount > 1 ? 's' : ''}/constat{orphanedCount > 1 ? 's' : ''}/saisie{orphanedCount > 1 ? 's' : ''})
-            {orphanedCount > 1 ? ' portent' : ' porte'} sur des critères absents de l'arbre actuel. Conservé{orphanedCount > 1 ? 's' : ''} tel quel dans le dossier, mais non visible{orphanedCount > 1 ? 's' : ''} ici.
+            {orphanedCount > 1 ? ' sont liés' : ' est lié'} à des critères absents ou décochés. Conservé{orphanedCount > 1 ? 's' : ''} tel quel dans le dossier, mais non visible{orphanedCount > 1 ? 's' : ''} ici.
           </span>
           <button
             style={{ background: '#fff', color: '#92400E', border: 'none', borderRadius: 6,
@@ -152,20 +142,6 @@ export default function RevisionScreen({ tree, sessionId, nav }) {
           <span style={{ opacity: .85, fontSize: '.85rem' }}>— {verdict.maxClassement}</span>
         )}
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
-          {/* Réglage manuel : n'est déductible d'aucun constat de l'arbre,
-              c'est une observation de terrain que l'inspecteur coche lui-même. */}
-          <label
-            title="Coche la case « Dont rejet superficiel » du rapport DOCX"
-            style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '.8rem', cursor: 'pointer',
-                      background: 'rgba(255,255,255,.15)', padding: '4px 10px', borderRadius: 6 }}
-          >
-            <input
-              type="checkbox"
-              checked={!!session.admin?.rejet_superficiel}
-              onChange={toggleRejetSuperficiel}
-            />
-            Rejet superficiel
-          </label>
           <button
             className="btn"
             onClick={() => nav.goExport(sessionId)}

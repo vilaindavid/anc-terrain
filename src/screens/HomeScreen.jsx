@@ -2,19 +2,20 @@ import { useState, useEffect } from 'react';
 import { listSessions, deleteSession } from '../data/db.js';
 import SeverityBadge from '../components/SeverityBadge.jsx';
 import { computeVerdict } from '../engine/verdict.js';
+import { repairOrphanedData } from '../engine/navigator.js';
 
-export default function HomeScreen({ nav }) {
+export default function HomeScreen({ tree, nav }) {
   const [sessions, setSessions] = useState([]);
   const [loading,  setLoading]  = useState(true);
 
   const refresh = async () => {
     setLoading(true);
     const list = await listSessions();
-    setSessions(list);
+    setSessions(list.map(session => repairOrphanedData(session, tree).session));
     setLoading(false);
   };
 
-  useEffect(() => { refresh(); }, []);
+  useEffect(() => { refresh(); }, [tree]);
 
   const handleDelete = async (id, e) => {
     e.stopPropagation();

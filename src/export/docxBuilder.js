@@ -10,8 +10,8 @@
  * Returns an ArrayBuffer (the finished .docx) suitable for JSZip.
  *
  * ── Mise en forme par gravité (balises riches) ──────────────────────────────
- * Les valeurs des balises listées dans balise_registry.json#richTextBalises
- * sont enrichies d'un système de marqueurs inline :
+ * Les valeurs des balises contenant des constats sont enrichies d'un système
+ * de marqueurs inline :
  *   «RRGGBB:B»texte du constat«END»   (B = 0 normal, 1 gras)
  * Après le rendu docxtemplater, applyRichFormatting() remplace ces marqueurs
  * par des runs Word colorés (<w:color>/<w:b>). Pas de package supplémentaire
@@ -51,7 +51,11 @@ async function loadTemplate() {
 //   - un run « constat » : texte noir sans formatage
 
 const MARKER_END = '\u00ABEND\u00BB';
-const UNBADGED_CLASSEMENTS = new Set(['Simple constat', 'Simple remarque']);
+const UNLABELED_CLASSEMENTS = new Set([
+  'Simple constat',
+  'Simple remarque',
+  'Autre défaut',
+]);
 
 /**
  * Calcule la couleur du texte du badge (blanc ou quasi-noir) selon la luminosité
@@ -86,8 +90,9 @@ function buildRichValue(saisieText, cstItems) {
   if (saisieText) parts.push(saisieText);
   for (const { text, classement, note } of cstItems) {
     const st = SEVERITY_DOCX_STYLE[classement] || { color: '1A1A1A', bold: false };
-    const label = UNBADGED_CLASSEMENTS.has(classement) ? '' : classement;
-    // «COLOR»ÉTIQUETTE¤texte«END» (ou sans étiquette pour les classements simples)
+    const label = UNLABELED_CLASSEMENTS.has(classement) ? '' : classement;
+    // Les constats de faible gravité gardent leur couleur, sans répéter leur
+    // classement devant le texte.
     parts.push(`\u00AB${st.color}\u00BB${label}\u00A4${text}${MARKER_END}`);
     if (note) parts.push(`\u00AB888888\u00BB\u00A4[Note\u00a0: ${note}]${MARKER_END}`);
   }
@@ -99,8 +104,7 @@ function buildRichValue(saisieText, cstItems) {
 let _baliseTextConfigCache = null;
 
 /**
- * Charge defaultTexts, defaultFallbackText, richTextBalises et les balises
- * toujours visibles depuis
+ * Charge defaultTexts, defaultFallbackText et les balises toujours visibles depuis
  * balise_registry.json (cache mémoire).
  */
 async function loadBaliseTextConfig() {
@@ -108,7 +112,6 @@ async function loadBaliseTextConfig() {
   const empty = {
     defaultTexts: {},
     fallbackText: '',
-    richTextBalises: new Set(),
     alwaysVisibleBalises: new Set(),
   };
   try {
@@ -118,7 +121,6 @@ async function loadBaliseTextConfig() {
     _baliseTextConfigCache = {
       defaultTexts: (json && typeof json.defaultTexts === 'object' && json.defaultTexts) || {},
       fallbackText: (json && typeof json.defaultFallbackText === 'string') ? json.defaultFallbackText : '',
-      richTextBalises: new Set(Array.isArray(json.richTextBalises) ? json.richTextBalises : []),
       alwaysVisibleBalises: new Set(
         Array.isArray(json?.displayBlocks?.toujoursVisible?.balises)
           ? json.displayBlocks.toujoursVisible.balises
@@ -167,13 +169,12 @@ function applyDefaultTexts(map, balises, defaultTexts, fallbackText) {
  *     saisie sur les 4 balises partagées (fosse_dimensions, BàG_dimensions,
  *     secondaire_dimensions, fa_dimensions). Désormais, saisie et constats sont
  *     concaténés, la saisie en premier.
- *  2. Balises riches : la valeur contient des marqueurs de couleur qui seront
- *     convertis en runs Word colorés par applyRichFormatting() après le rendu.
+ *  2. Les constats sont convertis en badges colorés par applyRichFormatting()
+ *     après le rendu du modèle Word.
  */
 function buildPlaceholders(session, {
   defaultTexts = {},
   fallbackText = '',
-  richTextBalises = new Set(),
   alwaysVisibleBalises = new Set(),
 } = {}) {
   const { admin, constats = [], saisies = [] } = session;
@@ -188,12 +189,12 @@ function buildPlaceholders(session, {
     date_visite: formatDateForReport(admin.date_visite),
     nom_prenom:  admin.nom_proprietaire,
     adresse:     admin.adresse,
+    copro:       String(admin.copro || '').trim() || 'non concerné',
     chk_conforme:             verdict.conforme ? '☑' : '☐',
     chk_non_conforme:         !verdict.conforme ? '☑' : '☐',
     chk_conforme_complete:    verdict.checkboxes.conforme_complete    ? '☑' : '☐',
     chk_conforme_reco:        verdict.checkboxes.conforme_reco        ? '☑' : '☐',
     chk_sans_risque:          verdict.checkboxes.sans_risque          ? '☑' : '☐',
-    chk_rejet_superficiel:    verdict.checkboxes.rejet_superficiel    ? '☑' : '☐',
     chk_risque_sanitaire:     verdict.checkboxes.risque_sanitaire     ? '☑' : '☐',
     chk_absence_installation: verdict.checkboxes.absence_installation ? '☑' : '☐',
     verdict_summary: verdict.summaryText,
@@ -241,8 +242,8 @@ function buildPlaceholders(session, {
     const saisieText = saisieTextByBalise[balise] || null;
     const cstItems   = constatsByBalise[balise]   || [];
 
-    if (richTextBalises.has(balise)) {
-      // Balise riche → valeur avec marqueurs de couleur
+    if (cstItems.length) {
+      // Toute balise avec constat affiche son classement en badge coloré.
       map[balise] = buildRichValue(saisieText, cstItems);
     } else {
       // Balise ordinaire → concaténation texte brut
@@ -323,8 +324,8 @@ function _hasContent(map, balises) {
 function buildAffichageFlags(map) {
   const groups = {
     canaEU: ['canaEU_acces', 'canaEU_parasites', 'canaEU_entretien', 'canaEU_structurel', 'conclusions_canaEU', 'reco_canaEU'],
-    bag: ['BàG_acces', 'BàG_dimensions', 'BàG_parasites', 'BàG_entretien', 'BàG_structurel'],
-    fosse: ['fosse_acces', 'fosse_dimensions', 'fosse_parasites', 'fosse_entretien', 'fosse_structurel', 'fosse_ventilation'],
+    bag: ['BàG_acces', 'BàG_valeur_dim', 'BàG_dimensions', 'BàG_parasites', 'BàG_entretien', 'BàG_structurel'],
+    fosse: ['fosse_acces', 'fosse_valeur_dim', 'fosse_dimensions', 'fosse_parasites', 'fosse_entretien', 'fosse_structurel', 'fosse_ventilation'],
     prefiltre: ['prefiltre_type', 'prefiltre_entretien'],
     secondaire: [
       'secondaire_type', 'secondaire_acces', 'secondaire_dimensions', 'secondaire_parasites',
@@ -488,7 +489,7 @@ export async function buildDocx(session) {
   const placeholders = buildPlaceholders(session, textConfig);
   doc.render(placeholders);
 
-  // Coloration post-rendu des constats (balises richTextBalises)
+  // Coloration post-rendu des classements de constats
   applyRichFormatting(doc.getZip());
 
   return doc.getZip().generate({ type: 'uint8array' });

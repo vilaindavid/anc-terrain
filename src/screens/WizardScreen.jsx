@@ -42,7 +42,7 @@ export default function WizardScreen({ tree, sessionId, nav }) {
 
   const handlePurgeOrphaned = useCallback(async () => {
     if (!window.confirm(
-      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) qui portent sur des critères absents de l'arbre actuel ?\n\nCette action est irréversible.`
+      `Supprimer définitivement les ${orphanedCount} réponse(s)/constat(s)/saisie(s) liés à des critères absents ou décochés ?\n\nCette action est irréversible.`
     )) return;
     const fresh = await getSession(sessionId);
     if (!fresh) return;
@@ -153,7 +153,7 @@ export default function WizardScreen({ tree, sessionId, nav }) {
                        fontSize: '.8rem', display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
           <span style={{ flex: 1 }}>
             ⚠️ {orphanedCount} élément{orphanedCount > 1 ? 's' : ''} (réponse{orphanedCount > 1 ? 's' : ''}/constat{orphanedCount > 1 ? 's' : ''}/saisie{orphanedCount > 1 ? 's' : ''})
-            {orphanedCount > 1 ? ' portent' : ' porte'} sur des critères absents de l'arbre actuel. Conservé{orphanedCount > 1 ? 's' : ''} tel quel dans le dossier, mais non visible{orphanedCount > 1 ? 's' : ''} ici.
+            {orphanedCount > 1 ? ' sont liés' : ' est lié'} à des critères absents ou décochés. Conservé{orphanedCount > 1 ? 's' : ''} tel quel dans le dossier, mais non visible{orphanedCount > 1 ? 's' : ''} ici.
           </span>
           <button
             style={{ background: '#fff', color: '#92400E', border: 'none', borderRadius: 6,

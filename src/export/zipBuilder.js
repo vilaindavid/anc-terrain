@@ -41,7 +41,19 @@ export async function buildExportZip(session, onProgress) {
   // ── 2. Add photos ────────────────────────────────────────────────────────
   const photos = await getPhotosForSession(session.id);
   let skippedPhotos = 0;
+  let excludedPhotos = 0;
+  const activeConstatNodeIds = new Set(
+    (session.constats || []).map(constat => constat.nodeId).filter(Boolean),
+  );
   const usablePhotos = photos.filter(p => {
+    // Défense pour les dossiers créés avant le nettoyage des photos : une
+    // image n'est exportée que si son constat existe encore dans ce rapport.
+    if (!activeConstatNodeIds.has(p.nodeId)) {
+      console.warn(`Photo exclue de l'export (constat inactif) — id=${p.id}, nodeId=${p.nodeId}`);
+      excludedPhotos++;
+      return false;
+    }
+
     // Une entrée peut exister sans contenu binaire exploitable (dataUrl
     // manquant, tronqué, ou stockage sous-jacent défaillant au moment de
     // la capture). On l'ignore proprement plutôt que de faire échouer tout
@@ -83,13 +95,15 @@ export async function buildExportZip(session, onProgress) {
     ({ percent }) => report(90 + Math.round(percent * 0.1))
   );
   report(100);
-  return { blob, docxName, skippedPhotos };
+  return { blob, docxName, skippedPhotos, excludedPhotos };
 }
 
 /**
  * Trigger browser download of a Blob.
  * Uses the File System Access API (showSaveFilePicker) if available,
  * falls back to a hidden <a> tag.
+ * @returns {Promise<boolean>} true when a save/download was triggered;
+ *                            false when the user cancels the save dialog.
  */
 export async function downloadBlob(blob, filename) {
   if ('showSaveFilePicker' in window) {
@@ -101,9 +115,9 @@ export async function downloadBlob(blob, filename) {
       const writable = await handle.createWritable();
       await writable.write(blob);
       await writable.close();
-      return;
+      return true;
     } catch (e) {
-      if (e.name === 'AbortError') return; // user cancelled
+      if (e.name === 'AbortError') return false; // user cancelled
       // fall through to anchor fallback
     }
   }
@@ -116,4 +130,5 @@ export async function downloadBlob(blob, filename) {
   document.body.appendChild(a);
   a.click();
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 5000);
+  return true;
 }

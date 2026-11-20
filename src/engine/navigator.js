@@ -110,12 +110,22 @@ function collectVisibleNodeIds(tree, answers) {
 export function repairOrphanedData(session, tree) {
   const answersIn = session.answers || {};
   const visible = collectVisibleNodeIds(tree, answersIn);
+  const activeConstatNodeIds = new Set(
+    Object.entries(answersIn)
+      .filter(([, answer]) => answer?.checked === true)
+      .map(([nodeId]) => nodeId),
+  );
 
   const answers = {};
   for (const [id, ans] of Object.entries(answersIn)) {
     if (visible.has(id)) answers[id] = ans;
   }
-  const constats = (session.constats || []).filter(c => visible.has(c.nodeId));
+  // Un constat ne reste valable que si son critère est encore accessible et
+  // coché. Les anciennes sessions pouvaient contenir le constat d'un critère
+  // explicitement décoché, ce qui faussait ensuite le verdict et l'export.
+  const constats = (session.constats || []).filter(
+    constat => visible.has(constat.nodeId) && activeConstatNodeIds.has(constat.nodeId),
+  );
   const saisies  = (session.saisies  || []).filter(s => visible.has(s.nodeId));
 
   const removedCount =
