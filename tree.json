@@ -513,7 +513,7 @@
   },
   "1.4.2.cst": {
     "type": "constat",
-    "label": "principale",
+    "label": "Résidence principale",
     "parentId": "1.4.2",
     "children": [],
     "classement": "Simple constat",
@@ -530,10 +530,11 @@
   },
   "1.4.3.cst": {
     "type": "constat",
-    "label": "secondaire",
+    "label": "Résidence secondaire",
     "parentId": "1.4.3",
     "children": [],
-    "section": "habitation"
+    "section": "habitation",
+    "classement": "Simple constat"
   },
   "1.4.4": {
     "type": "critere",
@@ -951,8 +952,7 @@
     "parentId": "2",
     "children": [
       "2.1.cst"
-    ],
-    "exclusionGroup": "2"
+    ]
   },
   "2.1.cst": {
     "type": "constat",
@@ -5203,7 +5203,7 @@
     "label": "Longueur des tranchées en ml",
     "parentId": "4.1.2.1.1.1",
     "children": [],
-    "section": "secondaire_dimensions"
+    "section": "secondaire_valeur_dim"
   },
   "4.1.2.1.1.2": {
     "type": "critere",
@@ -5253,7 +5253,7 @@
     "label": "Dimensions du FSVD (Lxl)",
     "parentId": "4.1.2.1.1.2",
     "children": [],
-    "section": "secondaire_dimensions"
+    "section": "secondaire_valeur_dim"
   },
   "4.1.2.1.1.3": {
     "type": "critere",
@@ -5303,7 +5303,7 @@
     "label": "Dimensions du FSVND (Lxl)",
     "parentId": "4.1.2.1.1.3",
     "children": [],
-    "section": "secondaire_dimensions"
+    "section": "secondaire_valeur_dim"
   },
   "4.1.2.1.1.4": {
     "type": "critere",
@@ -5328,7 +5328,7 @@
     "label": "Dimensions du lit d'épandage (Lxl)",
     "parentId": "4.1.2.1.1.4",
     "children": [],
-    "section": "secondaire_dimensions"
+    "section": "secondaire_valeur_dim"
   },
   "4.1.2.1.1.5": {
     "type": "critere",
@@ -5378,7 +5378,7 @@
     "label": "Dimensions du FSH (Lxl)",
     "parentId": "4.1.2.1.1.5",
     "children": [],
-    "section": "secondaire_dimensions"
+    "section": "secondaire_valeur_dim"
   },
   "4.1.2.1.1.6": {
     "type": "critere",
@@ -5453,7 +5453,7 @@
     "label": "Dimensions du tertre (Lxl)",
     "parentId": "4.1.2.1.1.6",
     "children": [],
-    "section": "secondaire_dimensions"
+    "section": "secondaire_valeur_dim"
   },
   "4.1.2.1.2": {
     "type": "header",
@@ -11542,7 +11542,7 @@
   },
   "5.4": {
     "type": "critere",
-    "label": "BàG",
+    "label": "BàG sans FTE en aval",
     "parentId": "5",
     "children": [
       "5.4.1",
@@ -11626,7 +11626,7 @@
     "parentId": "5.4.2.2",
     "children": [],
     "section": "BàG_dimensions",
-    "classement": "Défaut d'entretien ou d'usure"
+    "classement": "Autre défaut"
   },
   "5.4.2.2.reco": {
     "type": "recommandation",
